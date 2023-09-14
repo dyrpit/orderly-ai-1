@@ -2,6 +2,7 @@ export type TCategories = {
   id: number;
   categoryName: TCategoriesNames;
   backgroundColor: string;
+  href: string;
   products: TProduct[];
 };
 

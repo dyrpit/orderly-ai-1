@@ -1,11 +1,11 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendTheme } from '@chakra-ui/react';
 
 export const colors = {
-  black: "#000",
-  white: "#fff",
+  black: '#000',
+  white: '#fff',
   bg: {
-    primary: "#0A192F",
-    secondary: "#112240",
+    primary: '#0A192F',
+    secondary: '#112240',
   },
   text: {
     primary: "#64FFDA",
@@ -29,13 +29,13 @@ export const colors = {
 
 export const theme = extendTheme({
   fonts: {
-    body: "Inter, sans-serif",
+    body: 'Inter, sans-serif',
   },
   styles: {
     global: {
-      "html, body": {
-        overflowX: "hidden",
-        color: "blue.800",
+      'html, body': {
+        overflowX: 'hidden',
+        color: 'blue.800',
       },
     },
   },

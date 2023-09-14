@@ -10,6 +10,7 @@ import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
 import { Breadcrumb } from "./components/Breadcrumb";
 import { colors } from "./theme";
+import { Hero } from './components/hero/Hero';
 
 function App() {
   const gradientStyle = useBreakpointValue({
@@ -61,5 +62,4 @@ function App() {
     </Grid>
   );
 }
-
 export default App;

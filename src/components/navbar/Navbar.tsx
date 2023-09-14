@@ -13,6 +13,7 @@ import GenericButton from "../Buttons/GenericButton";
 import { navbarStyles } from "./NavbarStyles";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { useState } from "react";
+
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const isLg = useBreakpointValue({ base: false, lg: true });
