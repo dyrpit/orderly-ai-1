@@ -8,7 +8,6 @@ import {
 import Footer from './components/footer/Footer';
 
 import Navbar from './components/navbar/Navbar';
-
 import { colors } from './theme';
 import { Hero } from './components/hero/Hero';
 
