@@ -7,13 +7,28 @@ import {
   Input,
   Stack,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
-import GenericButton from '../buttons/GenericButton';
+import { useState } from 'react';
+import Joi, { ValidationResult } from 'joi';
+
 import { formStyles } from './LoginAndResgisterFormStyles';
+
+export interface FormData {
+  username: string;
+  password: string;
+  confirmPassword?: string;
+}
 
 export const Form = () => {
   const [activeButton, setActiveButton] = useState<'login' | 'signup'>('login');
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [validationError, setValidationError] = useState<string | null>(null);
+  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+
+  const [formData, setFormData] = useState<FormData>({
+    username: '',
+    password: '',
+    confirmPassword: '',
+  });
 
   const handleButtonToggle = (buttonName: 'login' | 'signup') => {
     setActiveButton(buttonName);
@@ -22,6 +37,44 @@ export const Form = () => {
     } else {
       setShowConfirmPassword(false);
     }
+  };
+
+  const validateFormData = (data: FormData): ValidationResult => {
+    const validationSchema = Joi.object({
+      username: Joi.string().required(),
+      password: Joi.string().required(),
+      confirmPassword:
+        activeButton === 'signup'
+          ? Joi.valid(Joi.ref('password')).required()
+          : Joi.optional(),
+    });
+
+    return validationSchema.validate(data);
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const validationResult = validateFormData(formData);
+
+    if (validationResult.error) {
+      setValidationError(validationResult.error.details[0].message);
+      setFormSubmitted(false);
+    } else {
+      setValidationError(null);
+      setFormSubmitted(true);
+
+      console.log('Dane są poprawne:', formData);
+    }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
   return (
@@ -45,13 +98,16 @@ export const Form = () => {
           </Button>
         </Box>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <FormControl>
             <FormLabel style={formStyles.formLabel}>Username</FormLabel>
             <Input
               style={formStyles.formInput}
               type='text'
               placeholder='Insert your username'
+              name='username'
+              value={formData.username}
+              onChange={handleInputChange}
             />
           </FormControl>
 
@@ -61,6 +117,9 @@ export const Form = () => {
               style={formStyles.formInput}
               type='password'
               placeholder='Insert your password'
+              name='password'
+              value={formData.password}
+              onChange={handleInputChange}
             />
           </FormControl>
 
@@ -73,24 +132,31 @@ export const Form = () => {
                 style={formStyles.formInput}
                 type='password'
                 placeholder='Confirm your password'
+                name='confirmPassword'
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
               />
             </FormControl>
           )}
+
           <Flex justifyContent='center'>
-            <Button
-              colorScheme='teal'
-              variant='outline'
-              type='submit'
-              sx={{
-                '&:hover': {
-                  backgroundColor: '#64FFDA',
-                },
-              }}
-            >
+            <Button colorScheme='teal' variant='outline' type='submit'>
               {activeButton === 'login' ? 'Log In' : 'Send'}
             </Button>
           </Flex>
         </form>
+
+        {validationError && (
+          <Box color='red.500' textAlign='center'>
+            {validationError}
+          </Box>
+        )}
+
+        {formSubmitted && !validationError && (
+          <Box color='green.500' textAlign='center'>
+            Formularz został pomyślnie przesłany!
+          </Box>
+        )}
       </Stack>
     </Box>
   );
