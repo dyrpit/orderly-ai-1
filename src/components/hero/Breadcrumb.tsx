@@ -1,42 +1,65 @@
 import { useEffect, useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link as RouterLink } from 'react-router-dom';
 import { Flex, Text } from '@chakra-ui/react';
 
-/* type TBreadcrumbProps = {
-  id: string,
-  route: string,
-} */
-
 export const Breadcrumb = () => {
-  const [path, setPath] = useState<string>('/');
-
+  const [breadcrumbNavItems, setBreadcrumbNavItems] = useState<
+    string[] | undefined
+  >();
   const location = useLocation();
 
+  const transformUrlToBreadcrumb = (websiteUrl: string): string[] => {
+    return websiteUrl.split('/').filter((p) => p.length);
+  };
+
   useEffect(() => {
-    setPath(location.pathname);
+    setBreadcrumbNavItems(transformUrlToBreadcrumb(location.pathname));
   }, [location]);
 
   return (
     <Flex
       maxW='fit-content'
       minW={{ base: '50%', lg: '310px' }}
-      height={{ base: '30px', lg: '42px' }}
-      bgColor={'rgba(217,217,217,0.15)'}
-      rounded={'xl'}
-      mt={'10px'}
-      alignItems={'center'}
+      height={{ base: 'fit-content', lg: '42px' }}
+      bgColor='bg.gray'
+      rounded='xl'
+      mt='10px'
+      alignItems='center'
       padding='12px'
     >
-      <Flex>
-        <Link to='/'>
-          <Text color={'#64FFDA'} fontSize={'24px'} cursor={'pointer'}>
-            Home
-          </Text>
-        </Link>
-        <Text color={'#64FFDA'} fontSize={'24px'} cursor={'pointer'}>
-          {path}
+      <Flex wrap='wrap'>
+        <Text
+          as={RouterLink}
+          to='/'
+          color='text.primary'
+          fontSize={{ base: '18px', md: '20px' }}
+          cursor={'pointer'}
+          _hover={{ opacity: 0.8 }}
+          _after={{ content: `"/"`, px: '4px' }}
+        >
+          HOME
         </Text>
+        {breadcrumbNavItems?.map((path) => (
+          <BreadcrumbNavElement key={path} path={path} />
+        ))}
       </Flex>
     </Flex>
+  );
+};
+
+const BreadcrumbNavElement = ({ path }: { path: string }) => {
+  return (
+    <Text
+      as={RouterLink}
+      to={`/${path}`}
+      color='text.primary'
+      fontSize={{ base: '18px', md: '20px' }}
+      cursor='pointer'
+      _hover={{ opacity: 0.8 }}
+      _after={{ content: `"/"`, px: '4px' }}
+      _last={{ pointerEvents: 'none' }}
+    >
+      {path.toUpperCase()}
+    </Text>
   );
 };
