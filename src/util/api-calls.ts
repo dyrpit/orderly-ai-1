@@ -7,22 +7,12 @@ export const signUp = (user: TUser) =>{
 }
 
 export const signIn = (username: string, password: string) =>{
-  return axios.get(API_URL, {
+  return axios.get(API_URL + "users", {
     params: {
       username,
       password
     }
   });
 }
-
-// signIn('test', '123').then((res)=>console.log(res.data));
-
-//const user:TUser = {
-//     username: "TESTOWY",
-//     password: "456",
-//     role: "admin"
-//   }
-//
-//   signUp(user).then((res)=>console.log(res));
 
 
