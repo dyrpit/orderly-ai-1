@@ -8,7 +8,6 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import GenericButton from '../buttons/GenericButton';
 import { formStyles } from './LoginAndResgisterFormStyles';
 
 export const Form = () => {
@@ -23,6 +22,10 @@ export const Form = () => {
       setShowConfirmPassword(false);
     }
   };
+
+  const handleChange = (e:KeyboardEvent) =>{
+
+  }
 
   return (
     <Box maxW='md' mx='auto' p={4}>
@@ -45,7 +48,7 @@ export const Form = () => {
           </Button>
         </Box>
 
-        <form>
+        <form method="POST">
           <FormControl>
             <FormLabel style={formStyles.formLabel}>Username</FormLabel>
             <Input
