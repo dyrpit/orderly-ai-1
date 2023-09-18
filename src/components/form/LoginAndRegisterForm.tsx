@@ -5,19 +5,32 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Stack
+  Stack,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import Joi, { ValidationResult } from 'joi';
+
 import { formStyles } from './LoginAndResgisterFormStyles';
 import { signIn, signUp } from '../../util/api-calls.ts';
 import { TUser } from '../../types/user.ts';
 
+export interface FormData {
+  username: string;
+  password: string;
+  confirmPassword?: string;
+}
+
 export const Form = () => {
   const [activeButton, setActiveButton] = useState<'login' | 'signup'>('login');
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [validationError, setValidationError] = useState<string | null>(null);
+  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState<FormData>({
+    username: '',
+    password: '',
+    confirmPassword: '',
+  });
 
   const handleButtonToggle = (buttonName: 'login' | 'signup') => {
     setActiveButton(buttonName);
@@ -28,27 +41,23 @@ export const Form = () => {
     }
   };
 
-  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-  };
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
+    const validationResult = validateFormData(formData);
 
-  const handleSubmit = (e: React.MouseEvent) => {
-    e.preventDefault();
+    if (validationResult.error) {
+      setValidationError(validationResult.error.details[0].message);
+      setFormSubmitted(false);
+    } else {
+      setValidationError(null);
+      setFormSubmitted(true);
 
-    console.log(username);
-    console.log(password);
-
-    /* if fields are not empty etc */
-
-    let isLogin: boolean = false;
-    activeButton === 'login' ? isLogin = true : isLogin = false;
-
-
-    handleLogin(isLogin, username, password);
+      console.log('Dane są poprawne:', formData);
+      let isLogin: boolean = false;
+      activeButton === 'login' ? isLogin = true : isLogin = false;
+      handleLogin(isLogin, formData.username, formData.password);
+    }
   };
 
   const handleLogin = async (isLogin: boolean, username: string, password: string) => {
@@ -87,6 +96,28 @@ export const Form = () => {
     }
   };
 
+  const validateFormData = (data: FormData): ValidationResult => {
+    const validationSchema = Joi.object({
+      username: Joi.string().required(),
+      password: Joi.string().required(),
+      confirmPassword:
+        activeButton === 'signup'
+          ? Joi.valid(Joi.ref('password')).required()
+          : Joi.optional(),
+    });
+
+    return validationSchema.validate(data);
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   return (
     <Box maxW='md' mx='auto' p={4}>
       <Stack spacing={4}>
@@ -115,8 +146,9 @@ export const Form = () => {
               style={formStyles.formInput}
               type='text'
               placeholder='Insert your username'
-              value={username}
-              onChange={handleUsernameChange}
+              name='username'
+              value={formData.username}
+              onChange={handleInputChange}
             />
           </FormControl>
 
@@ -126,8 +158,9 @@ export const Form = () => {
               style={formStyles.formInput}
               type='password'
               placeholder='Insert your password'
-              value={password}
-              onChange={handlePasswordChange}
+              name='password'
+              value={formData.password}
+              onChange={handleInputChange}
             />
           </FormControl>
 
@@ -140,25 +173,31 @@ export const Form = () => {
                 style={formStyles.formInput}
                 type='password'
                 placeholder='Confirm your password'
+                name='confirmPassword'
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
               />
             </FormControl>
           )}
+
           <Flex justifyContent='center'>
-            <Button
-              colorScheme='teal'
-              variant='outline'
-              type='submit'
-              onClick={handleSubmit}
-              sx={{
-                '&:hover': {
-                  backgroundColor: '#64FFDA'
-                }
-              }}
-            >
+            <Button colorScheme='teal' variant='outline' type='submit' onClick={handleSubmit}>
               {activeButton === 'login' ? 'Log In' : 'Send'}
             </Button>
           </Flex>
         </form>
+
+        {validationError && (
+          <Box color='red.500' textAlign='center'>
+            {validationError}
+          </Box>
+        )}
+
+        {formSubmitted && !validationError && (
+          <Box color='green.500' textAlign='center'>
+            Formularz został pomyślnie przesłany!
+          </Box>
+        )}
       </Stack>
     </Box>
   );

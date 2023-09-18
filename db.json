@@ -11,6 +11,12 @@
       "password": "nowy",
       "role": "regular",
       "id": 2
+    },
+    {
+      "username": "szef",
+      "password": "123",
+      "role": "regular",
+      "id": 3
     }
   ]
 }

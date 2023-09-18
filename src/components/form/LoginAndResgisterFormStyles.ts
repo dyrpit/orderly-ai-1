@@ -1,3 +1,5 @@
+import { colors } from '../../theme.ts';
+
 export const formStyles = {
   formLabel: {
     color: 'white',
@@ -11,6 +13,7 @@ export const formStyles = {
     backgroundColor: '#112240',
     marginTop: '10px',
     marginBottom: '20px',
+    color: colors.white,
   },
   sendButton: {
     background: 'none',
