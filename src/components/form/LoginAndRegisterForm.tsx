@@ -7,7 +7,7 @@ import {
   Input,
   Stack,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Joi, { ValidationResult } from 'joi';
 
 import { formStyles } from './LoginAndResgisterFormStyles';
@@ -41,59 +41,13 @@ export const Form = () => {
     }
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
 
-    const validationResult = validateFormData(formData);
-
-    if (validationResult.error) {
-      setValidationError(validationResult.error.details[0].message);
-      setFormSubmitted(false);
-    } else {
-      setValidationError(null);
-      setFormSubmitted(true);
-
-      console.log('Dane są poprawne:', formData);
-      let isLogin: boolean = false;
-      activeButton === 'login' ? isLogin = true : isLogin = false;
-      handleLogin(isLogin, formData.username, formData.password);
-    }
-  };
-
-  const handleLogin = async (isLogin: boolean, username: string, password: string) => {
-    if (isLogin) {
-      sessionStorage.removeItem('isLogged');
-      await signIn(username, password).then((res) => {
-        if (res.data.length > 0) {
-          sessionStorage.setItem('isLogged', 'true');
-          console.log('OK');
-          //navigate?
-          alert("Jest zajebiście");
-        } else {
-          console.log('User does not exist!');
-          //show error?
-          alert("Jest chujowo");
-        }
-      }).catch((err) => {
-        throw new Error(err.message);
-        //show error?
-      });
-    } else {
-      const newUser: TUser = {
-        username: username,
-        password: password,
-        role: 'regular'
-      };
-      await signUp(newUser).then((res) => {
-        console.log(res);
-        if (res.status === 201) {
-          //show message?
-          alert("Jest zajebiście");
-        }
-      }).catch((err) => {
-        throw new Error(err.message);
-      });
-    }
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
   const validateFormData = (data: FormData): ValidationResult => {
@@ -109,13 +63,56 @@ export const Form = () => {
     return validationSchema.validate(data);
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
 
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    const validationResult = validateFormData(formData);
+
+    if (validationResult.error) {
+      setValidationError(validationResult.error.details[0].message);
+      setFormSubmitted(false);
+    } else {
+      setValidationError(null);
+      setFormSubmitted(true);
+
+      console.log('Dane są poprawne:', formData);
+      let isLogin: boolean = false;
+      activeButton === 'login' ? isLogin = true : isLogin = false;
+      sendData(isLogin, formData.username, formData.password);
+    }
+  };
+
+  const sendData = async (isLogin: boolean, username: string, password: string) => {
+    if (isLogin) {
+      sessionStorage.removeItem('isLogged');
+      await signIn(username, password).then((res) => {
+        if (res.data.length > 0) {
+          sessionStorage.setItem('isLogged', 'true');
+          console.log('OK');
+          //navigate?
+        } else {
+          console.log('User does not exist!');
+          //show error?
+        }
+      }).catch((err) => {
+        throw new Error(err.message);
+        //show error?
+      });
+    } else {
+      const newUser: TUser = {
+        username: username,
+        password: password,
+        role: 'regular'
+      };
+      await signUp(newUser).then((res) => {
+        console.log(res);
+        if (res.status === 201) {
+          //show message?
+        }
+      }).catch((err) => {
+        throw new Error(err.message);
+      });
+    }
   };
 
   return (
