@@ -38,6 +38,7 @@ export const theme = extendTheme({
       'html, body': {
         overflowX: 'hidden',
         color: 'blue.800',
+        backgroundColor: colors.bg.primary,
       },
     },
   },
