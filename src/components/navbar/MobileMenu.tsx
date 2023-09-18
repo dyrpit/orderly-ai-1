@@ -32,7 +32,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               icon={group2}
             />
             <GenericButton size='small' label='EXPORT' isMobile />
-            <GenericButton size='small' label='IMPORT' />
+            <GenericButton size='small' label='IMPORT' isMobile />
             <Text color='#64ffda' as='button'>
               LOG IN
             </Text>

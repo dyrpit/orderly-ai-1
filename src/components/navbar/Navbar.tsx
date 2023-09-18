@@ -1,6 +1,7 @@
 import group1 from '../../assets/group1.svg';
 import group2 from '../../assets/group2.svg';
 import vector from '../../assets/Vector.svg';
+import { Link } from 'react-router-dom';
 import {
   HStack,
   Image,
@@ -38,7 +39,7 @@ const Navbar = () => {
               backgroundColor='rgba(217, 217, 217, 0.15)'
             />
             <GenericButton size='small' label='IMPORT' />
-            <Text color='#64ffda' as='button'>
+            <Text color='#64ffda' as={Link} to='/auth'>
               LOG IN
             </Text>
           </>
