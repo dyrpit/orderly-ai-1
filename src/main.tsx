@@ -10,7 +10,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <RouterProvider>
       <ChakraProvider theme={theme}>
-        <ColorModeProvider options={{ initialColorMode: 'dark' }}>
+        <ColorModeProvider options={{
+          initialColorMode: 'dark', useSystemColorMode: false
+        }}>
           <App />
         </ColorModeProvider>
       </ChakraProvider>
