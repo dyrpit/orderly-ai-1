@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import {
   Flex,
   VStack,
@@ -16,18 +17,18 @@ import notFoundProductInfoIcon from '../../assets/not-found-product-info.svg';
 import notFoundVideoIcon from '../../assets/not-found-video-icon.svg';
 
 // Here we will set category name and product name from useParams
-const categoryName = 'productivity';
-const productName = 'AIDoer';
-
-const details = fakeCategoriesAndProducts
-  .find((p) => p.href === categoryName)
-  ?.products.find((p) => p.name === productName);
 
 console.log(details);
 
 const MAX_DESCRIPTION_LENGTH = 50;
 
 export const ProductCard = () => {
+  const { categoryName, productName } = useParams();
+
+  const details = fakeCategoriesAndProducts
+    .find((p) => p.href === categoryName)
+    ?.products.find((p) => p.name === productName);
+
   if (!details)
     return (
       <Text textAlign='center' fontSize={48}>

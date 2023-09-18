@@ -1,64 +1,19 @@
-import {
-  Box,
-  Grid,
-  GridItem,
-  Show,
-  useBreakpointValue,
-} from '@chakra-ui/react';
-import Footer from './components/footer/Footer';
+import { Routes, Route } from 'react-router-dom';
 
-import Navbar from './components/navbar/Navbar';
-import { colors } from './theme';
-import { Hero } from './components/hero/Hero';
+import { MainLayout } from './layout/MainLayout';
+import { CategoriesList } from './components/hero/CategoriesList';
+import { ProductsList } from './components/productsList/ProductsList';
+import { ProductCard } from './components/productCard/ProductCard';
 
 function App() {
-  const gradientStyle = useBreakpointValue({
-    base: colors.gradientMobile,
-    md: colors.gradientDekstop,
-  });
-
   return (
-    <Grid
-      templateAreas={{
-        base: `"nav" "hero" "footer"`,
-        lg: `"nav nav" "aside hero" "footer footer"`,
-      }}
-      templateColumns={{
-        base: '100% 1fr',
-        lg: '300px 1fr',
-      }}
-      sx={{
-        maxWidth: '1170px',
-        width: '100%',
-        margin: '0 auto',
-      }}
-    >
-      <GridItem area='nav'>
-        <Navbar />
-        <Box style={gradientStyle} />
-      </GridItem>
-      <GridItem
-        area='hero'
-        bg='blue'
-        minHeight='100vw'
-        maxHeight='100%'
-        bgColor={'#0A192F'}
-      >
-        <Hero />
-      </GridItem>
-      <Show above='lg'>
-        <GridItem
-          area='aside'
-          bg='gold'
-          sx={{ display: { base: 'none', lg: 'block' } }}
-        >
-          Aside
-        </GridItem>
-      </Show>
-      <GridItem area='footer' bg='red' height='120px'>
-        <Footer />
-      </GridItem>
-    </Grid>
+    <MainLayout>
+      <Routes>
+        <Route path='/' element={<CategoriesList />} />
+        <Route path='/:categoryName' element={<ProductsList />} />
+        <Route path='/:categoryName/:productName' element={<ProductCard />} />
+      </Routes>
+    </MainLayout>
   );
 
 }

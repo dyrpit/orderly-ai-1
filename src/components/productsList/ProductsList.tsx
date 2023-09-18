@@ -1,19 +1,19 @@
-import { Flex, Link, SimpleGrid, Text } from '@chakra-ui/react';
+import { useParams, Link as RouterLink } from 'react-router-dom';
+import { Flex, SimpleGrid, Text } from '@chakra-ui/react';
 
 import { fakeCategoriesAndProducts } from '../../data/fakeCategoriesAndProducts';
 
-// Here we will set category name and product name from useParams
-const categoryName = 'productivity';
-
-const details = fakeCategoriesAndProducts.find((p) => p.href === categoryName)
-  ?.products;
-
 export const ProductsList = () => {
+  const { categoryName } = useParams();
+
+  const details = fakeCategoriesAndProducts.find((p) => p.href === categoryName)
+    ?.products;
   return (
     <SimpleGrid columns={1} w='100%' h='100%' gap='22px' placeItems='center'>
       {details?.map((product) => (
         <Flex
-          as={Link}
+          as={RouterLink}
+          to={`${product.name}`}
           key={product.id}
           bg='bg.secondary'
           w='100%'
@@ -21,8 +21,8 @@ export const ProductsList = () => {
           rounded={18}
           align='center'
           justify='center'
-          href={`${product.category}/${product.name}`}
-          _hover={{ textDecoration: 'none' }}
+          transition='all 0.2s ease-in-out'
+          _hover={{ opacity: 0.6 }}
         >
           <Text color='text.secondary' fontSize={{ base: 28, md: 48 }}>
             {product.name}
