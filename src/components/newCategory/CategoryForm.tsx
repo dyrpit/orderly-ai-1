@@ -1,4 +1,5 @@
-import { Box, Flex, Heading, Input } from '@chakra-ui/react';
+import { Box, Flex, Grid, Heading, Input } from '@chakra-ui/react';
+import { BackgroundColorPicker } from './BackgroundColorPicker';
 
 export const CategoryForm = () => {
   return (
@@ -31,10 +32,12 @@ export const CategoryForm = () => {
         fontSize='28px'
         lineHeight='33.6px'
         fontWeight='500'
-        p={0, 4}
+        p={{ base: 0, md: 4 }}
       >
         Select category background color
       </Heading>
+      <BackgroundColorPicker />
+      <Grid></Grid>
     </Flex>
   );
 };

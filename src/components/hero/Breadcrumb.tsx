@@ -14,7 +14,7 @@ export const Breadcrumb = () => {
       rounded={'xl'}
       mt={'10px'}
       alignItems={'center'}
-      padding="12px"
+      padding='12px'
     >
       <Box>
         <Text color={'#64FFDA'} fontSize={'24px'} cursor={'pointer'}>
