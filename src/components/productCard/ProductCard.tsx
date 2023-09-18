@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import {
   Flex,
   VStack,
@@ -16,42 +17,42 @@ import notFoundProductInfoIcon from '../../assets/not-found-product-info.svg';
 import notFoundVideoIcon from '../../assets/not-found-video-icon.svg';
 
 // Here we will set category name and product name from useParams
-const categoryName = 'productivity';
-const productName = 'AIDoer';
-
-const details = fakeCategoriesAndProducts
-  .find((p) => p.href === categoryName)
-  ?.products.find((p) => p.name === productName);
 
 const MAX_DESCRIPTION_LENGTH = 50;
 
 export const ProductCard = () => {
+  const { categoryName, productName } = useParams();
+
+  const details = fakeCategoriesAndProducts
+    .find((p) => p.href === categoryName)
+    ?.products.find((p) => p.name === productName);
+
   if (!details)
     return (
-      <Text textAlign="center" fontSize={48}>
+      <Text textAlign='center' fontSize={48}>
         Product not found
       </Text>
     );
 
   return (
     <Flex
-      bg="bg.secondary"
-      minH="300px"
-      borderRadius="xl"
+      bg='bg.secondary'
+      minH='300px'
+      borderRadius='xl'
       direction={{ base: 'column', md: 'row-reverse' }}
-      align="center"
-      justify="center"
-      overflow="hidden"
+      align='center'
+      justify='center'
+      overflow='hidden'
       gap={4}
       p={{ base: 0, md: 4 }}
     >
       <Grid
-        placeItems="center"
+        placeItems='center'
         bg={details.websiteURL ? 'bg.gray' : 'bg.lightGray'}
-        w="100%"
+        w='100%'
         h={{ base: '300px', md: '350px' }}
         alignSelf={{ md: 'start' }}
-        borderTopRadius="2xl"
+        borderTopRadius='2xl'
         borderBottomRadius={{ base: 'none', md: '2xl' }}
       >
         {details.websiteURL ? (
@@ -60,14 +61,14 @@ export const ProductCard = () => {
           <RenderNotFoundVideoIcon />
         )}
       </Grid>
-      <VStack w="100%" p={{ base: 4, md: 0 }}>
-        <SimpleGrid columns={2} spacing={6} w="100%" alignItems="start">
-          <ProductInfo label="name" value={details.name} />
-          <ProductInfo label="category" value={details.category} />
-          <ProductInfo label="website" value={details.websiteURL} />
-          <ProductInfo label="cost" value={details.cost} />
+      <VStack w='100%' p={{ base: 4, md: 0 }}>
+        <SimpleGrid columns={2} spacing={6} w='100%' alignItems='start'>
+          <ProductInfo label='name' value={details.name} />
+          <ProductInfo label='category' value={details.category} />
+          <ProductInfo label='website' value={details.websiteURL} />
+          <ProductInfo label='cost' value={details.cost} />
           <ProductInfo
-            label="description"
+            label='description'
             value={details.description}
             isFull={
               !!details.description &&
@@ -93,10 +94,10 @@ const ProductInfo = ({
     <>
       <Text
         as={GridItem}
-        color="text.primary"
+        color='text.primary'
         fontSize={22}
-        fontWeight="bold"
-        textTransform="capitalize"
+        fontWeight='bold'
+        textTransform='capitalize'
         colSpan={isFull ? 2 : 1}
       >
         {label}:
@@ -123,18 +124,18 @@ const RenderValue = ({
     return (
       <Tooltip
         label={value}
-        color="text.secondary"
-        bg="bg.primary"
+        color='text.secondary'
+        bg='bg.primary'
         lineHeight={1.314}
         p={4}
-        borderRadius="xl"
-        placement="top-start"
+        borderRadius='xl'
+        placement='top-start'
       >
         <Text
-          color="text.secondary"
+          color='text.secondary'
           fontSize={16}
-          textAlign="justify"
-          alignSelf="center"
+          textAlign='justify'
+          alignSelf='center'
           noOfLines={{ base: 0, md: showTooltip ? 2 : 0 }}
         >
           {value}
@@ -144,10 +145,10 @@ const RenderValue = ({
 
   return (
     <Text
-      color="text.secondary"
+      color='text.secondary'
       fontSize={16}
-      textAlign="justify"
-      alignSelf="center"
+      textAlign='justify'
+      alignSelf='center'
       noOfLines={{ base: 0, md: 3 }}
     >
       {value}
@@ -157,14 +158,14 @@ const RenderValue = ({
 
 const RenderNotFoundValueIcon = () => {
   return (
-    <Image src={notFoundProductInfoIcon} alt="not found product info icon" />
+    <Image src={notFoundProductInfoIcon} alt='not found product info icon' />
   );
 };
 
 const RenderPlayButtonIcon = () => {
-  return <Image src={playBtnIcon} alt="Play btn icon" />;
+  return <Image src={playBtnIcon} alt='Play btn icon' />;
 };
 
 const RenderNotFoundVideoIcon = () => {
-  return <Image src={notFoundVideoIcon} alt="not found video icon" />;
+  return <Image src={notFoundVideoIcon} alt='not found video icon' />;
 };
