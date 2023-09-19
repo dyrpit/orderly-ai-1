@@ -40,6 +40,13 @@ export const Form = () => {
     } else {
       setShowConfirmPassword(false);
     }
+    setValidationError(null);
+
+    setFormData({
+      username: '',
+      password: '',
+      confirmPassword: '',
+    });
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,11 +60,19 @@ export const Form = () => {
 
   const validateFormData = (data: FormData): ValidationResult => {
     const validationSchema = Joi.object({
-      username: Joi.string().required(),
-      password: Joi.string().required(),
+      username: Joi.string().min(8).required().messages({
+        'string.empty': 'Username is required.',
+        'string.min': 'Username needs to have at least 8 marks.',
+      }),
+      password: Joi.string().min(8).required().messages({
+        'string.empty': 'Password is required.',
+        'string.min': 'Password needs to have at least 8 marks.',
+      }),
       confirmPassword:
         activeButton === 'signup'
-          ? Joi.valid(Joi.ref('password')).required()
+          ? Joi.valid(Joi.ref('password')).required().messages({
+              'any.only': 'Passwords do not match.',
+            })
           : Joi.optional(),
     });
 
@@ -78,7 +93,7 @@ export const Form = () => {
 
       console.log('All data is correct!:', formData);
       let isLogin;
-      activeButton === 'login' ? isLogin = true : isLogin = false;
+      activeButton === 'login' ? (isLogin = true) : (isLogin = false);
       sendData(isLogin, formData.username, formData.password);
     }
   };
@@ -103,7 +118,7 @@ export const Form = () => {
       const newUser: TUser = {
         username: username,
         password: password,
-        role: 'regular'
+        role: 'regular',
       };
       await signUp(newUser).then((res) => {
         console.log(res);
@@ -182,7 +197,12 @@ export const Form = () => {
           )}
 
           <Flex justifyContent='center'>
-            <Button colorScheme='teal' variant='outline' type='submit' onClick={handleSubmit}>
+            <Button
+              colorScheme='teal'
+              variant='outline'
+              type='submit'
+              onClick={handleSubmit}
+            >
               {activeButton === 'login' ? 'Log In' : 'Send'}
             </Button>
           </Flex>

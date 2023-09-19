@@ -2,8 +2,8 @@
   "users": [
     {
       "id": 1,
-      "username": "test",
-      "password": "123",
+      "username": "testtest",
+      "password": "123123123",
       "role": "admin"
     },
     {
@@ -17,6 +17,12 @@
       "password": "123",
       "role": "regular",
       "id": 3
+    },
+    {
+      "username": "nowynowy",
+      "password": "nowynowy",
+      "role": "regular",
+      "id": 4
     }
   ]
 }
