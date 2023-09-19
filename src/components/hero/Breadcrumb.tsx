@@ -37,7 +37,6 @@ export const Breadcrumb = () => {
           fontSize={{ base: '18px', md: '20px' }}
           cursor={'pointer'}
           _hover={{ opacity: 0.8 }}
-          _after={{ content: `"/"`, px: '4px' }}
         >
           HOME
         </Text>
@@ -58,7 +57,7 @@ const BreadcrumbNavElement = ({ path }: { path: string }) => {
       fontSize={{ base: '18px', md: '20px' }}
       cursor='pointer'
       _hover={{ opacity: 0.8 }}
-      _after={{ content: `"/"`, px: '4px' }}
+      _before={{ content: `"/"`, px: '4px' }}
       _last={{ pointerEvents: 'none' }}
     >
       {path.toUpperCase()}
