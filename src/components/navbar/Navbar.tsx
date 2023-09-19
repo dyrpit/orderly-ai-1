@@ -25,7 +25,11 @@ const Navbar = () => {
       <HStack style={navbarStyles}>
         {isLg && <Box width='300px' />}
         <Image src={group1} />
-        <Text color='#64ffda'>Orderly AI</Text>
+        <Link to='/' style={{ textDecoration: 'none' }}>
+          <Text color='#64ffda' fontSize='xl'>
+            Orderly AI
+          </Text>
+        </Link>
         {isLg ? (
           <>
             <GenericButton
