@@ -5,6 +5,7 @@ import { CategoriesList } from './components/hero/CategoriesList';
 import { ProductsList } from './components/productsList/ProductsList';
 import { ProductCard } from './components/productCard/ProductCard';
 import { Toaster } from 'react-hot-toast';
+import { CategoryForm } from './components/newCategory/CategoryForm';
 
 function App() {
   return (
@@ -14,8 +15,10 @@ function App() {
         <Route path='/' element={<CategoriesList />} />
         <Route path='/:categoryName' element={<ProductsList />} />
         <Route path='/:categoryName/:productName' element={<ProductCard />} />
+        <Route path='/addCategory' element={<CategoryForm />} />
       </Routes>
     </MainLayout>
   );
+
 }
 export default App;
