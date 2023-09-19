@@ -39,6 +39,13 @@ export const Form = () => {
     } else {
       setShowConfirmPassword(false);
     }
+    setValidationError(null);
+
+    setFormData({
+      username: '',
+      password: '',
+      confirmPassword: '',
+    });
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,11 +59,19 @@ export const Form = () => {
 
   const validateFormData = (data: FormData): ValidationResult => {
     const validationSchema = Joi.object({
-      username: Joi.string().required(),
-      password: Joi.string().required(),
+      username: Joi.string().min(8).required().messages({
+        'string.empty': 'Username is required.',
+        'string.min': 'Username needs to have at least 8 marks.',
+      }),
+      password: Joi.string().min(8).required().messages({
+        'string.empty': 'Password is required.',
+        'string.min': 'Password needs to have at least 8 marks.',
+      }),
       confirmPassword:
         activeButton === 'signup'
-          ? Joi.valid(Joi.ref('password')).required()
+          ? Joi.valid(Joi.ref('password')).required().messages({
+              'any.only': 'Passwords do not match.',
+            })
           : Joi.optional(),
     });
 
@@ -77,41 +92,49 @@ export const Form = () => {
 
       console.log('Dane są poprawne:', formData);
       let isLogin: boolean = false;
-      activeButton === 'login' ? isLogin = true : isLogin = false;
+      activeButton === 'login' ? (isLogin = true) : (isLogin = false);
       sendData(isLogin, formData.username, formData.password);
     }
   };
 
-  const sendData = async (isLogin: boolean, username: string, password: string) => {
+  const sendData = async (
+    isLogin: boolean,
+    username: string,
+    password: string,
+  ) => {
     if (isLogin) {
       sessionStorage.removeItem('isLogged');
-      await signIn(username, password).then((res) => {
-        if (res.data.length > 0) {
-          sessionStorage.setItem('isLogged', 'true');
-          console.log('OK');
-          //navigate?
-        } else {
-          console.log('User does not exist!');
+      await signIn(username, password)
+        .then((res) => {
+          if (res.data.length > 0) {
+            sessionStorage.setItem('isLogged', 'true');
+            console.log('OK');
+            //navigate?
+          } else {
+            console.log('User does not exist!');
+            //show error?
+          }
+        })
+        .catch((err) => {
+          throw new Error(err.message);
           //show error?
-        }
-      }).catch((err) => {
-        throw new Error(err.message);
-        //show error?
-      });
+        });
     } else {
       const newUser: TUser = {
         username: username,
         password: password,
-        role: 'regular'
+        role: 'regular',
       };
-      await signUp(newUser).then((res) => {
-        console.log(res);
-        if (res.status === 201) {
-          //show message?
-        }
-      }).catch((err) => {
-        throw new Error(err.message);
-      });
+      await signUp(newUser)
+        .then((res) => {
+          console.log(res);
+          if (res.status === 201) {
+            //show message?
+          }
+        })
+        .catch((err) => {
+          throw new Error(err.message);
+        });
     }
   };
 
@@ -178,7 +201,12 @@ export const Form = () => {
           )}
 
           <Flex justifyContent='center'>
-            <Button colorScheme='teal' variant='outline' type='submit' onClick={handleSubmit}>
+            <Button
+              colorScheme='teal'
+              variant='outline'
+              type='submit'
+              onClick={handleSubmit}
+            >
               {activeButton === 'login' ? 'Log In' : 'Send'}
             </Button>
           </Flex>
