@@ -16,6 +16,8 @@ export const Breadcrumb = () => {
     setBreadcrumbNavItems(transformUrlToBreadcrumb(location.pathname));
   }, [location]);
 
+  if (location.pathname === '/auth') return null;
+
   return (
     <Flex
       maxW='fit-content'
