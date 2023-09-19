@@ -18,6 +18,8 @@ import notFoundVideoIcon from '../../assets/not-found-video-icon.svg';
 
 // Here we will set category name and product name from useParams
 
+// console.log(details);
+
 const MAX_DESCRIPTION_LENGTH = 50;
 
 export const ProductCard = () => {
