@@ -10,11 +10,11 @@ import {
   Box,
   Tooltip,
 } from '@chakra-ui/react';
-import { fakeCategoriesAndProducts } from '../../data/fakeCategoriesAndProducts';
+import { fakeCategoriesAndProducts } from '@data/fakeCategoriesAndProducts.ts';
 
-import playBtnIcon from '../../assets/play-btn.svg';
-import notFoundProductInfoIcon from '../../assets/not-found-product-info.svg';
-import notFoundVideoIcon from '../../assets/not-found-video-icon.svg';
+import playBtnIcon from '@assets/play-btn.svg';
+import notFoundProductInfoIcon from '@assets/not-found-product-info.svg';
+import notFoundVideoIcon from '@assets/not-found-video-icon.svg';
 
 // Here we will set category name and product name from useParams
 

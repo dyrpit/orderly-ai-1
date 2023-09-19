@@ -1,7 +1,6 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { Flex, Text, Center } from '@chakra-ui/react';
-import { type TCategories } from '../../types/categories';
-import {Link} from 'react-router-dom';
+import { type TCategories } from '@/types/categories.ts';
 
 export const CategoryItem = ({ category }: { category: TCategories }) => {
   return (

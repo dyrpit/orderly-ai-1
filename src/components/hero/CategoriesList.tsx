@@ -1,5 +1,5 @@
 import { SimpleGrid } from '@chakra-ui/react';
-import { fakeCategoriesAndProducts } from '../../data/fakeCategoriesAndProducts';
+import { fakeCategoriesAndProducts } from '@data/fakeCategoriesAndProducts.ts';
 import { CategoryItem } from './CategoryItem';
 
 export const CategoriesList = () => {

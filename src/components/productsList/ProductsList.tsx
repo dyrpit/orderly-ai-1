@@ -1,7 +1,7 @@
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import { Flex, SimpleGrid, Text } from '@chakra-ui/react';
 
-import { fakeCategoriesAndProducts } from '../../data/fakeCategoriesAndProducts';
+import { fakeCategoriesAndProducts } from '@data/fakeCategoriesAndProducts.ts';
 
 export const ProductsList = () => {
   const { categoryName } = useParams();

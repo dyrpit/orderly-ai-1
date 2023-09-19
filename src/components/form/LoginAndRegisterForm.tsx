@@ -11,8 +11,8 @@ import React, { useState } from 'react';
 import Joi, { ValidationResult } from 'joi';
 
 import { formStyles } from './LoginAndResgisterFormStyles';
-import { signIn, signUp } from '../../util/api-calls.ts';
-import { TUser } from '../../types/user.ts';
+import { signIn, signUp } from '@util/api-calls.ts';
+import { TUser } from '@/types/user.ts';
 import toast from 'react-hot-toast';
 
 export interface FormData {

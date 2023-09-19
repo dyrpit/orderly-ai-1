@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../../store';
-import { TCategories } from '../../../types/categories';
+import { TCategories } from '@/types/categories.ts';
 
 const initialState: Omit<TCategories, 'products'>[] = [
   {

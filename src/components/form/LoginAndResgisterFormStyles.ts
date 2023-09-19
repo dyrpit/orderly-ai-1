@@ -1,4 +1,4 @@
-import { colors } from '../../theme.ts';
+import { colors } from '@/theme.ts';
 
 export const formStyles = {
   formLabel: {
