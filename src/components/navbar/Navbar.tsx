@@ -8,11 +8,11 @@ import {
   Box,
   useBreakpointValue,
   IconButton,
-} from "@chakra-ui/react";
-import GenericButton from "../buttons/GenericButton";
-import { navbarStyles } from "./NavbarStyles";
-import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
-import { useState } from "react";
+} from '@chakra-ui/react';
+import GenericButton from '../buttons/GenericButton';
+import { navbarStyles } from './NavbarStyles';
+import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
+import { useState } from 'react';
 import MobileMenu from './MobileMenu';
 
 const Navbar = () => {
