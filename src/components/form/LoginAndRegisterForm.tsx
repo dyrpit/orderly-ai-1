@@ -13,6 +13,7 @@ import Joi, { ValidationResult } from 'joi';
 import { formStyles } from './LoginAndResgisterFormStyles';
 import { signIn, signUp } from '../../util/api-calls.ts';
 import { TUser } from '../../types/user.ts';
+import toast from 'react-hot-toast';
 
 export interface FormData {
   username: string;
@@ -75,8 +76,8 @@ export const Form = () => {
       setValidationError(null);
       setFormSubmitted(true);
 
-      console.log('Dane są poprawne:', formData);
-      let isLogin: boolean = false;
+      console.log('All data is correct!:', formData);
+      let isLogin;
       activeButton === 'login' ? isLogin = true : isLogin = false;
       sendData(isLogin, formData.username, formData.password);
     }
@@ -84,19 +85,19 @@ export const Form = () => {
 
   const sendData = async (isLogin: boolean, username: string, password: string) => {
     if (isLogin) {
-      sessionStorage.removeItem('isLogged');
+      sessionStorage.removeItem('token');
       await signIn(username, password).then((res) => {
         if (res.data.length > 0) {
-          sessionStorage.setItem('isLogged', 'true');
+          sessionStorage.setItem('token', JSON.stringify({isLogged: true, username: res.data[0].username, role: res.data[0].role}));
           console.log('OK');
+          toast.success(`Hi, ${res.data[0].username}!`)
           //navigate?
         } else {
           console.log('User does not exist!');
-          //show error?
+          toast.error('User does not exist!');
         }
       }).catch((err) => {
         throw new Error(err.message);
-        //show error?
       });
     } else {
       const newUser: TUser = {
@@ -107,7 +108,10 @@ export const Form = () => {
       await signUp(newUser).then((res) => {
         console.log(res);
         if (res.status === 201) {
-          //show message?
+          toast.success("Registration was successful!");
+        }
+        else{
+          toast.error("An error occurred during registration!");
         }
       }).catch((err) => {
         throw new Error(err.message);
