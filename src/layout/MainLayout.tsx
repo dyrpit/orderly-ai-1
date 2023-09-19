@@ -58,7 +58,8 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
           Aside
         </GridItem>
       </Show>
-      <GridItem area='footer' bg='red' height='120px'>
+      <GridItem area='footer' height='120px'>
+        <Box style={gradientStyle} />
         <Footer />
       </GridItem>
     </Grid>
