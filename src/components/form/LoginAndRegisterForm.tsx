@@ -121,6 +121,7 @@ export const Form = () => {
             );
             console.log('OK');
             navigate('/');
+            window.location.reload();
             toast.success(`Hi, ${res.data[0].username}!`);
           } else {
             console.log('User does not exist!');

@@ -8,7 +8,7 @@ import {
   Text,
   Box,
   useBreakpointValue,
-  IconButton,
+  IconButton
 } from '@chakra-ui/react';
 import GenericButton from '../buttons/GenericButton';
 import { navbarStyles } from './NavbarStyles';
@@ -19,6 +19,7 @@ import MobileMenu from './MobileMenu';
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const isLg = useBreakpointValue({ base: false, lg: true });
+  const token: string | null = sessionStorage.getItem('token');
 
   return (
     <>
@@ -43,9 +44,10 @@ const Navbar = () => {
               backgroundColor='rgba(217, 217, 217, 0.15)'
             />
             <GenericButton size='small' label='IMPORT' />
-            <Text color='#64ffda' as={Link} to='/auth'>
-              LOG IN
-            </Text>
+            {token != null ? (<Image src={vector} alt='Icon of logged user.' />) : (
+              <Text color='#64ffda' as={Link} to='/auth'>
+                LOG IN
+              </Text>)}
           </>
         ) : (
           <IconButton
