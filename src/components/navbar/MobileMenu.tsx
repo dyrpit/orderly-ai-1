@@ -7,7 +7,7 @@ import {
   DrawerCloseButton,
   DrawerBody,
   VStack,
-  Text, Button
+  Text
 } from '@chakra-ui/react';
 import GenericButton from "@buttons/GenericButton";
 import group2 from '@assets/group2.svg';
@@ -37,7 +37,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
             />
             <GenericButton size='small' label='EXPORT' isMobile />
             <GenericButton size='small' label='IMPORT' isMobile />
-            {token != null ? (<DropdownMenu  Button={Button}/>) : (
+            {token != null ? (<DropdownMenu/>) : (
               <Text color='#64ffda' as={Link} to='/auth'>
                 Log in
               </Text>)}

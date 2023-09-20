@@ -2,20 +2,15 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuItem, As, Image, Box
+  MenuItem, Image, Box, Button
 } from '@chakra-ui/react';
-import vector from '../../assets/Vector.svg';
+import vector from '@assets/Vector.svg';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { dropdownStyles } from './DropdownStyles.ts';
-import { colors } from '../../theme.ts';
+import { colors } from '@/theme.ts';
 
-
-interface DropdownMenuProps {
-  Button: As & 'button';
-}
-
-export const DropdownMenu = ({ Button }: DropdownMenuProps) => {
+export const DropdownMenu = () => {
   const navigate = useNavigate();
   const logout = () => {
     sessionStorage.removeItem('token');
