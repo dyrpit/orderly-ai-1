@@ -1,13 +1,15 @@
 import { useParams, Link as RouterLink } from 'react-router-dom';
+import { useAppSelector } from '@/redux/hooks';
 import { Flex, SimpleGrid, Text } from '@chakra-ui/react';
-
-import { fakeCategoriesAndProducts } from '../../data/fakeCategoriesAndProducts';
 
 export const ProductsList = () => {
   const { categoryName } = useParams();
+  const products = useAppSelector((state) => state.products);
 
-  const details = fakeCategoriesAndProducts.find((p) => p.href === categoryName)
-    ?.products;
+  const details = products.filter(
+    (p) => p.category === categoryName?.replace('-', ' '),
+  );
+
   return (
     <SimpleGrid columns={1} w='100%' h='100%' gap='22px' placeItems='center'>
       {details?.map((product) => (

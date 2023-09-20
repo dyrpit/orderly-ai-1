@@ -1,4 +1,4 @@
-import { TUser } from '../types/user.ts';
+import { TUser } from '@/types/user.ts';
 import { API_URL } from './constants.ts';
 import axios from 'axios';
 

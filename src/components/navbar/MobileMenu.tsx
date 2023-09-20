@@ -9,8 +9,8 @@ import {
   VStack,
   Text, Button
 } from '@chakra-ui/react';
-import GenericButton from '../buttons/GenericButton';
-import group2 from '../../assets/group2.svg';
+import GenericButton from "@buttons/GenericButton";
+import group2 from '@assets/group2.svg';
 import { Link } from 'react-router-dom';
 import { DropdownMenu } from './DropdownMenu.tsx';
 

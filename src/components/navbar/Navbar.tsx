@@ -1,5 +1,5 @@
-import group1 from '../../assets/group1.svg';
-import group2 from '../../assets/group2.svg';
+import group1 from '@assets/group1.svg';
+import group2 from '@assets/group2.svg';
 import { Link } from 'react-router-dom';
 import {
   HStack,
@@ -9,7 +9,7 @@ import {
   useBreakpointValue,
   IconButton, As
 } from '@chakra-ui/react';
-import GenericButton from '../buttons/GenericButton';
+import GenericButton from '@buttons/GenericButton';
 import { navbarStyles } from './NavbarStyles';
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
