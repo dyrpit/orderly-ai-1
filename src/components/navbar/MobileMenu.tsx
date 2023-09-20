@@ -7,10 +7,12 @@ import {
   DrawerCloseButton,
   DrawerBody,
   VStack,
-  Text,
+  Text, Image
 } from '@chakra-ui/react';
 import GenericButton from '../buttons/GenericButton';
 import group2 from '../../assets/group2.svg';
+import vector from '../../assets/Vector.svg';
+import { Link } from 'react-router-dom';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -18,6 +20,8 @@ interface MobileMenuProps {
 }
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
+  const token: string | null = sessionStorage.getItem('token');
+
   return (
     <Drawer placement='right' onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
@@ -33,9 +37,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
             />
             <GenericButton size='small' label='EXPORT' isMobile />
             <GenericButton size='small' label='IMPORT' isMobile />
-            <Text color='#64ffda' as='button'>
-              LOG IN
-            </Text>
+            {token != null ? (<Image src={vector} alt='Icon of logged user.' />) : (
+              <Text color='#64ffda' as={Link} to='/auth'>
+                LOG IN
+              </Text>)}
           </VStack>
         </DrawerBody>
       </DrawerContent>
