@@ -7,24 +7,34 @@ import {
   Text,
   Box,
   useBreakpointValue,
-  IconButton,
+  IconButton, As
 } from '@chakra-ui/react';
 import GenericButton from '@buttons/GenericButton';
 import { navbarStyles } from './NavbarStyles';
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import MobileMenu from './MobileMenu';
+import { DropdownMenu } from './DropdownMenu.tsx';
 
-const Navbar = () => {
+interface NavbarProps {
+  Button: As & "button"
+}
+
+const Navbar = ({ Button }: NavbarProps) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const isLg = useBreakpointValue({ base: false, lg: true });
+  const token: string | null = sessionStorage.getItem('token');
 
   return (
     <>
       <HStack style={navbarStyles}>
         {isLg && <Box width='300px' />}
         <Image src={group1} />
-        <Text color='#64ffda'>Orderly AI</Text>
+        <Link to='/' style={{ textDecoration: 'none' }}>
+          <Text color='#64ffda' fontSize='xl'>
+            Orderly AI
+          </Text>
+        </Link>
         {isLg ? (
           <>
             <GenericButton
@@ -38,9 +48,11 @@ const Navbar = () => {
               backgroundColor='rgba(217, 217, 217, 0.15)'
             />
             <GenericButton size='small' label='IMPORT' />
-            <Text color='#64ffda' as={Link} to='/auth'>
-              LOG IN
-            </Text>
+            {token != null ? (<DropdownMenu Button={Button}/>) : (
+              <Text color='#64ffda' as={Link} to='/auth'>
+                Log in
+              </Text>)}
+
           </>
         ) : (
           <IconButton

@@ -14,6 +14,7 @@ import { formStyles } from './LoginAndResgisterFormStyles';
 import { signIn, signUp } from '@util/api-calls.ts';
 import { TUser } from '@/types/user.ts';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 export interface FormData {
   username: string;
@@ -26,6 +27,7 @@ export const Form = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState<FormData>({
     username: '',
@@ -118,8 +120,11 @@ export const Form = () => {
               }),
             );
             console.log('OK');
+            setTimeout(() => {
+              navigate('/');
+              window.location.reload();
+            }, 2000); // Przeładowanie strony po 2 sekundach (2000 ms)
             toast.success(`Hi, ${res.data[0].username}!`);
-            //navigate?
           } else {
             console.log('User does not exist!');
             toast.error('User does not exist!');
@@ -139,6 +144,11 @@ export const Form = () => {
           console.log(res);
           if (res.status === 201) {
             toast.success('Registration was successful!');
+            setFormData({
+              username: '',
+              password: '',
+              confirmPassword: '',
+            });
           } else {
             toast.error('An error occurred during registration!');
           }

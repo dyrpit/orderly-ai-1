@@ -9,8 +9,11 @@ import {
   VStack,
   Text,
 } from '@chakra-ui/react';
-import GenericButton from "@buttons/GenericButton";
+import GenericButton from '@buttons/GenericButton';
 import group2 from '@assets/group2.svg';
+
+import { Link } from 'react-router-dom';
+import { DropdownMenu } from './DropdownMenu.tsx';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -18,6 +21,8 @@ interface MobileMenuProps {
 }
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
+  const token: string | null = sessionStorage.getItem('token');
+
   return (
     <Drawer placement='right' onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
@@ -33,9 +38,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
             />
             <GenericButton size='small' label='EXPORT' isMobile />
             <GenericButton size='small' label='IMPORT' isMobile />
-            <Text color='#64ffda' as='button'>
-              LOG IN
-            </Text>
+            {token != null ? (
+              <DropdownMenu />
+            ) : (
+              <Text color='#64ffda' as={Link} to='/auth'>
+                Log in
+              </Text>
+            )}
           </VStack>
         </DrawerBody>
       </DrawerContent>
