@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import { useAppSelector } from '@/redux/hooks';
 import {
   Flex,
   VStack,
@@ -10,24 +11,21 @@ import {
   Box,
   Tooltip,
 } from '@chakra-ui/react';
-import { fakeCategoriesAndProducts } from '../../data/fakeCategoriesAndProducts';
 
-import playBtnIcon from '../../assets/play-btn.svg';
-import notFoundProductInfoIcon from '../../assets/not-found-product-info.svg';
-import notFoundVideoIcon from '../../assets/not-found-video-icon.svg';
-
-// Here we will set category name and product name from useParams
-
-// console.log(details);
+import playBtnIcon from '@assets/play-btn.svg';
+import notFoundProductInfoIcon from '@assets/not-found-product-info.svg';
+import notFoundVideoIcon from '@assets/not-found-video-icon.svg';
 
 const MAX_DESCRIPTION_LENGTH = 50;
 
 export const ProductCard = () => {
   const { categoryName, productName } = useParams();
 
-  const details = fakeCategoriesAndProducts
-    .find((p) => p.href === categoryName)
-    ?.products.find((p) => p.name === productName);
+  const products = useAppSelector((state) => state.products);
+
+  const details = products.find(
+    (p) => p.category === categoryName && p.name === productName,
+  );
 
   if (!details)
     return (

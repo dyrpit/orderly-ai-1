@@ -10,22 +10,22 @@ export const colors = {
     lightGray: '#3b3b3b26',
   },
   text: {
-    primary: "#64FFDA",
-    secondary: "#CCD6F6",
+    primary: '#64FFDA',
+    secondary: '#CCD6F6',
   },
-  linksText: "#5E5CBF",
+  linksText: '#5E5CBF',
   gradientMobile: {
     background:
-      "linear-gradient(90deg, rgba(133, 79, 79, 0)  , rgba(100, 255, 218, 1), rgba(133, 79, 79, 0))",
-    height: "2px",
-    width: "100%",
+      'linear-gradient(90deg, rgba(133, 79, 79, 0)  , rgba(100, 255, 218, 1), rgba(133, 79, 79, 0))',
+    height: '2px',
+    width: '100%',
   },
   gradientDekstop: {
     background:
-      "linear-gradient(90deg, rgba(133, 79, 79, 0)  , rgba(100, 255, 218, 1), rgba(133, 79, 79, 0))",
-    height: "2px",
-    width: "80%",
-    marginLeft: "20%",
+      'linear-gradient(90deg, rgba(133, 79, 79, 0)  , rgba(100, 255, 218, 1), rgba(133, 79, 79, 0))',
+    height: '2px',
+    width: '80%',
+    marginLeft: '20%',
   },
 };
 
