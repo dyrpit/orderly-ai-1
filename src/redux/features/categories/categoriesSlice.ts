@@ -45,8 +45,13 @@ export const categoriesSlice = createSlice({
   name: 'categories',
   initialState,
   reducers: {
-    deleteCategory: (state, action: PayloadAction<Pick<TCategory, 'id'>>) => {
-      return state.filter((category) => category.id !== action.payload.id);
+    deleteCategory: (
+      state,
+      action: PayloadAction<Pick<TCategory, 'categoryName'>>,
+    ) => {
+      return state.filter(
+        (category) => category.categoryName !== action.payload.categoryName,
+      );
     },
     editCategoryName: (state) => {
       return state;
