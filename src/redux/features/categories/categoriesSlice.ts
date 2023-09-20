@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../../store';
-import { TCategories } from '../../../types/categories';
+import { type TCategory } from '@/types/category';
 
-const initialState: Omit<TCategories, 'products'>[] = [
+const initialState: TCategory[] = [
   {
     id: 1,
     categoryName: 'writing',
@@ -45,16 +45,13 @@ export const categoriesSlice = createSlice({
   name: 'categories',
   initialState,
   reducers: {
-    deleteCategory: (state, action: PayloadAction<Pick<TCategories, 'id'>>) => {
+    deleteCategory: (state, action: PayloadAction<Pick<TCategory, 'id'>>) => {
       return state.filter((category) => category.id !== action.payload.id);
     },
     editCategoryName: (state) => {
       return state;
     },
-    addCategory: (
-      state,
-      action: PayloadAction<Omit<TCategories, 'products'>>,
-    ) => {
+    addCategory: (state, action: PayloadAction<TCategory>) => {
       state = [action.payload, ...state];
       return state;
     },

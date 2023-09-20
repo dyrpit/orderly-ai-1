@@ -1,4 +1,4 @@
-import Spinner from '../../assets/loading-spinner.svg';
+import Spinner from '@assets/loading-spinner.svg';
 import { Image, keyframes } from '@chakra-ui/react';
 
 const spinAnimation = keyframes({ from: { transform: 'rotate(0deg)' }, to: { transform: 'rotate(360deg)' } });

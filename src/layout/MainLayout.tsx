@@ -7,9 +7,10 @@ import {
 } from '@chakra-ui/react';
 
 import { colors } from '../theme';
-import Footer from '../components/footer/Footer';
-import { Breadcrumb } from '../components/hero/Breadcrumb';
-import Navbar from '../components/navbar/Navbar';
+import Footer from '@components/footer/Footer';
+import { Breadcrumb } from '@components/hero/Breadcrumb';
+import Navbar from '@components/navbar/Navbar';
+import React from 'react';
 
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const gradientStyle = useBreakpointValue({
