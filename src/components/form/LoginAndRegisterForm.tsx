@@ -120,8 +120,10 @@ export const Form = () => {
               }),
             );
             console.log('OK');
-            navigate('/');
-            window.location.reload();
+            setTimeout(() => {
+              navigate('/');
+              window.location.reload();
+            }, 2000); // Przeładowanie strony po 2 sekundach (2000 ms)
             toast.success(`Hi, ${res.data[0].username}!`);
           } else {
             console.log('User does not exist!');

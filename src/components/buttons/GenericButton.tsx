@@ -12,10 +12,8 @@ interface GenericButtonProps extends ButtonProps {
 const GenericButton = ({
   size = 'medium',
   label,
-  borderRadius,
   icon,
   isMobile,
-  borderBottom,
   ...rest
 }: GenericButtonProps) => {
   let buttonSize = 'md';

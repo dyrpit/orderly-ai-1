@@ -1,6 +1,5 @@
 import group1 from '../../assets/group1.svg';
 import group2 from '../../assets/group2.svg';
-import vector from '../../assets/Vector.svg';
 import { Link } from 'react-router-dom';
 import {
   HStack,
@@ -8,15 +7,20 @@ import {
   Text,
   Box,
   useBreakpointValue,
-  IconButton
+  IconButton, As
 } from '@chakra-ui/react';
 import GenericButton from '../buttons/GenericButton';
 import { navbarStyles } from './NavbarStyles';
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import MobileMenu from './MobileMenu';
+import { DropdownMenu } from './DropdownMenu.tsx';
 
-const Navbar = () => {
+interface NavbarProps {
+  Button: As & "button"
+}
+
+const Navbar = ({ Button }: NavbarProps) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const isLg = useBreakpointValue({ base: false, lg: true });
   const token: string | null = sessionStorage.getItem('token');
@@ -44,10 +48,11 @@ const Navbar = () => {
               backgroundColor='rgba(217, 217, 217, 0.15)'
             />
             <GenericButton size='small' label='IMPORT' />
-            {token != null ? (<Image src={vector} alt='Icon of logged user.' />) : (
+            {token != null ? (<DropdownMenu Button={Button}/>) : (
               <Text color='#64ffda' as={Link} to='/auth'>
-                LOG IN
+                Log in
               </Text>)}
+
           </>
         ) : (
           <IconButton
