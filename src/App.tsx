@@ -7,6 +7,7 @@ import { ProductCard } from './components/productCard/ProductCard';
 import { Toaster } from 'react-hot-toast';
 import { CategoryForm } from './components/newCategory/CategoryForm';
 import { Form } from './components/form/LoginAndRegisterForm';
+import { ProtectedRoutes } from '@util/ProtectedRoutes.tsx';
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
         <Route path='/:categoryName/:productName' element={<ProductCard />} />
         <Route path='/addCategory' element={<CategoryForm />} />
         <Route path='/auth' element={<Form />} />
+
+        <Route element={<ProtectedRoutes/>}>
+          <Route path="/admin" element={<AdminPanel />} />
+        </Route>
       </Routes>
     </MainLayout>
   );
