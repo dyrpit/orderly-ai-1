@@ -10,6 +10,7 @@ import {
   Box,
   VStack,
 } from '@chakra-ui/react';
+import { adminPanelStyles } from './AdminPanelStyles';
 
 const AdminPanel = () => {
   const data = useSelector((state: RootState) => ({
@@ -33,10 +34,15 @@ const AdminPanel = () => {
             <AccordionItem>
               <h2>
                 <AccordionButton>
-                  <Box color='white' as='span' flex='1' textAlign='left'>
+                  <Box
+                    style={adminPanelStyles}
+                    as='span'
+                    flex='1'
+                    textAlign='left'
+                  >
                     {category.categoryName}
                   </Box>
-                  <AccordionIcon />
+                  <AccordionIcon style={adminPanelStyles} />
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
