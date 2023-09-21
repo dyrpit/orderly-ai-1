@@ -16,7 +16,7 @@ export const Breadcrumb = () => {
     setBreadcrumbNavItems(transformUrlToBreadcrumb(location.pathname));
   }, [location]);
 
-  if (location.pathname === '/auth') return null;
+  if (location.pathname === '/auth' || location.pathname.includes("/admin")) return null;
 
   return (
     <Flex
