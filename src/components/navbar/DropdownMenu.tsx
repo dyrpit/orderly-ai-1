@@ -5,7 +5,7 @@ import {
   MenuItem, Image, Box, Button
 } from '@chakra-ui/react';
 import vector from '@assets/Vector.svg';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { dropdownStyles } from './DropdownStyles.ts';
 import { colors } from '@/theme.ts';
@@ -31,7 +31,7 @@ export const DropdownMenu = () => {
               <Image src={vector} alt='Icon of logged user.' style={{maxWidth: "80%", margin: "auto"}}/>
             </MenuButton>
             <MenuList style={dropdownStyles} minWidth='100px'>
-              <MenuItem backgroundColor={"transparent"} _hover={{backgroundColor: colors.bg.gray}}>Admin</MenuItem>
+              <MenuItem backgroundColor={"transparent"} _hover={{backgroundColor: colors.bg.gray}}> <Link to='/admin'>Admin</Link></MenuItem>
               <MenuItem backgroundColor={"transparent"} _hover={{backgroundColor: colors.bg.gray}} onClick={() => logout()}>Logout</MenuItem>
             </MenuList>
           </>

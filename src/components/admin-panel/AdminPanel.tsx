@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { RootState } from '../../redux/store';
@@ -10,7 +9,6 @@ import {
   AccordionIcon,
   Box,
   VStack,
-  Text,
 } from '@chakra-ui/react';
 
 const AdminPanel = () => {

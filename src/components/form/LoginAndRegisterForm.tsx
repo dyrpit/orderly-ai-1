@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import Joi, { ValidationResult } from 'joi';
+import { LoadingSpinner } from '@components/shared/LoadingSpinner.tsx';
 
 import { formStyles } from './LoginAndResgisterFormStyles';
 import { signIn, signUp } from '@util/api-calls.ts';
@@ -27,6 +28,7 @@ export const Form = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState<FormData>({
