@@ -1,7 +1,6 @@
-import { useAppSelector } from '@/redux/hooks';
-
 import { Box, Heading } from '@chakra-ui/layout';
 import { Select } from '@chakra-ui/react';
+import { useAppSelector } from '@/redux/hooks';
 
 export const ProductDetailList = () => {
   const categories = useAppSelector((state) => state.categories);
