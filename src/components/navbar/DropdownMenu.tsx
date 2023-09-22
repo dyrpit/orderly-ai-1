@@ -17,7 +17,7 @@ import { colors } from '@/theme.ts';
 
 export const DropdownMenu = () => {
   const dispatch = useAppDispatch();
-  const token: string | null = sessionStorage.getItem('token');
+  const token: string | null = sessionStorage.getItem('token') || '';
   const role = JSON.parse(token).role;
   const isRegular = role === 'regular';
   const isAdmin = role === 'admin';
