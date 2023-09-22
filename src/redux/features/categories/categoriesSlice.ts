@@ -60,11 +60,18 @@ export const categoriesSlice = createSlice({
       state = [action.payload, ...state];
       return state;
     },
+    fetchCategories: (state, action: PayloadAction<TCategory[]>) => {
+      return [...action.payload];
+    },
   },
 });
 
-export const { deleteCategory, editCategoryName, addCategory } =
-  categoriesSlice.actions;
+export const {
+  deleteCategory,
+  editCategoryName,
+  addCategory,
+  fetchCategories,
+} = categoriesSlice.actions;
 
 export const selectCount = (state: RootState) => state.categories;
 
