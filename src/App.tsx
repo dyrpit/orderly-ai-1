@@ -11,7 +11,14 @@ import { Form } from './components/form/LoginAndRegisterForm';
 function App() {
   return (
     <MainLayout>
-      <Toaster/>
+      <Toaster toastOptions={{
+        style: {
+          fontSize: '22px',
+          border: '1px solid #713200',
+          padding: '30px',
+          color: '#713200'
+        }
+      }} />
       <Routes>
         <Route path='/' element={<CategoriesList />} />
         <Route path='/:categoryName' element={<ProductsList />} />
@@ -22,4 +29,5 @@ function App() {
     </MainLayout>
   );
 }
+
 export default App;

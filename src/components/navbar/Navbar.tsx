@@ -7,7 +7,7 @@ import {
   Text,
   Box,
   useBreakpointValue,
-  IconButton, As
+  IconButton, useDisclosure
 } from '@chakra-ui/react';
 import GenericButton from '@buttons/GenericButton';
 import { navbarStyles } from './NavbarStyles';
@@ -15,15 +15,13 @@ import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import MobileMenu from './MobileMenu';
 import { DropdownMenu } from './DropdownMenu.tsx';
+import { FileImportModal } from '@components/navbar/FileImportModal.tsx';
 
-interface NavbarProps {
-  Button: As & "button"
-}
-
-const Navbar = ({ Button }: NavbarProps) => {
+const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const isLg = useBreakpointValue({ base: false, lg: true });
   const token: string | null = sessionStorage.getItem('token');
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
@@ -47,12 +45,13 @@ const Navbar = ({ Button }: NavbarProps) => {
               label='EXPORT'
               backgroundColor='rgba(217, 217, 217, 0.15)'
             />
-            <GenericButton size='small' label='IMPORT' />
-            {token != null ? (<DropdownMenu Button={Button}/>) : (
-              <Text color='#64ffda' as={Link} to='/auth'>
-                Log in
-              </Text>)}
+            <GenericButton size='small' label='IMPORT' onClick={onOpen}/>
+            <FileImportModal isOpen={isOpen} onClose={onClose}/>
 
+            {token != null ? (<DropdownMenu />) : (
+              <Text color='#64ffda' as={Link} to='/auth'>
+                LOG IN
+              </Text>)}
           </>
         ) : (
           <IconButton

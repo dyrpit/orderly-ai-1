@@ -27,12 +27,13 @@ export const DropdownMenu = () => {
       <Menu>
         {({ isOpen }) => (
           <>
-            <MenuButton isActive={isOpen} as={Button} style={{backgroundColor: "transparent"}}>
-              <Image src={vector} alt='Icon of logged user.' style={{maxWidth: "80%", margin: "auto"}}/>
+            <MenuButton isActive={isOpen} as={Button} style={{ backgroundColor: 'transparent' }}>
+              <Image src={vector} alt='Icon of logged user.' style={{ maxWidth: '80%', margin: 'auto' }} />
             </MenuButton>
             <MenuList style={dropdownStyles} minWidth='100px'>
-              <MenuItem backgroundColor={"transparent"} _hover={{backgroundColor: colors.bg.gray}}>Admin</MenuItem>
-              <MenuItem backgroundColor={"transparent"} _hover={{backgroundColor: colors.bg.gray}} onClick={() => logout()}>Logout</MenuItem>
+              <MenuItem backgroundColor={'transparent'} _hover={{ backgroundColor: colors.bg.gray }}>Admin</MenuItem>
+              <MenuItem backgroundColor={'transparent'} _hover={{ backgroundColor: colors.bg.gray }}
+                        onClick={() => logout()}>Logout</MenuItem>
             </MenuList>
           </>
         )}
