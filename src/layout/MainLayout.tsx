@@ -11,6 +11,7 @@ import Footer from '@components/footer/Footer';
 import { Breadcrumb } from '@components/hero/Breadcrumb';
 import Navbar from '@components/navbar/Navbar';
 import React from 'react';
+import AdminPanel from '@/components/admin-panel/AdminPanel';
 
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const gradientStyle = useBreakpointValue({
@@ -51,12 +52,10 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
         </Box>
       </GridItem>
       <Show above='lg'>
-        <GridItem
-          area='aside'
-          bg='gold'
-          sx={{ display: { base: 'none', lg: 'block' } }}
-        >
-          Aside
+        <GridItem area='aside' sx={{ display: { base: 'none', lg: 'block' } }}>
+          <Box bg='bg.secondary'>
+            <AdminPanel />
+          </Box>
         </GridItem>
       </Show>
       <GridItem area='footer' height='120px'>

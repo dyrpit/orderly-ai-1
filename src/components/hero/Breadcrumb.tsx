@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useAppSelector } from '@/redux/hooks';
 import { useLocation, Link as RouterLink } from 'react-router-dom';
 import { Flex, Text } from '@chakra-ui/react';
 
@@ -8,6 +9,15 @@ export const Breadcrumb = () => {
   >();
   const location = useLocation();
 
+  const isAdminPanelOpen = useAppSelector(
+    (state) => state.adminPanel.isAdminPanelOpen,
+  );
+
+  const token: string | null = sessionStorage.getItem('token');
+  const role = token !== null && JSON.parse(token).role;
+  const isRegular = role === 'regular';
+  const isAdmin = role === 'admin';
+
   const transformUrlToBreadcrumb = (websiteUrl: string): string[] => {
     return websiteUrl.split('/').filter((p) => p.length);
   };
@@ -16,7 +26,9 @@ export const Breadcrumb = () => {
     setBreadcrumbNavItems(transformUrlToBreadcrumb(location.pathname));
   }, [location]);
 
-  if (location.pathname === '/auth') return null;
+  if (location.pathname === '/auth' || location.pathname.includes('/admin'))
+    return null;
+  if (isAdmin && isAdminPanelOpen) return null;
 
   return (
     <Flex

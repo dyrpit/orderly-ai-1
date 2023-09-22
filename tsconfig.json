@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["ES2020", "DOM", "DOM.Iterable", "ES2021.String"],
     "module": "ESNext",
     "skipLibCheck": true,
 
@@ -23,29 +23,13 @@
     /* Path aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*",
-        "./dist/*",
-        ""
-      ],
-      "@assets/*": [
-        "./src/assets/*"
-      ],
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@buttons/*": [
-        "./src/components/buttons/*"
-      ],
-      "@data/*": [
-        "./src/data/*"
-      ],
-      "@types/*": [
-        "./src/types/*"
-      ],
-      "@util/*": [
-        "./src/util/*"
-      ]
+      "@/*": ["./src/*", "./dist/*", ""],
+      "@assets/*": ["./src/assets/*"],
+      "@components/*": ["./src/components/*"],
+      "@buttons/*": ["./src/components/buttons/*"],
+      "@data/*": ["./src/data/*"],
+      "@types/*": ["./src/types/*"],
+      "@util/*": ["./src/util/*"]
     }
   },
   "include": ["src"],

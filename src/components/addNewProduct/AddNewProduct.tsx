@@ -94,7 +94,6 @@ export const AddNewProduct = () => {
       direction={{ base: 'column', md: 'row' }}
       overflow='hidden'
       p={{ base: 0, md: 4 }}
-      color='text.secondary'
     >
       <Box>
         <Heading
@@ -195,4 +194,3 @@ export const AddNewProduct = () => {
     </Flex>
   );
 };
-
