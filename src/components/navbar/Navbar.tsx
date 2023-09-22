@@ -1,5 +1,4 @@
 import { useLocation } from 'react-router-dom';
-
 import group1 from '@assets/group1.svg';
 import group2 from '@assets/group2.svg';
 import { Link } from 'react-router-dom';
@@ -10,6 +9,7 @@ import {
   Box,
   useBreakpointValue,
   IconButton,
+  useDisclosure,
 } from '@chakra-ui/react';
 import GenericButton from '@buttons/GenericButton';
 import { navbarStyles } from './NavbarStyles';
@@ -17,12 +17,14 @@ import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import MobileMenu from './MobileMenu';
 import { DropdownMenu } from './DropdownMenu.tsx';
+import { FileImportModal } from '@components/navbar/FileImportModal.tsx';
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const location = useLocation();
   const isLg = useBreakpointValue({ base: false, lg: true });
   const token: string | null = sessionStorage.getItem('token');
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
@@ -48,12 +50,14 @@ const Navbar = () => {
               label='EXPORT'
               backgroundColor='rgba(217, 217, 217, 0.15)'
             />
-            <GenericButton size='small' label='IMPORT' />
+            <GenericButton size='small' label='IMPORT' onClick={onOpen} />
+            <FileImportModal isOpen={isOpen} onClose={onClose} />
+
             {token != null ? (
               <DropdownMenu />
             ) : (
               <Text color='#64ffda' as={Link} to='/auth'>
-                Log in
+                LOG IN
               </Text>
             )}
           </>
