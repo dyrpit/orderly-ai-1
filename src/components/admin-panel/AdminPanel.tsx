@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useAppSelector } from '@/redux/hooks';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { RootState } from '../../redux/store';
@@ -28,11 +28,11 @@ const AdminPanel = () => {
   return (
     <div>
       <Box color='white'>
-        <Link to={''}>Create New Category</Link>
+        <Link to={'/addCategory'}>Create New Category</Link>
       </Box>
 
       <Box color='white'>
-        <Link to={''}>Edit categories</Link>
+        <Link to={'/addProduct'}>Add product</Link>
       </Box>
 
       <ul>
