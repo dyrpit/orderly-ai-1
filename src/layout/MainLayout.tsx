@@ -12,8 +12,6 @@ import { Breadcrumb } from '@components/hero/Breadcrumb';
 import Navbar from '@components/navbar/Navbar';
 import React from 'react';
 import AdminPanel from '@/components/admin-panel/AdminPanel';
-import { Route, Routes } from 'react-router-dom';
-import { ProtectedRoutes } from '@util/ProtectedRoutes.tsx';
 
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const gradientStyle = useBreakpointValue({
@@ -56,11 +54,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <Show above='lg'>
         <GridItem area='aside' sx={{ display: { base: 'none', lg: 'block' } }}>
           <Box bg='bg.secondary'>
-            <Routes>
-              <Route element={<ProtectedRoutes/>}>
-                <Route path="/admin" element={<AdminPanel />} />
-              </Route>
-            </Routes>
+            <AdminPanel />
           </Box>
         </GridItem>
       </Show>
