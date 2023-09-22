@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useAppDispatch } from '@/redux/hooks';
+import { fetchCategories } from '@/redux/features/categories/categoriesSlice';
+import { fetchProducts } from '@/redux/features/products/productsSlice';
 import {
   Button,
   Modal,
@@ -7,18 +10,26 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  ModalOverlay
+  ModalOverlay,
 } from '@chakra-ui/react';
 import { colors } from '@/theme.ts';
 import './FileImportModal.css';
+import { TCategory } from '@/types/category';
+import { TProduct } from '@/types/product';
+
+type TData = {
+  categories: TCategory[];
+  products: TProduct[];
+};
 
 interface InputFileModalProps {
-  isOpen: boolean,
-  onClose: () => void,
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export const FileImportModal = ({ isOpen, onClose }: InputFileModalProps) => {
   const [fileValue, setFileValue] = useState<File>();
+  const dispatch = useAppDispatch();
 
   const handleFileBtn = () => {
     onClose();
@@ -26,12 +37,13 @@ export const FileImportModal = ({ isOpen, onClose }: InputFileModalProps) => {
 
     if (fileValue) {
       reader.readAsText(fileValue);
-      reader.onload = function() {
-        //load to store
-        console.log(reader.result);
+      reader.onload = function () {
+        const data: TData = JSON.parse(reader.result);
+        dispatch(fetchCategories(data.categories));
+        dispatch(fetchProducts(data.products));
       };
 
-      reader.onerror = function() {
+      reader.onerror = function () {
         console.log(reader.onerror);
       };
     }
@@ -43,18 +55,26 @@ export const FileImportModal = ({ isOpen, onClose }: InputFileModalProps) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader color={colors.white}>Data import</ModalHeader>
-          <ModalCloseButton color={colors.white}/>
+          <ModalCloseButton color={colors.white} />
           <ModalBody>
-            <input type='file' id='file' name='file' accept='.json'
-                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                     if (!e.target.files)
-                       return;
-                     setFileValue(e.target.files[0]);
-                   }} />
+            <input
+              type='file'
+              id='file'
+              name='file'
+              accept='.json'
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                if (!e.target.files) return;
+                setFileValue(e.target.files[0]);
+              }}
+            />
           </ModalBody>
 
           <ModalFooter>
-            <Button backgroundColor={colors.bg.secondary} mr={3} onClick={onClose}>
+            <Button
+              backgroundColor={colors.bg.secondary}
+              mr={3}
+              onClick={onClose}
+            >
               Close
             </Button>
             <Button onClick={handleFileBtn}>Load data</Button>
