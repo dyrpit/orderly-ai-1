@@ -327,11 +327,19 @@ export const productsSlice = createSlice({
         (product) => product.category !== action.payload.category,
       );
     },
+    fetchProducts: (state, action: PayloadAction<TProduct[]>) => {
+      return [...action.payload];
+    },
   },
 });
 
-export const { deleteProduct, editProduct, addProduct, deleteAllProducts } =
-  productsSlice.actions;
+export const {
+  deleteProduct,
+  editProduct,
+  addProduct,
+  deleteAllProducts,
+  fetchProducts,
+} = productsSlice.actions;
 
 export const selectCount = (state: RootState) => state.products;
 
