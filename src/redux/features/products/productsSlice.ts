@@ -316,13 +316,22 @@ export const productsSlice = createSlice({
       return state;
     },
     addProduct: (state, action: PayloadAction<TProduct>) => {
-      state = [...state, action.payload];
+      state = [action.payload, ...state];
       return state;
+    },
+    deleteAllProducts: (
+      state,
+      action: PayloadAction<Pick<TProduct, 'category'>>,
+    ) => {
+      return state.filter(
+        (product) => product.category !== action.payload.category,
+      );
     },
   },
 });
 
-export const { deleteProduct, editProduct, addProduct } = productsSlice.actions;
+export const { deleteProduct, editProduct, addProduct, deleteAllProducts } =
+  productsSlice.actions;
 
 export const selectCount = (state: RootState) => state.products;
 
