@@ -1,0 +1,186 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "backgroundColor": "#444",
+      "categoryName": "new",
+      "href": "new"
+    },
+    {
+      "id": 2,
+      "backgroundColor": "#424",
+      "categoryName": "new2",
+      "href": "new2"
+    },
+    {
+      "id": 3,
+      "backgroundColor": "#424",
+      "categoryName": "new3",
+      "href": "new3"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Product 1",
+      "category": "writing",
+      "websiteURL": "https://example.com/product1",
+      "videoURL": "https://www.youtube.com/watch?v=video1",
+      "cost": "free",
+      "description": "A writing tool."
+    },
+    {
+      "id": 2,
+      "name": "Product 2",
+      "category": "writing",
+      "websiteURL": "https://example.com/product2",
+      "videoURL": "https://www.youtube.com/watch?v=video2",
+      "cost": "paid",
+      "description": "Another writing tool."
+    },
+    {
+      "id": 3,
+      "name": "Product 3",
+      "category": "writing",
+      "websiteURL": "https://example.com/product3",
+      "videoURL": "https://www.youtube.com/watch?v=video3",
+      "cost": "free",
+      "description": "Yet another writing tool."
+    },
+    {
+      "id": 4,
+      "name": "Product 4",
+      "category": "productivity",
+      "websiteURL": "https://example.com/product4",
+      "videoURL": "https://www.youtube.com/watch?v=video4",
+      "cost": "paid",
+      "description": "A productivity app."
+    },
+    {
+      "id": 5,
+      "name": "Product 5",
+      "category": "productivity",
+      "websiteURL": "https://example.com/product5",
+      "videoURL": "https://www.youtube.com/watch?v=video5",
+      "cost": "free",
+      "description": "Another productivity app."
+    },
+    {
+      "id": 6,
+      "name": "Product 6",
+      "category": "productivity",
+      "websiteURL": "https://example.com/product6",
+      "videoURL": "https://www.youtube.com/watch?v=video6",
+      "cost": "paid",
+      "description": "Yet another productivity app."
+    },
+    {
+      "id": 7,
+      "name": "Product 7",
+      "category": "video generating",
+      "websiteURL": "https://example.com/product7",
+      "videoURL": "https://www.youtube.com/watch?v=video7",
+      "cost": "free",
+      "description": "A video generation tool."
+    },
+    {
+      "id": 8,
+      "name": "Product 8",
+      "category": "video generating",
+      "websiteURL": "https://example.com/product8",
+      "videoURL": "https://www.youtube.com/watch?v=video8",
+      "cost": "paid",
+      "description": "Another video generation tool."
+    },
+    {
+      "id": 9,
+      "name": "Product 9",
+      "category": "video generating",
+      "websiteURL": "https://example.com/product9",
+      "videoURL": "https://www.youtube.com/watch?v=video9",
+      "cost": "free",
+      "description": "Yet another video generation tool."
+    },
+    {
+      "id": 10,
+      "name": "Product 10",
+      "category": "image generating",
+      "websiteURL": "https://example.com/product10",
+      "videoURL": "https://www.youtube.com/watch?v=video10",
+      "cost": "paid",
+      "description": "An image generation tool."
+    },
+    {
+      "id": 11,
+      "name": "Product 11",
+      "category": "image generating",
+      "websiteURL": "https://example.com/product11",
+      "videoURL": "https://www.youtube.com/watch?v=video11",
+      "cost": "free",
+      "description": "Another image generation tool."
+    },
+    {
+      "id": 12,
+      "name": "Product 12",
+      "category": "image generating",
+      "websiteURL": "https://example.com/product12",
+      "videoURL": "https://www.youtube.com/watch?v=video12",
+      "cost": "paid",
+      "description": "Yet another image generation tool."
+    },
+    {
+      "id": 13,
+      "name": "Product 13",
+      "category": "chatbots",
+      "websiteURL": "https://example.com/product13",
+      "videoURL": "https://www.youtube.com/watch?v=video13",
+      "cost": "free",
+      "description": "A chatbot platform."
+    },
+    {
+      "id": 14,
+      "name": "Product 14",
+      "category": "chatbots",
+      "websiteURL": "https://example.com/product14",
+      "videoURL": "https://www.youtube.com/watch?v=video14",
+      "cost": "paid",
+      "description": "Another chatbot platform."
+    },
+    {
+      "id": 15,
+      "name": "Product 15",
+      "category": "chatbots",
+      "websiteURL": "https://example.com/product15",
+      "videoURL": "https://www.youtube.com/watch?v=video15",
+      "cost": "free",
+      "description": "Yet another chatbot platform."
+    },
+    {
+      "id": 16,
+      "name": "Product 16",
+      "category": "marketing",
+      "websiteURL": "https://example.com/product16",
+      "videoURL": "https://www.youtube.com/watch?v=video16",
+      "cost": "paid",
+      "description": "A marketing tool."
+    },
+    {
+      "id": 17,
+      "name": "Product 17",
+      "category": "marketing",
+      "websiteURL": "https://example.com/product17",
+      "videoURL": "https://www.youtube.com/watch?v=video17",
+      "cost": "free",
+      "description": "Another marketing tool."
+    },
+    {
+      "id": 18,
+      "name": "Product 18",
+      "category": "marketing",
+      "websiteURL": "https://example.com/product18",
+      "videoURL": "https://www.youtube.com/watch?v=video18",
+      "cost": "paid",
+      "description": "Yet another marketing tool."
+    }
+  ]
+}
