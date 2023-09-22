@@ -1,26 +1,51 @@
-import { Heading, Stack } from '@chakra-ui/layout';
-import { Box, Radio, RadioGroup } from '@chakra-ui/react';
-import React from 'react';
+import { Stack } from '@chakra-ui/layout';
+import { Box } from '@chakra-ui/react';
+import React, { useState } from 'react';
 
-const ProductDetailRadio = () => {
-  const [value, setValue] = React.useState('1');
+const ProductDetailRadio = ({ paid, setPaid }) => {
+  const [value, setValue] = useState<string>('');
+
+  const handleRadioChange = (newValue: string) => {
+    setValue(newValue);
+    setPaid(newValue);
+  };
 
   return (
-    <RadioGroup onChange={setValue} value={value}>
-      <Stack direction='row'>
-        <CustomRadio value='1'>Free</CustomRadio>
-        <CustomRadio value='2'>Paid</CustomRadio>
-      </Stack>
-    </RadioGroup>
+    <Stack direction='row'>
+      <CustomRadio
+        value='free'
+        onChange={handleRadioChange}
+        isChecked={value === 'free'}
+      >
+        Free
+      </CustomRadio>
+      <CustomRadio
+        value='paid'
+        onChange={handleRadioChange}
+        isChecked={value === 'paid'}
+      >
+        Paid
+      </CustomRadio>
+    </Stack>
   );
 };
 
-const CustomRadio = ({ children, ...props }: { children: React.ReactNode }) => {
+const CustomRadio = ({
+  children,
+  value,
+  onChange,
+  isChecked,
+}: {
+  children: React.ReactNode;
+  value: string;
+  onChange: (newValue: string) => void;
+  isChecked: boolean;
+}) => {
   return (
     <Box
       width='100px'
       height='35px'
-      backgroundColor='#1E345B'
+      backgroundColor={isChecked ? '#2E4C7B' : '#1E345B'}
       m='0 10px'
       color='white'
       borderRadius='4px'
@@ -29,12 +54,9 @@ const CustomRadio = ({ children, ...props }: { children: React.ReactNode }) => {
       justifyContent='center'
       cursor='pointer'
       _hover={{
-        backgroundColor: '#2E4C7B', // Kolor w stanie hover
+        backgroundColor: '#2E4C7B',
       }}
-      _checked={{
-        backgroundColor: '#2E4C7B', // Kolor w zaznaczonym stanie
-      }}
-      {...props}
+      onClick={() => onChange(value)}
     >
       {children}
     </Box>
