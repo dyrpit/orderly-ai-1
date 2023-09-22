@@ -1,12 +1,12 @@
 import { Box, Heading } from '@chakra-ui/layout';
 import { Select } from '@chakra-ui/react';
-import { fakeCategoriesAndProducts } from '../../data/fakeCategoriesAndProducts';
-
-
+import { useAppSelector } from '@/redux/hooks';
 
 export const ProductDetailList = () => {
+  const categories = useAppSelector((state) => state.categories);
+
   return (
-    <Box marginRight='10' >
+    <Box marginRight='10'>
       <Heading color='text.secondary' fontSize='28px' fontWeight='500' p={3}>
         Category
       </Heading>
@@ -20,8 +20,7 @@ export const ProductDetailList = () => {
         color='#FFFFFF40'
         paddingLeft={3}
       >
-
-        {fakeCategoriesAndProducts.map((category) => (
+        {categories.map((category) => (
           <option key={category.id}>{category.categoryName}</option>
         ))}
       </Select>
