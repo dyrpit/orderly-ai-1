@@ -1,3 +1,5 @@
+import { useLocation } from 'react-router-dom';
+
 import group1 from '@assets/group1.svg';
 import group2 from '@assets/group2.svg';
 import { Link } from 'react-router-dom';
@@ -18,6 +20,7 @@ import { DropdownMenu } from './DropdownMenu.tsx';
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const location = useLocation();
   const isLg = useBreakpointValue({ base: false, lg: true });
   const token: string | null = sessionStorage.getItem('token');
 
@@ -33,11 +36,13 @@ const Navbar = () => {
         </Link>
         {isLg ? (
           <>
-            <GenericButton
-              size='large'
-              label='Generate APP with chatGPT'
-              icon={group2}
-            />
+            {location.pathname === '/' && (
+              <GenericButton
+                size='large'
+                label='Generate APP with chatGPT'
+                icon={group2}
+              />
+            )}
             <GenericButton
               size='small'
               label='EXPORT'
