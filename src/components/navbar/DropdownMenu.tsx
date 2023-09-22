@@ -17,6 +17,10 @@ import { colors } from '@/theme.ts';
 
 export const DropdownMenu = () => {
   const dispatch = useAppDispatch();
+  const token: string | null = sessionStorage.getItem('token');
+  const role = JSON.parse(token).role;
+  const isRegular = role === 'regular';
+  const isAdmin = role === 'admin';
 
   const navigate = useNavigate();
   const logout = () => {
@@ -50,13 +54,16 @@ export const DropdownMenu = () => {
               />
             </MenuButton>
             <MenuList style={dropdownStyles} minWidth='100px'>
-              <MenuItem
-                backgroundColor={'transparent'}
-                _hover={{ backgroundColor: colors.bg.gray }}
-                onClick={toggleAdminPanelHandler}
-              >
-                Admin
-              </MenuItem>
+              {isAdmin && (
+                <MenuItem
+                  backgroundColor={'transparent'}
+                  _hover={{ backgroundColor: colors.bg.gray }}
+                  onClick={toggleAdminPanelHandler}
+                >
+                  Admin
+                </MenuItem>
+              )}
+
               <MenuItem
                 backgroundColor={'transparent'}
                 _hover={{ backgroundColor: colors.bg.gray }}
