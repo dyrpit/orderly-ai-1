@@ -1,7 +1,51 @@
-import { Box, Flex, Grid, Heading, Input } from '@chakra-ui/react';
+import { useAppSelector, useAppDispatch } from '@/redux/hooks';
+import { addCategory } from '@/redux/features/categories/categoriesSlice';
+import { Button, Flex, Heading, Input, VStack } from '@chakra-ui/react';
 import { BackgroundColorPicker } from './BackgroundColorPicker';
+import { useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 
 export const CategoryForm = () => {
+  const [selectedColor, setSelectedColor] = useState<string>('');
+  const categoryNameRef = useRef();
+
+  const uuid = useAppSelector((state) => state.categories.length + 1);
+  const dispatch = useAppDispatch();
+
+  const addCategoryHandler = ({
+    newCategoryName,
+    backgroundColor,
+  }: {
+    newCategoryName: string;
+    backgroundColor: string;
+  }) => {
+    if (!newCategoryName || !selectedColor)
+      return toast.error('Insert all data');
+
+    if (newCategoryName.startsWith(' '))
+      return toast.error('Category name can not start with space');
+
+    newCategoryName = newCategoryName.trimEnd().replaceAll(' ', '-');
+
+    dispatch(
+      addCategory({
+        id: uuid,
+        backgroundColor,
+        categoryName: newCategoryName,
+        href: newCategoryName,
+      }),
+    );
+
+    setSelectedColor('');
+    resetForm();
+    toast.success('New category added!');
+  };
+
+  const resetForm = () => {
+    categoryNameRef.current.value = null;
+    setSelectedColor('');
+  };
+
   return (
     <Flex
       bg='bg.secondary'
@@ -9,35 +53,60 @@ export const CategoryForm = () => {
       borderRadius='xl'
       direction={{ base: 'column' }}
       overflow='hidden'
-      p={{ base: 0, md: 4 }}
+      p={4}
+      gap={8}
     >
-      <Box top='247px' left='376px'>
+      <Flex gap={4} w='100%' direction='column'>
         <Heading
           color='text.secondary'
-          fontSize='28px'
-          lineHeight='33.6px'
+          fontSize={{ base: '22px', md: '28px' }}
           fontWeight='500'
-          p={3}
+          w='fit-content'
+          pl={2}
         >
-          Category name
+          Insert category name:
         </Heading>
         <Input
+          ref={categoryNameRef}
+          color='text.primary'
+          fontSize={{ base: '22px', md: '24px' }}
+          pl={2}
+          w={{ base: '100%', md: '100%' }}
           bg='bg.gray'
           border='none'
           placeholder='New category name'
-        ></Input>
-      </Box>
-      <Heading
-        color='text.secondary'
-        fontSize='28px'
-        lineHeight='33.6px'
-        fontWeight='500'
-        p={{ base: 0, md: 4 }}
+        />
+      </Flex>
+
+      <VStack alignItems='flex-start' gap={4} pl={2}>
+        <Heading
+          color='text.secondary'
+          fontSize={{ base: '22px', md: '28px' }}
+          fontWeight='500'
+        >
+          Select category background color:
+        </Heading>
+        <BackgroundColorPicker setSelectedColor={setSelectedColor} />
+      </VStack>
+
+      <Button
+        ml={2}
+        mt={6}
+        variant='outline'
+        borderColor='text.primary'
+        color='text.primary'
+        fontSize={{ base: '22px', md: '24px' }}
+        w={{ base: '100%', md: '200px' }}
+        h={{ base: '50px', md: '80px' }}
+        onClick={() =>
+          addCategoryHandler({
+            newCategoryName: categoryNameRef.current?.value,
+            backgroundColor: selectedColor,
+          })
+        }
       >
-        Select category background color
-      </Heading>
-      <BackgroundColorPicker />
-      <Grid></Grid>
+        Send
+      </Button>
     </Flex>
   );
 };
