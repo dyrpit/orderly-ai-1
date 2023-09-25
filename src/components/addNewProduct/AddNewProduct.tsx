@@ -182,9 +182,10 @@ export const AddNewProduct = () => {
               outline='none'
               border='1px solid'
               padding='30px 60px'
+              marginTop='20px'
               fontSize='25px'
               alignSelf='flex-end'
-              _hover={{ bg: 'bg.primary' }}
+              _hover={{ bg: 'bg.gray' }}
               onClick={onSaveClick}
             >
               Save
