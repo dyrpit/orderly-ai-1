@@ -37,7 +37,7 @@ export const AddNewProduct = () => {
       );
 
       if (isProductExist) {
-        toast.error('Produkt o tej nazwie już istnieje!');
+        toast.error('A product with this name already exists!');
         return;
       }
 
@@ -54,7 +54,7 @@ export const AddNewProduct = () => {
       }),
     );
     resetValues();
-       toast.success('Nowy produkt został dodany!');
+       toast.success('New product added!');
   };
 
   const resetValues = () => {
@@ -81,7 +81,7 @@ export const AddNewProduct = () => {
       resetValues();
    
     } else {
-      toast.error('Wszystkie pola muszą być wypełnione!');
+      toast.error('All fields must be completed!');
     }
   };
 
@@ -94,6 +94,7 @@ export const AddNewProduct = () => {
       direction={{ base: 'column', md: 'row' }}
       overflow='hidden'
       p={{ base: 0, md: 4 }}
+      color='text.secondary'
     >
       <Box>
         <Heading

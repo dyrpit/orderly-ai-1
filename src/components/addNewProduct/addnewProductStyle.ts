@@ -1,4 +1,3 @@
-import { colors } from '../../theme.ts';
 
 export const formLabelStyles = {
   paddingTop: '10px',
