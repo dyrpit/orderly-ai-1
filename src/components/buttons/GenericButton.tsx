@@ -39,7 +39,7 @@ const GenericButton = ({
     >
       {label}
       {size === 'large' && icon && (
-        <Image src={icon} w='30px' h='30px' ml='15px' />
+        <Image src={icon} w='30px' h='30px' ml='15px' alt="ChatGPT icon" />
       )}
     </Button>
   );

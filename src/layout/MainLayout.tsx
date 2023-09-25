@@ -1,10 +1,4 @@
-import {
-  Box,
-  Grid,
-  GridItem,
-  Show,
-  useBreakpointValue,
-} from '@chakra-ui/react';
+import { Box, Grid, GridItem, useBreakpointValue } from '@chakra-ui/react';
 
 import { colors } from '../theme';
 import Footer from '@components/footer/Footer';
@@ -19,14 +13,23 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
     md: colors.gradientDekstop,
   });
 
+  const isMobile = useBreakpointValue({ base: true, lg: false });
+
   return (
     <Grid
-      templateAreas={{
-        base: `"nav" "hero" "footer"`,
-        lg: `"nav nav" "aside hero" "footer footer"`,
-      }}
+      templateAreas={
+        isMobile
+          ? {
+              base: `"nav" "hero" "aside" "footer"`,
+              lg: `"nav nav" "hero hero" "aside aside" "footer footer"`,
+            }
+          : {
+              base: `"nav" "hero" "footer"`,
+              lg: `"nav nav" "aside hero" "footer footer"`,
+            }
+      }
       templateColumns={{
-        base: '100% 1fr',
+        base: '100%',
         lg: '300px 1fr',
       }}
       sx={{
@@ -39,25 +42,31 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
         <Navbar />
         <Box style={gradientStyle} />
       </GridItem>
-      <GridItem
-        area='hero'
-        bg='blue'
-        minHeight='100vw'
-        maxHeight='100%'
-        bgColor={'#0A192F'}
-      >
+      <GridItem area='hero' bg='blue' maxHeight='100%' bgColor={'#0A192F'}>
         <Box bg='bg.primary' w='100%' h='100%' p={4}>
           <Breadcrumb />
           <Box mt={6}>{children}</Box>
         </Box>
       </GridItem>
-      <Show above='lg'>
+      {isMobile ? (
+        <GridItem
+          area='aside'
+          sx={{
+            display: { base: 'block', lg: 'none' },
+          }}
+        >
+          <Box bg='bg.secondary'>
+            <AdminPanel />
+          </Box>
+        </GridItem>
+      ) : (
         <GridItem area='aside' sx={{ display: { base: 'none', lg: 'block' } }}>
           <Box bg='bg.secondary'>
             <AdminPanel />
           </Box>
         </GridItem>
-      </Show>
+      )}
+
       <GridItem area='footer' height='120px'>
         <Box style={gradientStyle} />
         <Footer />

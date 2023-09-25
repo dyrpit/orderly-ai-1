@@ -1,4 +1,4 @@
-import { useAppDispatch } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { toggleAdminPanel } from '@/redux/features/adminPanel/adminPanelSlice';
 import {
   Menu,
@@ -15,15 +15,17 @@ import toast from 'react-hot-toast';
 import { dropdownStyles } from './DropdownStyles.ts';
 import { colors } from '@/theme.ts';
 
-export const DropdownMenu = () => {
+export const DropdownMenu = ({ onClose }: { onClose: () => void }) => {
   const dispatch = useAppDispatch();
+  const isAdminPanelOpen = useAppSelector(
+    (state) => state.adminPanel.isAdminPanelOpen,
+  );
   const token: string | null = sessionStorage.getItem('token') || '';
-  const role = JSON.parse(token).role;
-  const isRegular = role === 'regular';
-  const isAdmin = role === 'admin';
+  const isAdmin = token && JSON.parse(token).role === 'admin';
 
   const navigate = useNavigate();
   const logout = () => {
+    isAdminPanelOpen && toggleAdminPanelHandler();
     sessionStorage.removeItem('token');
 
     setTimeout(() => {
@@ -35,6 +37,7 @@ export const DropdownMenu = () => {
 
   const toggleAdminPanelHandler = () => {
     dispatch(toggleAdminPanel());
+    onClose();
   };
 
   return (
