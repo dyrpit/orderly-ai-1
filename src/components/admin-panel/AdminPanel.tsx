@@ -102,7 +102,26 @@ const AdminPanel = () => {
   if (!isAdminPanelOpen) return null;
 
   return (
-    <div>
+    <Flex
+      direction='column'
+      minH='100%'
+      justifyContent='space-between'
+      minW={{ base: '100%', md: '350px' }}
+      overflowY={{ base: 'hidden', md: 'scroll' }}
+      paddingLeft={{ base: 0, md: 4 }}
+      sx={{
+        '&::-webkit-scrollbar': {
+          width: '4px',
+        },
+        '&::-webkit-scrollbar-track': {
+          width: '6px',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          background: 'text.primary',
+          borderRadius: '24px',
+        },
+      }}
+    >
       <Box color='white'>
         <Link to={'/addCategory'}>Create New Category</Link>
       </Box>
@@ -188,7 +207,7 @@ const AdminPanel = () => {
           </Flex>
         ))}
       ;
-    </div>
+    </Flex>
   );
 };
 export default AdminPanel;
