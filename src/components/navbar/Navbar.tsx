@@ -18,7 +18,6 @@ import { useState } from 'react';
 import MobileMenu from './MobileMenu';
 import { DropdownMenu } from './DropdownMenu.tsx';
 import { FileImportModal } from '@components/navbar/FileImportModal.tsx';
-import data from '@data/data.json';
 import { FileExport } from '@components/navbar/FileExport.tsx';
 
 const Navbar = () => {

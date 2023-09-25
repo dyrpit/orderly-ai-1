@@ -8,7 +8,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
-  Button,
+  Button
 } from '@chakra-ui/react';
 import { colors } from '@/theme.ts';
 
@@ -18,13 +18,13 @@ interface FileExportProps {
 }
 
 export const FileExport = ({ isOpen, onClose }: FileExportProps) => {
-  const cancelRef = React.useRef();
+  const cancelRef = React.useRef<HTMLButtonElement>(null);
   const categories = useAppSelector((state) => state.categories);
   const products = useAppSelector((state) => state.products);
 
   const categoriesWithProducts = {
     categories,
-    products,
+    products
   };
 
   const exportData = () => {
