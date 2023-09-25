@@ -1,12 +1,16 @@
 import React from 'react';
+import { useAppSelector } from '@/redux/hooks';
 import {
-  AlertDialog, AlertDialogBody, AlertDialogCloseButton,
-  AlertDialogContent, AlertDialogFooter,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogCloseButton,
+  AlertDialogContent,
+  AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogOverlay, Button
+  AlertDialogOverlay,
+  Button,
 } from '@chakra-ui/react';
 import { colors } from '@/theme.ts';
-import data from '@data/data.json';
 
 interface FileExportProps {
   isOpen: boolean;
@@ -15,11 +19,18 @@ interface FileExportProps {
 
 export const FileExport = ({ isOpen, onClose }: FileExportProps) => {
   const cancelRef = React.useRef();
+  const categories = useAppSelector((state) => state.categories);
+  const products = useAppSelector((state) => state.products);
+
+  const categoriesWithProducts = {
+    categories,
+    products,
+  };
+
   const exportData = () => {
-    console.log(data);
     const currDate = new Date();
 
-    const dataToExport: string = JSON.stringify(data);
+    const dataToExport: string = JSON.stringify(categoriesWithProducts);
     const blob = new Blob([dataToExport], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -27,7 +38,6 @@ export const FileExport = ({ isOpen, onClose }: FileExportProps) => {
     link.href = url;
     link.click();
   };
-
 
   return (
     <>
@@ -40,7 +50,9 @@ export const FileExport = ({ isOpen, onClose }: FileExportProps) => {
         <AlertDialogOverlay />
 
         <AlertDialogContent>
-          <AlertDialogHeader color={colors.white}>Export data?</AlertDialogHeader>
+          <AlertDialogHeader color={colors.white}>
+            Export data?
+          </AlertDialogHeader>
           <AlertDialogCloseButton color={colors.white} />
           <AlertDialogBody color={colors.white}>
             Are you sure you want to export data from store?
@@ -58,5 +70,3 @@ export const FileExport = ({ isOpen, onClose }: FileExportProps) => {
     </>
   );
 };
-
-
