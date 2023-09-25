@@ -45,7 +45,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               isMobile
               onClick={modal.onOpen}
             />
-            <FileImportModal isOpen={modal.isOpen} onClose={modal.onClose} />
+            <FileImportModal
+              isOpen={modal.isOpen}
+              onClose={() => {
+                modal.onClose();
+                onClose();
+              }}
+            />
 
             {token != null ? (
               <DropdownMenu />
