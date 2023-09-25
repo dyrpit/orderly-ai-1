@@ -1,39 +1,50 @@
-import { Routes, Route } from 'react-router-dom';
-
-import { MainLayout } from './layout/MainLayout';
-import { CategoriesList } from './components/hero/CategoriesList';
-import { ProductsList } from './components/productsList/ProductsList';
-import { ProductCard } from './components/productCard/ProductCard';
-import { Toaster } from 'react-hot-toast';
-import { CategoryForm } from './components/newCategory/CategoryForm';
-import { Form } from './components/form/LoginAndRegisterForm';
-import TestRedux from './components/test-Redux-functions/testRedux';
-import { AddNewProduct } from './components/addNewProduct/AddNewProduct';
+import { Grid, GridItem, Show } from '@chakra-ui/react';
+import Footer from './components/footer/Footer';
+import Navbar from './components/navbar/Navbar';
+import { Hero } from './components/hero/Hero';
 
 function App() {
   return (
-    <MainLayout>
-      <Toaster
-        toastOptions={{
-          style: {
-            fontSize: '22px',
-            border: '1px solid #713200',
-            padding: '30px',
-            color: '#713200',
-          },
-        }}
-      />
-      <Routes>
-        <Route path='/' element={<CategoriesList />} />
-        <Route path='/:categoryName' element={<ProductsList />} />
-        <Route path='/:categoryName/:productName' element={<ProductCard />} />
-        <Route path='/addCategory' element={<CategoryForm />} />
-        <Route path='/auth' element={<Form />} />
-        <Route path='addProduct' element={<AddNewProduct />} />
-        <Route path='/test-redux' element={<TestRedux />} />
-      </Routes>
-    </MainLayout>
+    <Grid
+      templateAreas={{
+        base: `"nav" "hero" "footer"`,
+        lg: `"nav nav" "aside hero" "footer footer"`,
+      }}
+      templateColumns={{
+        base: '100% 1fr',
+        lg: '300px 1fr',
+      }}
+      sx={{
+        maxWidth: '1170px',
+        width: '100%',
+        margin: '0 auto',
+      }}
+    >
+      <GridItem area="nav" height="120px" marginLeft="300px">
+        <Navbar />
+      </GridItem>
+      <GridItem
+        area="hero"
+        bg="blue"
+        minHeight="100%"
+        maxHeight="100%"
+        bgColor={'#0A192F'}
+      >
+        <Hero />
+      </GridItem>
+      <Show above="lg">
+        <GridItem
+          area="aside"
+          bg="gold"
+          sx={{ display: { base: 'none', lg: 'block' } }}
+        >
+          Aside
+        </GridItem>
+      </Show>
+      <GridItem area="footer" bg="red" height="120px">
+        <Footer />
+      </GridItem>
+    </Grid>
   );
 }
-
 export default App;
