@@ -32,7 +32,7 @@ const Navbar = () => {
     <>
       <HStack style={navbarStyles}>
         {isLg && <Box width='300px' />}
-        <Image src={group1} />
+        <Image src={group1} alt="OrderlyAI app logo" />
         <Link to='/' style={{ textDecoration: 'none' }}>
           <Text color='#64ffda' fontSize='xl'>
             Orderly AI
