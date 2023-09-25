@@ -3,16 +3,15 @@ import group1 from '@assets/group1.svg';
 import group2 from '@assets/group2.svg';
 import { Link } from 'react-router-dom';
 import {
-  HStack,
   Image,
   Text,
   Box,
   useBreakpointValue,
   IconButton,
   useDisclosure,
+  Flex,
 } from '@chakra-ui/react';
 import GenericButton from '@buttons/GenericButton';
-import { navbarStyles } from './NavbarStyles';
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import MobileMenu from './MobileMenu';
@@ -28,18 +27,29 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const exportDialog = useDisclosure();
 
-  const isTokenAvailable = token != null;
-
   return (
     <>
-      <HStack style={navbarStyles}>
-        {isLg && <Box width='300px' />}
-        <Image src={group1} alt='OrderlyAI app logo' />
-        <Link to='/' style={{ textDecoration: 'none' }}>
-          <Text color='#64ffda' fontSize='xl'>
-            Orderly AI
-          </Text>
-        </Link>
+      <Flex
+        width='100%'
+        maxW='1170px'
+        align='center'
+        justify='space-between'
+        h='100%'
+      >
+        <Box>
+          <Flex
+            as={Link}
+            to='/'
+            style={{ textDecoration: 'none' }}
+            gap={4}
+            align='center'
+          >
+            <Image src={group1} alt='OrderlyAI app logo' />
+            <Text color='#64ffda' fontSize='xl'>
+              Orderly AI
+            </Text>
+          </Flex>
+        </Box>
         {isLg ? (
           <>
             {location.pathname === '/' && (
@@ -49,25 +59,28 @@ const Navbar = () => {
                 icon={group2}
               />
             )}
-            {isTokenAvailable && (
+            <Flex gap={4} align='center'>
               <GenericButton
                 size='small'
                 label='EXPORT'
                 backgroundColor='rgba(217, 217, 217, 0.15)'
+                onClick={exportDialog.onOpen}
               />
-            )}
-            {isTokenAvailable && (
-              <GenericButton size='small' label='IMPORT' onClick={onOpen} />
-            )}
-            <FileImportModal isOpen={isOpen} onClose={onClose} />
+              <FileExportAlert
+                isOpen={exportDialog.isOpen}
+                onClose={exportDialog.onClose}
+              />
 
-            {token != null ? (
-              <DropdownMenu onClose={onClose} />
-            ) : (
-              <Text color='#64ffda' as={Link} to='/auth'>
-                LOG IN
-              </Text>
-            )}
+              <GenericButton size='small' label='IMPORT' onClick={onOpen} />
+              <FileImportModal isOpen={isOpen} onClose={onClose} />
+              {token != null ? (
+                <DropdownMenu onClose={onClose} />
+              ) : (
+                <Text color='#64ffda' as={Link} to='/auth'>
+                  LOG IN
+                </Text>
+              )}
+            </Flex>
           </>
         ) : (
           <IconButton
@@ -77,7 +90,7 @@ const Navbar = () => {
             color='#64ffda'
           />
         )}
-      </HStack>
+      </Flex>
 
       <MobileMenu isOpen={isNavOpen} onClose={() => setIsNavOpen(false)} />
     </>
