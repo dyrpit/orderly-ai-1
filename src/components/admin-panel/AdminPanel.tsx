@@ -1,6 +1,6 @@
 import { useAppSelector } from '@/redux/hooks';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { RootState } from '../../redux/store';
 import {
   Accordion,
@@ -30,7 +30,8 @@ const AdminPanel = () => {
       products: state.products
     }));
     const [userData, setUserData] = useState<TUser[]>();
-    const navigate = useNavigate();
+    const [rerender, setRerender] = useState(false);
+
     const { onToggle } = useDisclosure();
     const token: string | null = sessionStorage.getItem('token');
     let userId: number | null;
@@ -48,10 +49,7 @@ const AdminPanel = () => {
     const updateData = async (userId: number, role: string) => {
       await updateUser(userId, role).then((res) => {
         console.log(res.data);
-        setTimeout(() => {
-          navigate('/');
-          window.location.reload();
-        }, 500);
+        setRerender(!rerender);
         toast.success('User updated successfully!');
       }).catch((err) => {
         throw new Error(err);
@@ -65,10 +63,7 @@ const AdminPanel = () => {
         if (response) {
           await removeUser(userId).then((res) => {
             console.log(res.data);
-            setTimeout(() => {
-              navigate('/');
-              window.location.reload();
-            }, 1000);
+            setRerender(!rerender);
             toast.success('User removed successfully!');
           }).catch((err) => {
             throw new Error(err);
@@ -87,7 +82,7 @@ const AdminPanel = () => {
 
     useEffect(() => {
       loadData();
-    }, []);
+    }, [rerender]);
 
     if (!isAdminPanelOpen) return null;
 
