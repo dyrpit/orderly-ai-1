@@ -119,6 +119,7 @@ export const Form = () => {
                 isLogged: true,
                 username: res.data[0].username,
                 role: res.data[0].role,
+                userId: res.data[0].id,
               }),
             );
             console.log('OK');
