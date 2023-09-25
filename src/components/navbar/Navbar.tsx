@@ -18,6 +18,7 @@ import { useState } from 'react';
 import MobileMenu from './MobileMenu';
 import { DropdownMenu } from './DropdownMenu.tsx';
 import { FileImportModal } from '@components/navbar/FileImportModal.tsx';
+import { FileExportAlert } from '@components/navbar/FileExportAlert.tsx';
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -25,6 +26,7 @@ const Navbar = () => {
   const isLg = useBreakpointValue({ base: false, lg: true });
   const token: string | null = sessionStorage.getItem('token');
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const exportDialog = useDisclosure();
 
   const isTokenAvailable = token != null;
 
@@ -32,7 +34,7 @@ const Navbar = () => {
     <>
       <HStack style={navbarStyles}>
         {isLg && <Box width='300px' />}
-        <Image src={group1} />
+        <Image src={group1} alt='OrderlyAI app logo' />
         <Link to='/' style={{ textDecoration: 'none' }}>
           <Text color='#64ffda' fontSize='xl'>
             Orderly AI
