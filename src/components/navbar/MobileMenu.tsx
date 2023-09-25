@@ -15,6 +15,7 @@ import group2 from '@assets/group2.svg';
 import { Link } from 'react-router-dom';
 import { DropdownMenu } from './DropdownMenu.tsx';
 import { FileImportModal } from '@components/navbar/FileImportModal.tsx';
+import { FileExportAlert } from '@components/navbar/FileExportAlert.tsx';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -23,7 +24,8 @@ interface MobileMenuProps {
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
   const token: string | null = sessionStorage.getItem('token');
-  const modal = useDisclosure();
+  const importModal = useDisclosure();
+  const exportDialog = useDisclosure();
 
   return (
     <Drawer placement='right' onClose={onClose} isOpen={isOpen}>
@@ -37,18 +39,27 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               size='large'
               label='Generate APP with chatGPT'
               icon={group2}
+              onClick={onClose}
             />
-            <GenericButton size='small' label='EXPORT' isMobile />
+            <GenericButton size='small' label='EXPORT' isMobile onClick={exportDialog.onOpen}/>
+
+            <FileExportAlert
+              isOpen={exportDialog.isOpen}
+              onClose={() => {
+                exportDialog.onClose();
+                onClose();
+              }}/>
+
             <GenericButton
               size='small'
               label='IMPORT'
               isMobile
-              onClick={modal.onOpen}
+              onClick={importModal.onOpen}
             />
             <FileImportModal
-              isOpen={modal.isOpen}
+              isOpen={importModal.isOpen}
               onClose={() => {
-                modal.onClose();
+                importModal.onClose();
                 onClose();
               }}
             />
@@ -56,7 +67,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
             {token != null ? (
               <DropdownMenu />
             ) : (
-              <Text color='#64ffda' as={Link} to='/auth'>
+              <Text color='#64ffda' as={Link} to='/auth' onClick={onClose}>
                 LOG IN
               </Text>
             )}

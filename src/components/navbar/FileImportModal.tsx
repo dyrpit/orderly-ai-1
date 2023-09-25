@@ -38,9 +38,12 @@ export const FileImportModal = ({ isOpen, onClose }: InputFileModalProps) => {
     if (fileValue) {
       reader.readAsText(fileValue);
       reader.onload = function () {
-        const data: TData = JSON.parse(reader.result);
-        dispatch(fetchCategories(data.categories));
-        dispatch(fetchProducts(data.products));
+
+        if (typeof reader.result === 'string') {
+          const data: TData = JSON.parse(reader.result);
+          dispatch(fetchCategories(data.categories));
+          dispatch(fetchProducts(data.products));
+        }
       };
 
       reader.onerror = function () {

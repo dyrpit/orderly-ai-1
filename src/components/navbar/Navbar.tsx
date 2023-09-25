@@ -18,7 +18,7 @@ import { useState } from 'react';
 import MobileMenu from './MobileMenu';
 import { DropdownMenu } from './DropdownMenu.tsx';
 import { FileImportModal } from '@components/navbar/FileImportModal.tsx';
-import { FileExport } from '@components/navbar/FileExport.tsx';
+import { FileExportAlert } from '@components/navbar/FileExportAlert.tsx';
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -26,7 +26,7 @@ const Navbar = () => {
   const isLg = useBreakpointValue({ base: false, lg: true });
   const token: string | null = sessionStorage.getItem('token');
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const modal1 = useDisclosure();
+  const exportDialog = useDisclosure();
 
   return (
     <>
@@ -51,9 +51,9 @@ const Navbar = () => {
               size='small'
               label='EXPORT'
               backgroundColor='rgba(217, 217, 217, 0.15)'
-              onClick={modal1.onOpen}
+              onClick={exportDialog.onOpen}
             />
-            <FileExport isOpen={modal1.isOpen} onClose={modal1.onClose}/>
+            <FileExportAlert isOpen={exportDialog.isOpen} onClose={exportDialog.onClose}/>
 
             <GenericButton size='small' label='IMPORT' onClick={onOpen} />
             <FileImportModal isOpen={isOpen} onClose={onClose} />

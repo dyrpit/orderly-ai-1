@@ -17,7 +17,7 @@ interface FileExportProps {
   onClose: () => void;
 }
 
-export const FileExport = ({ isOpen, onClose }: FileExportProps) => {
+export const FileExportAlert = ({ isOpen, onClose }: FileExportProps) => {
   const cancelRef = React.useRef<HTMLButtonElement>(null);
   const categories = useAppSelector((state) => state.categories);
   const products = useAppSelector((state) => state.products);
@@ -28,8 +28,9 @@ export const FileExport = ({ isOpen, onClose }: FileExportProps) => {
   };
 
   const exportData = () => {
-    const currDate = new Date();
+    onClose();
 
+    const currDate = new Date();
     const dataToExport: string = JSON.stringify(categoriesWithProducts);
     const blob = new Blob([dataToExport], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
