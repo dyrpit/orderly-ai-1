@@ -11,6 +11,7 @@ import {
   Button
 } from '@chakra-ui/react';
 import { colors } from '@/theme.ts';
+import toast from 'react-hot-toast';
 
 interface FileExportProps {
   isOpen: boolean;
@@ -38,6 +39,8 @@ export const FileExportAlert = ({ isOpen, onClose }: FileExportProps) => {
     link.download = `orderdly-ai-${currDate.toISOString()}.json`;
     link.href = url;
     link.click();
+
+    toast.success("Content successfully exported!");
   };
 
   return (
