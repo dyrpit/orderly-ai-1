@@ -9,7 +9,7 @@ import {
   Box,
   useBreakpointValue,
   IconButton,
-  useDisclosure
+  useDisclosure,
 } from '@chakra-ui/react';
 import GenericButton from '@buttons/GenericButton';
 import { navbarStyles } from './NavbarStyles';
@@ -18,8 +18,7 @@ import { useState } from 'react';
 import MobileMenu from './MobileMenu';
 import { DropdownMenu } from './DropdownMenu.tsx';
 import { FileImportModal } from '@components/navbar/FileImportModal.tsx';
-import data from '@data/data.json';
-import { FileExport } from '@components/navbar/FileExport.tsx';
+import { FileExportAlert } from '@components/navbar/FileExportAlert.tsx';
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -27,13 +26,13 @@ const Navbar = () => {
   const isLg = useBreakpointValue({ base: false, lg: true });
   const token: string | null = sessionStorage.getItem('token');
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const modal1 = useDisclosure();
+  const exportDialog = useDisclosure();
 
   return (
     <>
       <HStack style={navbarStyles}>
         {isLg && <Box width='300px' />}
-        <Image src={group1} />
+        <Image src={group1} alt='OrderlyAI app logo' />
         <Link to='/' style={{ textDecoration: 'none' }}>
           <Text color='#64ffda' fontSize='xl'>
             Orderly AI
@@ -52,9 +51,12 @@ const Navbar = () => {
               size='small'
               label='EXPORT'
               backgroundColor='rgba(217, 217, 217, 0.15)'
-              onClick={modal1.onOpen}
+              onClick={exportDialog.onOpen}
             />
-            <FileExport isOpen={modal1.isOpen} onClose={modal1.onClose}/>
+            <FileExportAlert
+              isOpen={exportDialog.isOpen}
+              onClose={exportDialog.onClose}
+            />
 
             <GenericButton size='small' label='IMPORT' onClick={onOpen} />
             <FileImportModal isOpen={isOpen} onClose={onClose} />
