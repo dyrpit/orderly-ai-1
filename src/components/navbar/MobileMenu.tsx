@@ -54,9 +54,16 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
             />
 
             {token != null ? (
-              <DropdownMenu />
+              <DropdownMenu onClose={onClose} />
             ) : (
-              <Text color='#64ffda' as={Link} to='/auth'>
+              <Text
+                color='#64ffda'
+                as={Link}
+                to='/auth'
+                onClick={() => {
+                  onClose();
+                }}
+              >
                 LOG IN
               </Text>
             )}
