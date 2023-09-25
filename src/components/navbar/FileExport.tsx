@@ -3,16 +3,31 @@ import {
   AlertDialog, AlertDialogBody, AlertDialogCloseButton,
   AlertDialogContent, AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogOverlay, Button,
+  AlertDialogOverlay, Button
 } from '@chakra-ui/react';
+import { colors } from '@/theme.ts';
+import data from '@data/data.json';
 
 interface FileExportProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const FileExport = ({  isOpen, onClose  }: FileExportProps) => {
-  const cancelRef = React.useRef()
+export const FileExport = ({ isOpen, onClose }: FileExportProps) => {
+  const cancelRef = React.useRef();
+  const exportData = () => {
+    console.log(data);
+    const currDate = new Date();
+
+    const dataToExport: string = JSON.stringify(data);
+    const blob = new Blob([dataToExport], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.download = `orderdly-ai-${currDate.toISOString()}.json`;
+    link.href = url;
+    link.click();
+  };
+
 
   return (
     <>
@@ -25,17 +40,16 @@ export const FileExport = ({  isOpen, onClose  }: FileExportProps) => {
         <AlertDialogOverlay />
 
         <AlertDialogContent>
-          <AlertDialogHeader>Discard Changes?</AlertDialogHeader>
-          <AlertDialogCloseButton />
-          <AlertDialogBody>
-            Are you sure you want to discard all of your notes? 44 words will be
-            deleted.
+          <AlertDialogHeader color={colors.white}>Export data?</AlertDialogHeader>
+          <AlertDialogCloseButton color={colors.white} />
+          <AlertDialogBody color={colors.white}>
+            Are you sure you want to export data from store?
           </AlertDialogBody>
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={onClose}>
               No
             </Button>
-            <Button colorScheme='red' ml={3}>
+            <Button colorScheme='green' ml={3} onClick={exportData}>
               Yes
             </Button>
           </AlertDialogFooter>
@@ -44,3 +58,5 @@ export const FileExport = ({  isOpen, onClose  }: FileExportProps) => {
     </>
   );
 };
+
+
