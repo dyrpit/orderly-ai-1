@@ -1,6 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
+import thunk from 'redux-thunk';
 import categoriesReducer from './features/categories/categoriesSlice';
 import productsReducer from './features/products/productsSlice';
 import adminPanelReducer from './features/adminPanel/adminPanelSlice';
@@ -10,16 +11,18 @@ const persistConfig = {
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, adminPanelReducer);
+const rootReducer = combineReducers({
+  categories: categoriesReducer,
+  products: productsReducer,
+  adminPanel: adminPanelReducer,
+});
+
+const persistedReducers = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    categories: categoriesReducer,
-    products: productsReducer,
-    // users: usersReducer,
-    adminPanel: persistedReducer,
-  },
+  reducer: persistedReducers,
   devTools: true,
+  middleware: [thunk],
 });
 
 export const persistor = persistStore(store);
