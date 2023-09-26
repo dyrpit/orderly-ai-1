@@ -35,7 +35,6 @@ export const DropdownMenu = ({ onClose }: { onClose: () => void }) => {
 
   const toggleAdminPanelHandler = () => {
     dispatch(toggleAdminPanel());
-    onClose();
   };
 
   return (
