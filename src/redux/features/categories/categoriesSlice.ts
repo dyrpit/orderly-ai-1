@@ -60,7 +60,7 @@ export const categoriesSlice = createSlice({
       state = [action.payload, ...state];
       return state;
     },
-    fetchCategories: (state, action: PayloadAction<TCategory[]>) => {
+    fetchCategories: (_state, action: PayloadAction<TCategory[]>) => {
       return [...action.payload];
     },
   },

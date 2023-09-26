@@ -327,7 +327,7 @@ export const productsSlice = createSlice({
         (product) => product.category !== action.payload.category,
       );
     },
-    fetchProducts: (state, action: PayloadAction<TProduct[]>) => {
+    fetchProducts: (_state, action: PayloadAction<TProduct[]>) => {
       return [...action.payload];
     },
   },
