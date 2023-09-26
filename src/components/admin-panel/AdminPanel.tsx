@@ -10,6 +10,7 @@ import {
   AccordionIcon,
   Box,
   VStack,
+  Text,
   Select,
   useDisclosure,
 } from '@chakra-ui/react';
@@ -104,31 +105,37 @@ export const AdminPanel = () => {
       minW={{ base: '100%', md: '350px' }}
       overflowY={{ base: 'hidden', md: 'scroll' }}
       paddingLeft={{ base: 0, md: 4 }}
+      paddingY={4}
+      gap={3}
       sx={{
         '&::-webkit-scrollbar': {
           width: '4px',
         },
+
         '&::-webkit-scrollbar-track': {
           width: '6px',
         },
+
         '&::-webkit-scrollbar-thumb': {
           background: 'text.primary',
+
           borderRadius: '24px',
         },
       }}
     >
-      <Box color='white'>
-        <Link to={'/addCategory'}>Create New Category</Link>
-      </Box>
-      <Box color='white'>
-        <Link to={'/addProduct'}>Add product</Link>
-      </Box>
+      <Text color='white' pl={4} as={Link} to={'/addCategory'}>
+        Create New Category
+      </Text>
+      <Text color='white' pl={4} as={Link} to={'/addProduct'}>
+        Add product
+      </Text>
       <Accordion allowMultiple>
         {data.categories.map((category) => (
           <AccordionItem key={category.id}>
             <h2>
               <AccordionButton onClick={onToggle}>
                 <Box
+                  textTransform='capitalize'
                   style={adminPanelStyles}
                   as='span'
                   flex='1'
@@ -157,51 +164,62 @@ export const AdminPanel = () => {
           </AccordionItem>
         ))}
       </Accordion>
-      <h2 style={{ margin: '5% 5% 0 5%', color: '#64FFDA' }}>Users</h2>
-      {userData
-        ?.filter((user) => user.id !== userId)
-        .map((user) => (
-          <Flex
-            key={user.id}
-            marginY='5px'
-            paddingX='5%'
-            paddingY='5px'
-            justifyContent='space-between'
-            alignItems='center'
-          >
-            <Flex color={'white'} gap='10px'>
-              <DeleteIcon
-                _hover={{ cursor: 'pointer' }}
-                onClick={() => removeData(user.id)}
-              />
-              <h2>{user.username}</h2>
+      <Text pt={4} pl={4} fontSize='xl' color='white'>
+        Users
+      </Text>
+
+      <Flex direction='column' gap={4}>
+        {userData
+
+          ?.filter((user) => user.id !== userId)
+
+          .map((user) => (
+            <Flex
+              key={user.id}
+              paddingX={4}
+              justifyContent='space-between'
+              alignItems='center'
+            >
+              <Flex color='white' gap={4} align='center'>
+                <DeleteIcon
+                  _hover={{ cursor: 'pointer' }}
+                  onClick={() => removeData(user.id)}
+                />
+
+                <Text fontSize={18} color='text.secondary'>
+                  {user.username}
+                </Text>
+              </Flex>
+
+              <Box>
+                <Select
+                  placeholder='Select role'
+                  color={'white'}
+                  _hover={{ cursor: 'pointer' }}
+                  onChange={(e) => handleChange(e, user.id)}
+                >
+                  {user.role === 'admin' ? (
+                    <>
+                      <option value='admin' disabled>
+                        admin
+                      </option>
+
+                      <option value='regular'>regular</option>
+                    </>
+                  ) : (
+                    <>
+                      <option value='admin'>admin</option>
+
+                      <option value='regular' disabled>
+                        regular
+                      </option>
+                    </>
+                  )}
+                </Select>
+              </Box>
             </Flex>
-            <Box>
-              <Select
-                placeholder='Select role'
-                color={'white'}
-                onChange={(e) => handleChange(e, user.id)}
-              >
-                {user.role === 'admin' ? (
-                  <>
-                    <option value='admin' disabled>
-                      admin
-                    </option>
-                    <option value='regular'>regular</option>
-                  </>
-                ) : (
-                  <>
-                    <option value='admin'>admin</option>
-                    <option value='regular' disabled>
-                      regular
-                    </option>
-                  </>
-                )}
-              </Select>
-            </Box>
-          </Flex>
-        ))}
-      ;
+          ))}
+      </Flex>
     </Flex>
   );
 };
