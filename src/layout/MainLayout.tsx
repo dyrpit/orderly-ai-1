@@ -1,8 +1,8 @@
 import { Box, Flex } from '@chakra-ui/react';
-import Navbar from '@/components/navbar/Navbar';
+import { Navbar } from '@/components/navbar/Navbar';
 import { Breadcrumb } from '@/components/hero/Breadcrumb';
-import AdminPanel from '@/components/admin-panel/AdminPanel';
-import Footer from '@/components/footer/Footer';
+import { AdminPanel } from '@/components/admin-panel/AdminPanel';
+import { Footer } from '@/components/footer/Footer';
 
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
