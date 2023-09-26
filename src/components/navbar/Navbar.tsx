@@ -27,7 +27,7 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const exportDialog = useDisclosure();
   const isLogged = useAppSelector((state) => state.user.isUserLoggedIn);
-
+  const token = sessionStorage.getItem("token");
   const isTokenAvailable = token != null;
 
   return (
@@ -70,25 +70,16 @@ const Navbar = () => {
                 backgroundColor='rgba(217, 217, 217, 0.15)'
                 onClick={exportDialog.onOpen}
               />
-              <FileExportAlert
-                isOpen={exportDialog.isOpen}
-                onClose={exportDialog.onClose}
-              />
-
-              <GenericButton size='small' label='IMPORT' onClick={onOpen} />
-              <FileImportModal isOpen={isOpen} onClose={onClose} />
-
-            {isLogged ? (
-              <DropdownMenu />
-              />
             )}
+            <FileExportAlert isOpen={exportDialog.isOpen} onClose={exportDialog.onClose}/>
+
             {isTokenAvailable && (
               <GenericButton size='small' label='IMPORT' onClick={onOpen} />
             )}
             <FileImportModal isOpen={isOpen} onClose={onClose} />
 
-            {token != null ? (
-              <DropdownMenu onClose={onClose} />
+            {isLogged ? (
+              <DropdownMenu onClose={onClose}/>
             ) : (
               <Text color='#64ffda' as={Link} to='/auth'>
                 LOG IN
@@ -110,4 +101,5 @@ const Navbar = () => {
     </>
   );
 };
+
 export default Navbar;

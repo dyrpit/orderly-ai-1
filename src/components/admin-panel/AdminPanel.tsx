@@ -32,11 +32,6 @@ const AdminPanel = () => {
   }));
   const [userData, setUserData] = useState<TUser[]>();
   const [rerender, setRerender] = useState(false);
-
-  const { onToggle } = useDisclosure();
-  const token: string | null = sessionStorage.getItem('token');
-  let userId: number | null;
-
   const { onToggle } = useDisclosure();
   const token: string | null = sessionStorage.getItem('token');
   let userId: number | null;
