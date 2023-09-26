@@ -18,14 +18,15 @@ import MobileMenu from './MobileMenu';
 import { DropdownMenu } from './DropdownMenu.tsx';
 import { FileImportModal } from '@components/navbar/FileImportModal.tsx';
 import { FileExportAlert } from '@components/navbar/FileExportAlert.tsx';
+import { useAppSelector } from '@/redux/hooks.ts';
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const location = useLocation();
   const isLg = useBreakpointValue({ base: false, lg: true });
-  const token: string | null = sessionStorage.getItem('token');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const exportDialog = useDisclosure();
+  const isLogged = useAppSelector((state) => state.user.isUserLoggedIn);
 
   return (
     <>
@@ -73,8 +74,9 @@ const Navbar = () => {
 
               <GenericButton size='small' label='IMPORT' onClick={onOpen} />
               <FileImportModal isOpen={isOpen} onClose={onClose} />
-              {token != null ? (
-                <DropdownMenu onClose={onClose} />
+
+              {isLogged ? (
+                <DropdownMenu />
               ) : (
                 <Text color='#64ffda' as={Link} to='/auth'>
                   LOG IN

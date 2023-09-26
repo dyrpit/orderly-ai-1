@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { dropdownStyles } from './DropdownStyles.ts';
 import { colors } from '@/theme.ts';
+import { setUnLoggedUser } from '@/redux/features/user/userSlice.ts';
 
 export const DropdownMenu = ({ onClose }: { onClose: () => void }) => {
   const dispatch = useAppDispatch();
@@ -27,11 +28,8 @@ export const DropdownMenu = ({ onClose }: { onClose: () => void }) => {
   const logout = () => {
     isAdminPanelOpen && toggleAdminPanelHandler();
     sessionStorage.removeItem('token');
-
-    setTimeout(() => {
-      navigate('/');
-      window.location.reload();
-    }, 2000);
+    dispatch(setUnLoggedUser());
+    navigate('/');
     toast.success('Logged out successfully!');
   };
 
