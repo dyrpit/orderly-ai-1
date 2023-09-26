@@ -22,7 +22,7 @@ import { Flex } from '@chakra-ui/layout';
 import toast from 'react-hot-toast';
 import { DeleteIcon } from '@chakra-ui/icons';
 
-const AdminPanel = () => {
+export const AdminPanel = () => {
   const isAdminPanelOpen = useAppSelector(
     (state) => state.adminPanel.isAdminPanelOpen,
   );
@@ -32,6 +32,7 @@ const AdminPanel = () => {
   }));
   const [userData, setUserData] = useState<TUser[]>();
   const [rerender, setRerender] = useState(false);
+
   const { onToggle } = useDisclosure();
   const token: string | null = sessionStorage.getItem('token');
   let userId: number | null;
@@ -204,4 +205,3 @@ const AdminPanel = () => {
     </Flex>
   );
 };
-export default AdminPanel;
