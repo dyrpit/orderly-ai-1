@@ -28,6 +28,8 @@ const Navbar = () => {
   const exportDialog = useDisclosure();
   const isLogged = useAppSelector((state) => state.user.isUserLoggedIn);
 
+  const isTokenAvailable = token != null;
+
   return (
     <>
       <Flex
@@ -61,6 +63,7 @@ const Navbar = () => {
               />
             )}
             <Flex gap={4} align='center'>
+            {isTokenAvailable && (
               <GenericButton
                 size='small'
                 label='EXPORT'
@@ -77,6 +80,15 @@ const Navbar = () => {
 
             {isLogged ? (
               <DropdownMenu />
+              />
+            )}
+            {isTokenAvailable && (
+              <GenericButton size='small' label='IMPORT' onClick={onOpen} />
+            )}
+            <FileImportModal isOpen={isOpen} onClose={onClose} />
+
+            {token != null ? (
+              <DropdownMenu onClose={onClose} />
             ) : (
               <Text color='#64ffda' as={Link} to='/auth'>
                 LOG IN
