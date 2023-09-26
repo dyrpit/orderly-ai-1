@@ -13,11 +13,6 @@ export const Breadcrumb = () => {
     (state) => state.adminPanel.isAdminPanelOpen,
   );
 
-  const token: string | null = sessionStorage.getItem('token');
-  const role = token !== null && JSON.parse(token).role;
-  const isRegular = role === 'regular';
-  const isAdmin = role === 'admin';
-
   const transformUrlToBreadcrumb = (websiteUrl: string): string[] => {
     return websiteUrl.split('/').filter((p) => p.length);
   };
@@ -26,9 +21,8 @@ export const Breadcrumb = () => {
     setBreadcrumbNavItems(transformUrlToBreadcrumb(location.pathname));
   }, [location]);
 
-  if (location.pathname === '/auth' || location.pathname.includes('/admin'))
-    return null;
-  if (isAdmin && isAdminPanelOpen) return null;
+  if (location.pathname === '/auth') return null;
+  if (isAdminPanelOpen) return null;
 
   return (
     <Flex

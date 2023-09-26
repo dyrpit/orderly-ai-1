@@ -1,21 +1,23 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Flex, Text } from '@chakra-ui/react';
 
-const Footer = () => {
-	const currentDate = new Date();
-	const currentYear = currentDate.getFullYear(); 
+export const Footer = () => {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
 
-	return (
-		<Box as="footer">
-			<Flex
-				height='120px'
-				bg='bg.primary'
-				color='text.secondary'
-				align='center'
-				justify='center'>
-				<Text>© This is the POC for the best app of the world !! | {currentYear}</Text>
-			</Flex>
-		</Box>
-	);
+  return (
+    <Flex
+      as='footer'
+      bg='bg.primary'
+      color='text.secondary'
+      align='center'
+      justify='center'
+      width={{ base: '100%', md: '1170px' }}
+      h='100%'
+      px={4}
+    >
+      <Text textAlign='center'>
+        © This is the POC for the best app of the world !! | {currentYear}
+      </Text>
+    </Flex>
+  );
 };
-
-export default Footer;

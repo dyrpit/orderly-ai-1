@@ -11,7 +11,7 @@ import {
   Box,
   VStack,
   Select,
-  useDisclosure
+  useDisclosure,
 } from '@chakra-ui/react';
 import { adminPanelStyles } from './AdminPanelStyles';
 
@@ -22,16 +22,17 @@ import { Flex } from '@chakra-ui/layout';
 import toast from 'react-hot-toast';
 import { DeleteIcon } from '@chakra-ui/icons';
 
-const AdminPanel = () => {
+export const AdminPanel = () => {
   const isAdminPanelOpen = useAppSelector(
-    (state) => state.adminPanel.isAdminPanelOpen
+    (state) => state.adminPanel.isAdminPanelOpen,
   );
   const data = useSelector((state: RootState) => ({
     categories: state.categories,
-    products: state.products
+    products: state.products,
   }));
   const [userData, setUserData] = useState<TUser[]>();
   const [rerender, setRerender] = useState(false);
+
   const { onToggle } = useDisclosure();
   const token: string | null = sessionStorage.getItem('token');
   let userId: number | null;
@@ -80,7 +81,10 @@ const AdminPanel = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>, userId: number | undefined) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+    userId: number | undefined,
+  ) => {
     if (userId) {
       updateData(userId, e.target.value);
     }
@@ -93,7 +97,26 @@ const AdminPanel = () => {
   if (!isAdminPanelOpen) return null;
 
   return (
-    <div>
+    <Flex
+      direction='column'
+      minH='100%'
+      justifyContent='space-between'
+      minW={{ base: '100%', md: '350px' }}
+      overflowY={{ base: 'hidden', md: 'scroll' }}
+      paddingLeft={{ base: 0, md: 4 }}
+      sx={{
+        '&::-webkit-scrollbar': {
+          width: '4px',
+        },
+        '&::-webkit-scrollbar-track': {
+          width: '6px',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          background: 'text.primary',
+          borderRadius: '24px',
+        },
+      }}
+    >
       <Box color='white'>
         <Link to={'/addCategory'}>Create New Category</Link>
       </Box>
@@ -120,7 +143,7 @@ const AdminPanel = () => {
               <VStack color='white' align='stretch'>
                 {data.products
                   .filter(
-                    (product) => product.category === category.categoryName
+                    (product) => product.category === category.categoryName,
                   )
                   .map((product) => (
                     <Box key={product.id}>
@@ -179,7 +202,6 @@ const AdminPanel = () => {
           </Flex>
         ))}
       ;
-    </div>
+    </Flex>
   );
 };
-export default AdminPanel;

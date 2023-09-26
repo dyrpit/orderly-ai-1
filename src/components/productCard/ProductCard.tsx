@@ -39,7 +39,7 @@ export const ProductCard = () => {
       bg='bg.secondary'
       minH='300px'
       borderRadius='xl'
-      direction={{ base: 'column', md: 'row-reverse' }}
+      direction={{ base: 'column', lg: 'row-reverse' }}
       align='center'
       justify='center'
       overflow='hidden'
