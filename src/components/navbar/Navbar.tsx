@@ -20,15 +20,13 @@ import { FileImportModal } from '@components/navbar/FileImportModal.tsx';
 import { FileExportAlert } from '@components/navbar/FileExportAlert.tsx';
 import { useAppSelector } from '@/redux/hooks.ts';
 
-const Navbar = () => {
+export const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const location = useLocation();
   const isLg = useBreakpointValue({ base: false, lg: true });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const exportDialog = useDisclosure();
   const isLogged = useAppSelector((state) => state.user.isUserLoggedIn);
-  const token = sessionStorage.getItem("token");
-  const isTokenAvailable = token != null;
 
   return (
     <>
@@ -63,29 +61,35 @@ const Navbar = () => {
               />
             )}
             <Flex gap={4} align='center'>
-            {isTokenAvailable && (
-              <GenericButton
-                size='small'
-                label='EXPORT'
-                backgroundColor='rgba(217, 217, 217, 0.15)'
-                onClick={exportDialog.onOpen}
+              {isLogged && (
+                <>
+                  <GenericButton
+                    size='small'
+                    label='EXPORT'
+                    backgroundColor='rgba(217, 217, 217, 0.15)'
+                    onClick={exportDialog.onOpen}
+                  />
+                </>
+              )}
+              <FileExportAlert
+                isOpen={exportDialog.isOpen}
+                onClose={exportDialog.onClose}
               />
-            )}
-            <FileExportAlert isOpen={exportDialog.isOpen} onClose={exportDialog.onClose}/>
 
-            {isTokenAvailable && (
-              <GenericButton size='small' label='IMPORT' onClick={onOpen} />
-            )}
-            <FileImportModal isOpen={isOpen} onClose={onClose} />
+              {isLogged && (
+                <GenericButton size='small' label='IMPORT' onClick={onOpen} />
+              )}
+              <FileImportModal isOpen={isOpen} onClose={onClose} />
 
-            {isLogged ? (
-              <DropdownMenu onClose={onClose}/>
-            ) : (
-              <Text color='#64ffda' as={Link} to='/auth'>
-                LOG IN
-              </Text>
-            )}
-            <Flex />
+              {isLogged ? (
+                <DropdownMenu onClose={onClose} />
+              ) : (
+                <Text color='#64ffda' as={Link} to='/auth'>
+                  LOG IN
+                </Text>
+              )}
+              <Flex />
+            </Flex>
           </>
         ) : (
           <IconButton
@@ -96,10 +100,7 @@ const Navbar = () => {
           />
         )}
       </Flex>
-
       <MobileMenu isOpen={isNavOpen} onClose={() => setIsNavOpen(false)} />
     </>
   );
 };
-
-export default Navbar;
