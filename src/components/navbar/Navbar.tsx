@@ -18,19 +18,24 @@ import { useState } from 'react';
 import MobileMenu from './MobileMenu';
 import { DropdownMenu } from './DropdownMenu.tsx';
 import { FileImportModal } from '@components/navbar/FileImportModal.tsx';
+import { FileExportAlert } from '@components/navbar/FileExportAlert.tsx';
+import { useAppSelector } from '@/redux/hooks.ts';
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const location = useLocation();
   const isLg = useBreakpointValue({ base: false, lg: true });
-  const token: string | null = sessionStorage.getItem('token');
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const exportDialog = useDisclosure();
+  const isLogged = useAppSelector((state) => state.user.isUserLoggedIn);
+  const token = sessionStorage.getItem("token");
+  const isTokenAvailable = token != null;
 
   return (
     <>
       <HStack style={navbarStyles}>
         {isLg && <Box width='300px' />}
-        <Image src={group1} />
+        <Image src={group1} alt='OrderlyAI app logo' />
         <Link to='/' style={{ textDecoration: 'none' }}>
           <Text color='#64ffda' fontSize='xl'>
             Orderly AI
@@ -45,16 +50,23 @@ const Navbar = () => {
                 icon={group2}
               />
             )}
-            <GenericButton
-              size='small'
-              label='EXPORT'
-              backgroundColor='rgba(217, 217, 217, 0.15)'
-            />
-            <GenericButton size='small' label='IMPORT' onClick={onOpen} />
+            {isTokenAvailable && (
+              <GenericButton
+                size='small'
+                label='EXPORT'
+                backgroundColor='rgba(217, 217, 217, 0.15)'
+                onClick={exportDialog.onOpen}
+              />
+            )}
+            <FileExportAlert isOpen={exportDialog.isOpen} onClose={exportDialog.onClose}/>
+
+            {isTokenAvailable && (
+              <GenericButton size='small' label='IMPORT' onClick={onOpen} />
+            )}
             <FileImportModal isOpen={isOpen} onClose={onClose} />
 
-            {token != null ? (
-              <DropdownMenu />
+            {isLogged ? (
+              <DropdownMenu onClose={onClose}/>
             ) : (
               <Text color='#64ffda' as={Link} to='/auth'>
                 LOG IN
