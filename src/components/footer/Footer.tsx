@@ -1,6 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
 
-const Footer = () => {
+export const Footer = () => {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
 
@@ -21,5 +21,3 @@ const Footer = () => {
     </Flex>
   );
 };
-
-export default Footer;
