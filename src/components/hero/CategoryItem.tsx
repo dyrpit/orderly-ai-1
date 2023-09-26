@@ -6,7 +6,7 @@ export const CategoryItem = ({ category }: { category: TCategory }) => {
   return (
     <Flex
       as={RouterLink}
-      to={`/${category.href}`}
+      to={`/${category.categoryName}`}
       maxW={{ base: '100%', md: '385px' }}
       minW='100%'
       h='203px'
