@@ -28,7 +28,7 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const exportDialog = useDisclosure();
   const isLogged = useAppSelector((state) => state.user.isUserLoggedIn);
-
+  const token = sessionStorage.getItem("token");
   const isTokenAvailable = token != null;
 
   return (
@@ -55,15 +55,18 @@ const Navbar = () => {
                 size='small'
                 label='EXPORT'
                 backgroundColor='rgba(217, 217, 217, 0.15)'
+                onClick={exportDialog.onOpen}
               />
             )}
+            <FileExportAlert isOpen={exportDialog.isOpen} onClose={exportDialog.onClose}/>
+
             {isTokenAvailable && (
               <GenericButton size='small' label='IMPORT' onClick={onOpen} />
             )}
             <FileImportModal isOpen={isOpen} onClose={onClose} />
 
             {isLogged ? (
-              <DropdownMenu />
+              <DropdownMenu onClose={onClose}/>
             ) : (
               <Text color='#64ffda' as={Link} to='/auth'>
                 LOG IN

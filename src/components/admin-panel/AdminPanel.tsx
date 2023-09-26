@@ -11,7 +11,7 @@ import {
   Box,
   VStack,
   Select,
-  useDisclosure,
+  useDisclosure
 } from '@chakra-ui/react';
 import { adminPanelStyles } from './AdminPanelStyles';
 
@@ -23,18 +23,18 @@ import toast from 'react-hot-toast';
 import { DeleteIcon } from '@chakra-ui/icons';
 
 const AdminPanel = () => {
-    const isAdminPanelOpen = useAppSelector(
-      (state) => state.adminPanel.isAdminPanelOpen
-    );
-    const data = useSelector((state: RootState) => ({
-      categories: state.categories,
-      products: state.products
-    }));
-    const [userData, setUserData] = useState<TUser[]>();
-    const [rerender, setRerender] = useState(false);
-    const { onToggle } = useDisclosure();
-    const token: string | null = sessionStorage.getItem('token');
-    let userId: number | null;
+  const isAdminPanelOpen = useAppSelector(
+    (state) => state.adminPanel.isAdminPanelOpen
+  );
+  const data = useSelector((state: RootState) => ({
+    categories: state.categories,
+    products: state.products
+  }));
+  const [userData, setUserData] = useState<TUser[]>();
+  const [rerender, setRerender] = useState(false);
+  const { onToggle } = useDisclosure();
+  const token: string | null = sessionStorage.getItem('token');
+  let userId: number | null;
 
   if (token) {
     userId = JSON.parse(token).userId;
@@ -75,28 +75,12 @@ const AdminPanel = () => {
             throw new Error(err);
           });
       }
-      } else {
+    } else {
       alert('Something went wrong...');
     }
+  };
 
-    };
-
-    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>, userId: number | undefined) => {
-      if (userId) {
-        updateData(userId, e.target.value);
-      }
-    };
-
-    useEffect(() => {
-      loadData();
-    }, [rerender]);
-
-    if (!isAdminPanelOpen) return null;
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLSelectElement>,
-    userId: number | undefined,
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>, userId: number | undefined) => {
     if (userId) {
       updateData(userId, e.target.value);
     }
@@ -104,7 +88,7 @@ const AdminPanel = () => {
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [rerender]);
 
   if (!isAdminPanelOpen) return null;
 
@@ -136,7 +120,7 @@ const AdminPanel = () => {
               <VStack color='white' align='stretch'>
                 {data.products
                   .filter(
-                    (product) => product.category === category.categoryName,
+                    (product) => product.category === category.categoryName
                   )
                   .map((product) => (
                     <Box key={product.id}>
