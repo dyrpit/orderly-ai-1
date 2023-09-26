@@ -16,13 +16,27 @@ export const BackgroundColorPicker = ({
     setActiveButtonIndex(index);
   };
 
-  useEffect(() => {
-    const generateRandomColor = () => {
-      const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-      return `#${randomColor}cc`;
-    };
-    setColorsPalete(Array.from({ length: 8 }, () => generateRandomColor()));
-  }, []);
+
+   const generateRandomColor = () => {
+     const r = Math.floor(Math.random() * 256);
+     const g = Math.floor(Math.random() * 256);
+     const b = Math.floor(Math.random() * 256);
+     return `rgb(${r}, ${g}, ${b})`;
+   };
+
+   useEffect(() => {
+     const generatedColors: string[] = [];
+     while (generatedColors.length < 8) {
+       const randomColor = generateRandomColor();
+       if (
+         randomColor !== 'rgb(17, 34, 64)' && // Unikamy koloru '#112240'
+         !generatedColors.includes(randomColor)
+       ) {
+         generatedColors.push(randomColor);
+       }
+     }
+     setColorsPalete(generatedColors);
+   }, []);
 
   return (
     <Box w='35%'>
