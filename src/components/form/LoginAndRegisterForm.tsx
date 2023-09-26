@@ -16,6 +16,8 @@ import { signIn, signUp } from '@util/api-calls.ts';
 import { TUser } from '@/types/user.ts';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { setLoggedUser } from '@/redux/features/user/userSlice.ts';
+import { useAppDispatch } from '@/redux/hooks.ts';
 
 export interface FormData {
   username: string;
@@ -30,6 +32,7 @@ export const Form = () => {
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState<FormData>({
     username: '',
@@ -123,10 +126,8 @@ export const Form = () => {
               }),
             );
             console.log('OK');
-            setTimeout(() => {
-              navigate('/');
-              window.location.reload();
-            }, 2000); // Przeładowanie strony po 2 sekundach (2000 ms)
+            dispatch(setLoggedUser());
+            navigate('/');
             toast.success(`Hi, ${res.data[0].username}!`);
           } else {
             console.log('User does not exist!');

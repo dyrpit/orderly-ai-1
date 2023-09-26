@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 import categoriesReducer from './features/categories/categoriesSlice';
 import productsReducer from './features/products/productsSlice';
 import adminPanelReducer from './features/adminPanel/adminPanelSlice';
+import userReducer from './features/user/userSlice.ts';
 
 const persistConfig = {
   key: 'root',
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   categories: categoriesReducer,
   products: productsReducer,
   adminPanel: adminPanelReducer,
+  user: userReducer,
 });
 
 const persistedReducers = persistReducer(persistConfig, rootReducer);
