@@ -75,14 +75,14 @@ const Navbar = () => {
               <GenericButton size='small' label='IMPORT' onClick={onOpen} />
               <FileImportModal isOpen={isOpen} onClose={onClose} />
 
-              {isLogged ? (
-                <DropdownMenu />
-              ) : (
-                <Text color='#64ffda' as={Link} to='/auth'>
-                  LOG IN
-                </Text>
-              )}
-            </Flex>
+            {isLogged ? (
+              <DropdownMenu />
+            ) : (
+              <Text color='#64ffda' as={Link} to='/auth'>
+                LOG IN
+              </Text>
+            )}
+            <Flex />
           </>
         ) : (
           <IconButton

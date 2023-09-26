@@ -37,6 +37,10 @@ const AdminPanel = () => {
   const token: string | null = sessionStorage.getItem('token');
   let userId: number | null;
 
+  const { onToggle } = useDisclosure();
+  const token: string | null = sessionStorage.getItem('token');
+  let userId: number | null;
+
   if (token) {
     userId = JSON.parse(token).userId;
   }
