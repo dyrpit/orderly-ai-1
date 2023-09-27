@@ -14,12 +14,12 @@ import { formStyles } from './LoginAndResgisterFormStyles';
 import { signIn, signUp } from '@util/api-calls.ts';
 import { TUser } from '@/types/user.ts';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import {
   setLoggedUser,
   setUserLogin,
 } from '@/redux/features/user/userSlice.ts';
-import { useAppDispatch } from '@/redux/hooks.ts';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks.ts';
 
 export interface FormData {
   username: string;
@@ -34,6 +34,7 @@ export const Form = () => {
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const isUserLoggedIn = useAppSelector((state) => state.user.isUserLoggedIn);
 
   const [formData, setFormData] = useState<FormData>({
     username: '',
@@ -164,6 +165,8 @@ export const Form = () => {
         });
     }
   };
+
+  if (isUserLoggedIn) return <Navigate to='/' />;
 
   return (
     <Box maxW='md' mx='auto' p={4}>
