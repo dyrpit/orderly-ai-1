@@ -20,7 +20,7 @@ import {
   setUnLoggedUser,
 } from '@/redux/features/user/userSlice.ts';
 
-export const DropdownMenu = ()  => {
+export const DropdownMenu = () => {
   const dispatch = useAppDispatch();
   const isAdminPanelOpen = useAppSelector(
     (state) => state.adminPanel.isAdminPanelOpen,
@@ -63,7 +63,7 @@ export const DropdownMenu = ()  => {
                   color={colors.bg.primary}
                   bg={colors.text.primary}
                   size='md'
-                  name={loginUserName.substring(0, 2).split('').join(' ')}
+                  name={loginUserName?.substring(0, 2).split('').join(' ')}
                 />
               ) : (
                 <Image src={vector} alt='Icon of logged user.' />
