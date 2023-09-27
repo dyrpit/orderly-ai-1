@@ -78,7 +78,7 @@ export const CategoryItem = ({ category }: { category: TCategory }) => {
         </VStack>
       ) : (
         <RouterLink
-          to={`/${category.categoryName}`}
+          to={`/category/${category.categoryName}`}
           style={{ width: '100%', height: '100%', textDecoration: 'none' }}
         >
           <Center width='100%' height='100%'>

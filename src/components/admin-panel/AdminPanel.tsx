@@ -154,7 +154,7 @@ export const AdminPanel = () => {
                   )
                   .map((product) => (
                     <Box key={product.id}>
-                      <Link to={`${product.category}/${product.name}`}>
+                      <Link to={`/category/${product.category}/${product.name}`}>
                         {product.name}
                       </Link>
                     </Box>
