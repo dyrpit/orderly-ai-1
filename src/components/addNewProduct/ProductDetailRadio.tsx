@@ -2,7 +2,11 @@ import { Stack } from '@chakra-ui/layout';
 import { Box } from '@chakra-ui/react';
 import React, { useState } from 'react';
 
-const ProductDetailRadio = ({ paid, setPaid }) => {
+interface productDetailRadioProps {
+  setPaid: (newValue: string) => void;
+}
+
+const ProductDetailRadio = ({ setPaid }:productDetailRadioProps) => {
   const [value, setValue] = useState<string>('');
 
   const handleRadioChange = (newValue: string) => {
@@ -31,11 +35,11 @@ const ProductDetailRadio = ({ paid, setPaid }) => {
 };
 
 const CustomRadio = ({
-  children,
-  value,
-  onChange,
-  isChecked,
-}: {
+                       children,
+                       value,
+                       onChange,
+                       isChecked
+                     }: {
   children: React.ReactNode;
   value: string;
   onChange: (newValue: string) => void;
@@ -54,7 +58,7 @@ const CustomRadio = ({
       justifyContent='center'
       cursor='pointer'
       _hover={{
-        backgroundColor: '#2E4C7B',
+        backgroundColor: '#2E4C7B'
       }}
       onClick={() => onChange(value)}
     >

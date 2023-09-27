@@ -53,14 +53,23 @@ export const categoriesSlice = createSlice({
         (category) => category.categoryName !== action.payload.categoryName,
       );
     },
-    editCategoryName: (state) => {
-      return state;
+    editCategoryName: (
+      state,
+      action: PayloadAction<{ categoryName: string; newCategoryName: string }>,
+    ) => {
+      const { categoryName, newCategoryName } = action.payload;
+      const categoryToUpdate = state.find(
+        (category) => category.categoryName === categoryName,
+      );
+      if (categoryToUpdate) {
+        categoryToUpdate.categoryName = newCategoryName;
+      }
     },
     addCategory: (state, action: PayloadAction<TCategory>) => {
       state = [action.payload, ...state];
       return state;
     },
-    fetchCategories: (state, action: PayloadAction<TCategory[]>) => {
+    fetchCategories: (_state, action: PayloadAction<TCategory[]>) => {
       return [...action.payload];
     },
   },
