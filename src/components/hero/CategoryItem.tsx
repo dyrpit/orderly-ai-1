@@ -30,7 +30,7 @@ export const CategoryItem = ({ category }: { category: TCategory }) => {
     setEditMode(true);
   };
 
-  const inputChangeHandle = (e) => {
+  const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditedCategoryName(e.target.value);
   };
 
