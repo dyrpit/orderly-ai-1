@@ -312,8 +312,12 @@ export const productsSlice = createSlice({
     deleteProduct: (state, action: PayloadAction<Pick<TProduct, 'id'>>) => {
       return state.filter((product) => product.id !== action.payload.id);
     },
-    editProduct: (state) => {
-      return state;
+    editProduct: (state, action: PayloadAction<TProduct>) => {
+      const { id } = action.payload;
+      const productIndex = state.findIndex((product) => product.id === id);
+      if (productIndex !== -1) {
+        state[productIndex] = action.payload;
+      }
     },
     addProduct: (state, action: PayloadAction<TProduct>) => {
       state = [action.payload, ...state];
