@@ -11,7 +11,25 @@ export const ProductsList = () => {
   );
 
   return (
-    <SimpleGrid columns={1} w='100%' h='100%' gap='22px' placeItems='center'>
+    <SimpleGrid
+      columns={1}
+      w='100%'
+      h='100%'
+      gap='22px'
+      placeItems='center'
+      sx={{
+        '&::-webkit-scrollbar': {
+          width: '4px',
+        },
+        '&::-webkit-scrollbar-track': {
+          width: '6px',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          background: 'text.primary',
+          borderRadius: '24px',
+        },
+      }}
+    >
       {details?.map((product) => (
         <Flex
           as={RouterLink}

@@ -13,8 +13,7 @@ export const CircleColorButton = ({
     <GridItem>
       <Circle
         onClick={onClick}
-        w='50px'
-        h='50px'
+        size="50px"
         borderRadius='50%'
         backgroundColor={color}
         borderColor={isActive ? 'text.primary' : 'transparent'}

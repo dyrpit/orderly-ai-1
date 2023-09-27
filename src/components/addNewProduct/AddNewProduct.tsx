@@ -5,7 +5,7 @@ import { Input } from '@chakra-ui/input';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { Select } from '@chakra-ui/select';
 import { Button } from '@chakra-ui/button';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { addProduct } from '@/redux/features/products/productsSlice';
 import toast from 'react-hot-toast';
 import { formLabelStyles, inputStyles } from './addnewProductStyle';
@@ -31,15 +31,14 @@ export const AddNewProduct = () => {
   };
 
   const addNewProduct = () => {
+    const isProductExist = products.some(
+      (product) => product.name === productName
+    );
 
-      const isProductExist = products.some(
-        (product) => product.name === productName,
-      );
-
-      if (isProductExist) {
-        toast.error('A product with this name already exists!');
-        return;
-      }
+    if (isProductExist) {
+      toast.error('A product with this name already exists!');
+      return;
+    }
 
     const newId = generateProductId();
     appDis(
@@ -49,12 +48,12 @@ export const AddNewProduct = () => {
         category: selectedCategory,
         websiteURL: website,
         videoURL: video,
-        cost: paid.toString(),
-        description: productDescription,
-      }),
+        cost: 'paid',
+        description: productDescription
+      })
     );
     resetValues();
-       toast.success('New product added!');
+    toast.success('New product added!');
   };
 
   const resetValues = () => {
@@ -66,7 +65,7 @@ export const AddNewProduct = () => {
     setProductDescription('');
   };
 
-  const onSaveClick = (e) => {
+  const onSaveClick = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (
@@ -79,7 +78,6 @@ export const AddNewProduct = () => {
     ) {
       addNewProduct();
       resetValues();
-   
     } else {
       toast.error('All fields must be completed!');
     }
@@ -105,12 +103,12 @@ export const AddNewProduct = () => {
           fontWeight='500'
           p={3}
         >
-          Add new category
+          Add new product
         </Heading>
       </Box>
       <FormControl>
         <Flex
-          direction={{ base: 'column', md: 'row' }}
+          direction={{ base: 'column', lg: 'row' }}
           w='100%'
           position='relative'
         >
@@ -156,7 +154,7 @@ export const AddNewProduct = () => {
               style={inputStyles}
             />
             <FormLabel style={formLabelStyles}>Select price</FormLabel>
-            <ProductDetailRadio paid={paid} setPaid={setPaid} />
+            <ProductDetailRadio setPaid={setPaid} />
           </Box>
           <Box
             flex='1'
@@ -166,14 +164,14 @@ export const AddNewProduct = () => {
             justifyContent='space-between'
           >
             <Box>
-            <FormLabel style={formLabelStyles}>Product description</FormLabel>
-            <Input
-              placeholder='Insert description'
-              h='100px'
-              style={inputStyles}
-              onChange={(e) => setProductDescription(e.target.value)}
-              value={productDescription}
-            />
+              <FormLabel style={formLabelStyles}>Product description</FormLabel>
+              <Input
+                placeholder='Insert description'
+                h='100px'
+                style={inputStyles}
+                onChange={(e) => setProductDescription(e.target.value)}
+                value={productDescription}
+              />
             </Box>
             <Button
               bgColor='transparent'

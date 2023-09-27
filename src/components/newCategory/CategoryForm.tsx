@@ -7,16 +7,16 @@ import toast from 'react-hot-toast';
 
 export const CategoryForm = () => {
   const [selectedColor, setSelectedColor] = useState<string>('');
-  const categoryNameRef = useRef();
+  const categoryNameRef = useRef<HTMLInputElement>(null);
 
   const uuid = useAppSelector((state) => state.categories.length + 1);
   const dispatch = useAppDispatch();
 
   const addCategoryHandler = ({
-    newCategoryName,
-    backgroundColor,
-  }: {
-    newCategoryName: string;
+                                newCategoryName,
+                                backgroundColor
+                              }: {
+    newCategoryName: string | undefined;
     backgroundColor: string;
   }) => {
     if (!newCategoryName || !selectedColor)
@@ -32,8 +32,8 @@ export const CategoryForm = () => {
         id: uuid,
         backgroundColor,
         categoryName: newCategoryName,
-        href: newCategoryName,
-      }),
+        href: newCategoryName
+      })
     );
 
     setSelectedColor('');
@@ -42,8 +42,10 @@ export const CategoryForm = () => {
   };
 
   const resetForm = () => {
-    categoryNameRef.current.value = null;
-    setSelectedColor('');
+    if (categoryNameRef.current !== null) {
+      categoryNameRef.current.value = '';
+      setSelectedColor('');
+    }
   };
 
   return (
@@ -101,7 +103,7 @@ export const CategoryForm = () => {
         onClick={() =>
           addCategoryHandler({
             newCategoryName: categoryNameRef.current?.value,
-            backgroundColor: selectedColor,
+            backgroundColor: selectedColor
           })
         }
       >

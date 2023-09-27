@@ -16,7 +16,7 @@ import { dropdownStyles } from './DropdownStyles.ts';
 import { colors } from '@/theme.ts';
 import { setUnLoggedUser } from '@/redux/features/user/userSlice.ts';
 
-export const DropdownMenu = ({ onClose }: { onClose: () => void }) => {
+export const DropdownMenu = ()  => {
   const dispatch = useAppDispatch();
   const isAdminPanelOpen = useAppSelector(
     (state) => state.adminPanel.isAdminPanelOpen,
@@ -35,7 +35,6 @@ export const DropdownMenu = ({ onClose }: { onClose: () => void }) => {
 
   const toggleAdminPanelHandler = () => {
     dispatch(toggleAdminPanel());
-    onClose();
   };
 
   return (
@@ -46,13 +45,12 @@ export const DropdownMenu = ({ onClose }: { onClose: () => void }) => {
             <MenuButton
               isActive={isOpen}
               as={Button}
+              w='100%'
+              h='100%'
+              p={0}
               style={{ backgroundColor: 'transparent' }}
             >
-              <Image
-                src={vector}
-                alt='Icon of logged user.'
-                style={{ maxWidth: '80%', margin: 'auto' }}
-              />
+              <Image src={vector} alt='Icon of logged user.' />
             </MenuButton>
             <MenuList style={dropdownStyles} minWidth='100px'>
               {isAdmin && (

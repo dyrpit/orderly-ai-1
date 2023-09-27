@@ -10,8 +10,9 @@ import {
   AccordionIcon,
   Box,
   VStack,
+  Text,
   Select,
-  useDisclosure
+  useDisclosure,
 } from '@chakra-ui/react';
 import { adminPanelStyles } from './AdminPanelStyles';
 
@@ -22,16 +23,17 @@ import { Flex } from '@chakra-ui/layout';
 import toast from 'react-hot-toast';
 import { DeleteIcon } from '@chakra-ui/icons';
 
-const AdminPanel = () => {
+export const AdminPanel = () => {
   const isAdminPanelOpen = useAppSelector(
-    (state) => state.adminPanel.isAdminPanelOpen
+    (state) => state.adminPanel.isAdminPanelOpen,
   );
   const data = useSelector((state: RootState) => ({
     categories: state.categories,
-    products: state.products
+    products: state.products,
   }));
   const [userData, setUserData] = useState<TUser[]>();
   const [rerender, setRerender] = useState(false);
+
   const { onToggle } = useDisclosure();
   const token: string | null = sessionStorage.getItem('token');
   let userId: number | null;
@@ -80,7 +82,10 @@ const AdminPanel = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>, userId: number | undefined) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+    userId: number | undefined,
+  ) => {
     if (userId) {
       updateData(userId, e.target.value);
     }
@@ -93,19 +98,44 @@ const AdminPanel = () => {
   if (!isAdminPanelOpen) return null;
 
   return (
-    <div>
-      <Box color='white'>
-        <Link to={'/addCategory'}>Create New Category</Link>
-      </Box>
-      <Box color='white'>
-        <Link to={'/addProduct'}>Add product</Link>
-      </Box>
+    <Flex
+      direction='column'
+      minH='100%'
+      justifyContent='space-between'
+      minW={{ base: '100%', md: '350px' }}
+      overflowY={{ base: 'hidden', md: 'scroll' }}
+      paddingLeft={{ base: 0, md: 4 }}
+      paddingY={4}
+      gap={3}
+      sx={{
+        '&::-webkit-scrollbar': {
+          width: '4px',
+        },
+
+        '&::-webkit-scrollbar-track': {
+          width: '6px',
+        },
+
+        '&::-webkit-scrollbar-thumb': {
+          background: 'text.primary',
+
+          borderRadius: '24px',
+        },
+      }}
+    >
+      <Text color='white' pl={4} as={Link} to={'/addCategory'}>
+        Create New Category
+      </Text>
+      <Text color='white' pl={4} as={Link} to={'/addProduct'}>
+        Add product
+      </Text>
       <Accordion allowMultiple>
         {data.categories.map((category) => (
           <AccordionItem key={category.id}>
             <h2>
               <AccordionButton onClick={onToggle}>
                 <Box
+                  textTransform='capitalize'
                   style={adminPanelStyles}
                   as='span'
                   flex='1'
@@ -120,7 +150,7 @@ const AdminPanel = () => {
               <VStack color='white' align='stretch'>
                 {data.products
                   .filter(
-                    (product) => product.category === category.categoryName
+                    (product) => product.category === category.categoryName,
                   )
                   .map((product) => (
                     <Box key={product.id}>
@@ -134,52 +164,62 @@ const AdminPanel = () => {
           </AccordionItem>
         ))}
       </Accordion>
-      <h2 style={{ margin: '5% 5% 0 5%', color: '#64FFDA' }}>Users</h2>
-      {userData
-        ?.filter((user) => user.id !== userId)
-        .map((user) => (
-          <Flex
-            key={user.id}
-            marginY='5px'
-            paddingX='5%'
-            paddingY='5px'
-            justifyContent='space-between'
-            alignItems='center'
-          >
-            <Flex color={'white'} gap='10px'>
-              <DeleteIcon
-                _hover={{ cursor: 'pointer' }}
-                onClick={() => removeData(user.id)}
-              />
-              <h2>{user.username}</h2>
+      <Text pt={4} pl={4} fontSize='xl' color='white'>
+        Users
+      </Text>
+
+      <Flex direction='column' gap={4}>
+        {userData
+
+          ?.filter((user) => user.id !== userId)
+
+          .map((user) => (
+            <Flex
+              key={user.id}
+              paddingX={4}
+              justifyContent='space-between'
+              alignItems='center'
+            >
+              <Flex color='white' gap={4} align='center'>
+                <DeleteIcon
+                  _hover={{ cursor: 'pointer' }}
+                  onClick={() => removeData(user.id)}
+                />
+
+                <Text fontSize={18} color='text.secondary'>
+                  {user.username}
+                </Text>
+              </Flex>
+
+              <Box>
+                <Select
+                  placeholder='Select role'
+                  color={'white'}
+                  _hover={{ cursor: 'pointer' }}
+                  onChange={(e) => handleChange(e, user.id)}
+                >
+                  {user.role === 'admin' ? (
+                    <>
+                      <option value='admin' disabled>
+                        admin
+                      </option>
+
+                      <option value='regular'>regular</option>
+                    </>
+                  ) : (
+                    <>
+                      <option value='admin'>admin</option>
+
+                      <option value='regular' disabled>
+                        regular
+                      </option>
+                    </>
+                  )}
+                </Select>
+              </Box>
             </Flex>
-            <Box>
-              <Select
-                placeholder='Select role'
-                color={'white'}
-                onChange={(e) => handleChange(e, user.id)}
-              >
-                {user.role === 'admin' ? (
-                  <>
-                    <option value='admin' disabled>
-                      admin
-                    </option>
-                    <option value='regular'>regular</option>
-                  </>
-                ) : (
-                  <>
-                    <option value='admin'>admin</option>
-                    <option value='regular' disabled>
-                      regular
-                    </option>
-                  </>
-                )}
-              </Select>
-            </Box>
-          </Flex>
-        ))}
-      ;
-    </div>
+          ))}
+      </Flex>
+    </Flex>
   );
 };
-export default AdminPanel;
