@@ -12,6 +12,7 @@ export const colors = {
   text: {
     primary: '#64FFDA',
     secondary: '#CCD6F6',
+    editInput: '#f8f8f8',
   },
   linksText: '#5E5CBF',
   gradientMobile: {
