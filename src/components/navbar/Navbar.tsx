@@ -9,7 +9,7 @@ import {
   useBreakpointValue,
   IconButton,
   useDisclosure,
-  Flex,
+  Flex
 } from '@chakra-ui/react';
 import GenericButton from '@buttons/GenericButton';
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
@@ -73,8 +73,10 @@ export const Navbar = () => {
               )}
               <FileExportAlert
                 isOpen={exportDialog.isOpen}
-                onClose={exportDialog.onClose}
-              />
+                onClose={() => {
+                  exportDialog.onClose();
+                  onClose();
+                }} />
 
               {isLogged && (
                 <GenericButton size='small' label='IMPORT' onClick={onOpen} />
@@ -82,7 +84,7 @@ export const Navbar = () => {
               <FileImportModal isOpen={isOpen} onClose={onClose} />
 
               {isLogged ? (
-                <DropdownMenu onClose={onClose} />
+                <DropdownMenu />
               ) : (
                 <Text color='#64ffda' as={Link} to='/auth'>
                   LOG IN

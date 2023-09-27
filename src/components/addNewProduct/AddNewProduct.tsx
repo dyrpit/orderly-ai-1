@@ -5,7 +5,7 @@ import { Input } from '@chakra-ui/input';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { Select } from '@chakra-ui/select';
 import { Button } from '@chakra-ui/button';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { addProduct } from '@/redux/features/products/productsSlice';
 import toast from 'react-hot-toast';
 import { formLabelStyles, inputStyles } from './addnewProductStyle';
@@ -32,7 +32,7 @@ export const AddNewProduct = () => {
 
   const addNewProduct = () => {
     const isProductExist = products.some(
-      (product) => product.name === productName,
+      (product) => product.name === productName
     );
 
     if (isProductExist) {
@@ -48,9 +48,9 @@ export const AddNewProduct = () => {
         category: selectedCategory,
         websiteURL: website,
         videoURL: video,
-        cost: paid.toString(),
-        description: productDescription,
-      }),
+        cost: 'paid',
+        description: productDescription
+      })
     );
     resetValues();
     toast.success('New product added!');
@@ -65,7 +65,7 @@ export const AddNewProduct = () => {
     setProductDescription('');
   };
 
-  const onSaveClick = (e) => {
+  const onSaveClick = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (
@@ -154,7 +154,7 @@ export const AddNewProduct = () => {
               style={inputStyles}
             />
             <FormLabel style={formLabelStyles}>Select price</FormLabel>
-            <ProductDetailRadio paid={paid} setPaid={setPaid} />
+            <ProductDetailRadio setPaid={setPaid} />
           </Box>
           <Box
             flex='1'

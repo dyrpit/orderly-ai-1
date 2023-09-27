@@ -16,7 +16,7 @@ import { dropdownStyles } from './DropdownStyles.ts';
 import { colors } from '@/theme.ts';
 import { setUnLoggedUser } from '@/redux/features/user/userSlice.ts';
 
-export const DropdownMenu = ({ onClose }: { onClose: () => void }) => {
+export const DropdownMenu = ()  => {
   const dispatch = useAppDispatch();
   const isAdminPanelOpen = useAppSelector(
     (state) => state.adminPanel.isAdminPanelOpen,
