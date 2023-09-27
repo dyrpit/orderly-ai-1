@@ -5,7 +5,7 @@ import { Flex, Text, Center, Button, VStack, Input } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import { useDeleteCategory } from '@/hooks/reduxHooks/useDeleteCategory';
 import { useEditCategoryName } from '@/hooks/reduxHooks/useEditCategoryName';
-import { type TCategory } from '../../types/category';
+import { type TCategory } from '@/types/category.ts';
 import toast from 'react-hot-toast';
 
 export const CategoryItem = ({ category }: { category: TCategory }) => {
