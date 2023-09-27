@@ -18,6 +18,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
           w='100%'
           maxW='1170px'
           direction={{ base: 'column', md: 'row' }}
+          mt='80px'
         >
           <AdminPanel />
           <MainContentWrapper>
@@ -58,6 +59,9 @@ const NavbarWrapper = ({ children }: { children: React.ReactNode }) => {
       justifyContent='center'
       direction='column'
       px={4}
+      position='fixed'
+      bg='bg.primary'
+      zIndex={999}
     >
       {children}
       <Box
