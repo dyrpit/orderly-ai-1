@@ -330,6 +330,19 @@ export const productsSlice = createSlice({
     fetchProducts: (_state, action: PayloadAction<TProduct[]>) => {
       return [...action.payload];
     },
+    editCategoryForAllProducts: (
+      state,
+      action: PayloadAction<{
+        categoryName: string;
+        newCategoryName: string;
+      }>,
+    ) => {
+      state.forEach((product) => {
+        if (product.category === action.payload.categoryName) {
+          product.category = action.payload.newCategoryName;
+        }
+      });
+    },
   },
 });
 
@@ -339,6 +352,7 @@ export const {
   addProduct,
   deleteAllProducts,
   fetchProducts,
+  editCategoryForAllProducts,
 } = productsSlice.actions;
 
 export const selectCount = (state: RootState) => state.products;

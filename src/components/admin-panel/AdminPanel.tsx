@@ -154,7 +154,7 @@ export const AdminPanel = () => {
                   )
                   .map((product) => (
                     <Box key={product.id}>
-                      <Link to={`${product.category}/${product.name}`}>
+                      <Link to={`/category/${product.category}/${product.name}`}>
                         {product.name}
                       </Link>
                     </Box>
@@ -193,14 +193,14 @@ export const AdminPanel = () => {
 
               <Box>
                 <Select
-                  placeholder='Select role'
                   color={'white'}
                   _hover={{ cursor: 'pointer' }}
                   onChange={(e) => handleChange(e, user.id)}
+                  defaultValue='current'
                 >
                   {user.role === 'admin' ? (
                     <>
-                      <option value='admin' disabled>
+                      <option value='current' disabled>
                         admin
                       </option>
 
@@ -210,7 +210,7 @@ export const AdminPanel = () => {
                     <>
                       <option value='admin'>admin</option>
 
-                      <option value='regular' disabled>
+                      <option value='current' disabled>
                         regular
                       </option>
                     </>

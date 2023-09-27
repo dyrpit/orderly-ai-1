@@ -9,6 +9,7 @@ import { CategoryForm } from './components/newCategory/CategoryForm';
 import { Form } from './components/form/LoginAndRegisterForm';
 import TestRedux from './components/test-Redux-functions/testRedux';
 import { AddNewProduct } from './components/addNewProduct/AddNewProduct';
+import PageNotFound from './components/no-page/PageNotFound';
 
 function App() {
   return (
@@ -25,12 +26,13 @@ function App() {
       />
       <Routes>
         <Route path='/' element={<CategoriesList />} />
-        <Route path='/:categoryName' element={<ProductsList />} />
-        <Route path='/:categoryName/:productName' element={<ProductCard />} />
+        <Route path='/category/:categoryName' element={<ProductsList />} />
+        <Route path='/category/:categoryName/:productName' element={<ProductCard />} />
         <Route path='/addCategory' element={<CategoryForm />} />
         <Route path='/auth' element={<Form />} />
         <Route path='addProduct' element={<AddNewProduct />} />
         <Route path='/test-redux' element={<TestRedux />} />
+        <Route path='*' element={<PageNotFound />} />
       </Routes>
     </MainLayout>
   );

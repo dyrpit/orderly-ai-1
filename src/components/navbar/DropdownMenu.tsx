@@ -8,15 +8,19 @@ import {
   Image,
   Box,
   Button,
+  Avatar,
 } from '@chakra-ui/react';
 import vector from '@assets/Vector.svg';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { dropdownStyles } from './DropdownStyles.ts';
 import { colors } from '@/theme.ts';
-import { setUnLoggedUser } from '@/redux/features/user/userSlice.ts';
+import {
+  resetUserLogin,
+  setUnLoggedUser,
+} from '@/redux/features/user/userSlice.ts';
 
-export const DropdownMenu = ()  => {
+export const DropdownMenu = () => {
   const dispatch = useAppDispatch();
   const isAdminPanelOpen = useAppSelector(
     (state) => state.adminPanel.isAdminPanelOpen,
@@ -24,11 +28,15 @@ export const DropdownMenu = ()  => {
   const token: string | null = sessionStorage.getItem('token') || '';
   const isAdmin = token && JSON.parse(token).role === 'admin';
 
+  const isLogged = useAppSelector((state) => state.user.isUserLoggedIn);
+  const loginUserName = useAppSelector((state) => state.user.userLogin);
+
   const navigate = useNavigate();
   const logout = () => {
     isAdminPanelOpen && toggleAdminPanelHandler();
     sessionStorage.removeItem('token');
     dispatch(setUnLoggedUser());
+    dispatch(resetUserLogin());
     navigate('/');
     toast.success('Logged out successfully!');
   };
@@ -50,7 +58,16 @@ export const DropdownMenu = ()  => {
               p={0}
               style={{ backgroundColor: 'transparent' }}
             >
-              <Image src={vector} alt='Icon of logged user.' />
+              {isLogged ? (
+                <Avatar
+                  color={colors.bg.primary}
+                  bg={colors.text.primary}
+                  size='md'
+                  name={loginUserName?.substring(0, 2).split('').join(' ')}
+                />
+              ) : (
+                <Image src={vector} alt='Icon of logged user.' />
+              )}
             </MenuButton>
             <MenuList style={dropdownStyles} minWidth='100px'>
               {isAdmin && (

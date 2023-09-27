@@ -15,7 +15,7 @@ import { signIn, signUp } from '@util/api-calls.ts';
 import { TUser } from '@/types/user.ts';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { setLoggedUser } from '@/redux/features/user/userSlice.ts';
+import { setLoggedUser, setUserLogin } from '@/redux/features/user/userSlice.ts';
 import { useAppDispatch } from '@/redux/hooks.ts';
 
 export interface FormData {
@@ -125,6 +125,7 @@ export const Form = () => {
             );
             console.log('OK');
             dispatch(setLoggedUser());
+            dispatch(setUserLogin(username))
             navigate('/');
             toast.success(`Hi, ${res.data[0].username}!`);
           } else {
