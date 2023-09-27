@@ -1,4 +1,5 @@
 import { useAppSelector, useAppDispatch } from '@/redux/hooks';
+import { Navigate } from 'react-router-dom';
 import { addCategory } from '@/redux/features/categories/categoriesSlice';
 import { Button, Flex, Heading, Input, VStack } from '@chakra-ui/react';
 import { BackgroundColorPicker } from './BackgroundColorPicker';
@@ -12,10 +13,14 @@ export const CategoryForm = () => {
   const uuid = useAppSelector((state) => state.categories.length + 1);
   const dispatch = useAppDispatch();
 
+  const isUserLoggedIn = useAppSelector((state) => state.user.isUserLoggedIn);
+  const token = sessionStorage.getItem('token');
+  const isRegular = token && JSON.parse(token).role === 'regular';
+
   const addCategoryHandler = ({
-                                newCategoryName,
-                                backgroundColor
-                              }: {
+    newCategoryName,
+    backgroundColor,
+  }: {
     newCategoryName: string | undefined;
     backgroundColor: string;
   }) => {
@@ -32,8 +37,8 @@ export const CategoryForm = () => {
         id: uuid,
         backgroundColor,
         categoryName: newCategoryName,
-        href: newCategoryName
-      })
+        href: newCategoryName,
+      }),
     );
 
     setSelectedColor('');
@@ -47,6 +52,8 @@ export const CategoryForm = () => {
       setSelectedColor('');
     }
   };
+
+  if (!isUserLoggedIn || isRegular) return <Navigate to='/' />;
 
   return (
     <Flex
@@ -103,7 +110,7 @@ export const CategoryForm = () => {
         onClick={() =>
           addCategoryHandler({
             newCategoryName: categoryNameRef.current?.value,
-            backgroundColor: selectedColor
+            backgroundColor: selectedColor,
           })
         }
       >
