@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import group1 from '@assets/group1.svg';
 import group2 from '@assets/group2.svg';
 import { Link } from 'react-router-dom';
+
 import {
   Image,
   Text,
@@ -9,7 +10,7 @@ import {
   useBreakpointValue,
   IconButton,
   useDisclosure,
-  Flex
+  Flex,
 } from '@chakra-ui/react';
 import GenericButton from '@buttons/GenericButton';
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
@@ -76,7 +77,8 @@ export const Navbar = () => {
                 onClose={() => {
                   exportDialog.onClose();
                   onClose();
-                }} />
+                }}
+              />
 
               {isLogged && (
                 <GenericButton size='small' label='IMPORT' onClick={onOpen} />
