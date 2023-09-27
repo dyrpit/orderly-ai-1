@@ -10,11 +10,11 @@ export const Breadcrumb = () => {
   const location = useLocation();
 
   const isAdminPanelOpen = useAppSelector(
-    (state) => state.adminPanel.isAdminPanelOpen,
+    (state) => state.adminPanel.isAdminPanelOpen
   );
 
   const transformUrlToBreadcrumb = (websiteUrl: string): string[] => {
-    return websiteUrl.split('/').filter((p) => p.length);
+    return websiteUrl.split('/').filter((word) => word !== 'category').filter((p) => p.length);
   };
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const BreadcrumbNavElement = ({ path }: { path: string }) => {
   return (
     <Text
       as={RouterLink}
-      to={`/${path}`}
+      to={`/category/${path}`}
       color='text.primary'
       fontSize={{ base: '18px', md: '20px' }}
       cursor='pointer'
