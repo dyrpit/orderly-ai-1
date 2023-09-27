@@ -1,5 +1,7 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '@/redux/hooks';
+import { useAppDispatch } from '@/redux/hooks';
+import { deleteProduct } from '@/redux/features/products/productsSlice';
 import {
   Flex,
   VStack,
@@ -11,15 +13,23 @@ import {
   Box,
   Tooltip,
 } from '@chakra-ui/react';
+import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 
 import playBtnIcon from '@assets/play-btn.svg';
 import notFoundProductInfoIcon from '@assets/not-found-product-info.svg';
 import notFoundVideoIcon from '@assets/not-found-video-icon.svg';
+import toast from 'react-hot-toast';
 
 const MAX_DESCRIPTION_LENGTH = 50;
 
 export const ProductCard = () => {
   const { categoryName, productName } = useParams();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const isUserLoggenIn = useAppSelector((state) => state.user.isUserLoggedIn);
+  const token = sessionStorage.getItem('token');
+  const isAdmin = token && JSON.parse(token).role === 'admin';
 
   const products = useAppSelector((state) => state.products);
 
@@ -34,6 +44,12 @@ export const ProductCard = () => {
       </Text>
     );
 
+  const deleteProductHandler = () => {
+    dispatch(deleteProduct({ id: details.id }));
+    toast.success('Product deleted');
+    navigate(`/${details.category}`);
+  };
+
   return (
     <Flex
       bg='bg.secondary'
@@ -45,7 +61,38 @@ export const ProductCard = () => {
       overflow='hidden'
       gap={4}
       p={{ base: 0, md: 4 }}
+      border='1px solid red'
     >
+      {isUserLoggenIn && (
+        <Flex
+          mr={{ base: 2, md: 0 }}
+          mt={{ base: 2, md: 0 }}
+          alignSelf={{ base: 'end', lg: 'start' }}
+          direction={{ base: 'row', lg: 'column-reverse' }}
+          gap={{ base: 4 }}
+        >
+          <EditIcon
+            w={{ base: 7, md: 8 }}
+            h={{ base: 7, md: 8 }}
+            _hover={{ color: 'text.primary', cursor: 'pointer' }}
+            // color={editMode ? 'text.primary' : 'text.dark'}
+            transition='all 0.2s ease-in-out'
+            // onClick={editCategoryNameHandle}
+          />
+          {isAdmin && (
+            <DeleteIcon
+              alignSelf={{ base: 'flex-end', lg: 'flex-start' }}
+              w={{ base: 7, md: 8 }}
+              h={{ base: 7, md: 8 }}
+              _hover={{ color: 'text.primary', cursor: 'pointer' }}
+              color='text.dark'
+              transition='all 0.2s ease-in-out'
+              onClick={deleteProductHandler}
+            />
+          )}
+        </Flex>
+      )}
+
       <Grid
         placeItems='center'
         bg={details.websiteURL ? 'bg.gray' : 'bg.lightGray'}
