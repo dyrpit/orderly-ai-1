@@ -26,13 +26,13 @@ function App() {
       />
       <Routes>
         <Route path='/' element={<CategoriesList />} />
-        <Route path='/:categoryName' element={<ProductsList />} />
-        <Route path='/:categoryName/:productName' element={<ProductCard />} />
+        <Route path='/category/:categoryName' element={<ProductsList />} />
+        <Route path='/category/:categoryName/:productName' element={<ProductCard />} />
         <Route path='/addCategory' element={<CategoryForm />} />
         <Route path='/auth' element={<Form />} />
         <Route path='addProduct' element={<AddNewProduct />} />
         <Route path='/test-redux' element={<TestRedux />} />
-        <Route path='/test' element={<PageNotFound />} />
+        <Route path='*' element={<PageNotFound />} />
       </Routes>
     </MainLayout>
   );

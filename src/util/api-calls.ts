@@ -1,6 +1,7 @@
 import { TUser } from '@/types/user.ts';
-import { API_URL } from './constants.ts';
 import axios from 'axios';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const signUp = (user: TUser) => {
   return axios.post(API_URL + 'users', user);

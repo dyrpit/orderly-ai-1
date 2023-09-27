@@ -4,9 +4,9 @@ import noPage from '../../assets/no-page.svg';
 
 const PageNotFound = () => {
   return (
-    <Box textAlign='center' mt='100px'>
+    <Box mt='100px' display="flex" justifyContent="center" alignItems="center" flexDirection="column">
       <Image src={noPage} alt='Page Not Found' />
-      <Text fontSize='xl' fontWeight='bold' mt='4'>
+      <Text fontSize='xl' fontWeight='bold' mt='10'>
         Page Not Found
       </Text>
       <Text fontSize='md' color='gray.500' mt='2'>

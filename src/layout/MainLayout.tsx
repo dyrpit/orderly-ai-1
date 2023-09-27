@@ -13,6 +13,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
         </NavbarWrapper>
 
         <Flex
+          minH={{ base: 'calc(100vh - 160px)' }}
           h={{ base: '100%', md: 'calc(100vh - 160px)' }}
           w='100%'
           maxW='1170px'

@@ -10,12 +10,13 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  ModalOverlay,
+  ModalOverlay
 } from '@chakra-ui/react';
 import { colors } from '@/theme.ts';
 import './FileImportModal.css';
 import { TCategory } from '@/types/category';
 import { TProduct } from '@/types/product';
+import toast from 'react-hot-toast';
 
 type TData = {
   categories: TCategory[];
@@ -37,7 +38,7 @@ export const FileImportModal = ({ isOpen, onClose }: InputFileModalProps) => {
 
     if (fileValue) {
       reader.readAsText(fileValue);
-      reader.onload = function () {
+      reader.onload = function() {
 
         if (typeof reader.result === 'string') {
           const data: TData = JSON.parse(reader.result);
@@ -46,15 +47,22 @@ export const FileImportModal = ({ isOpen, onClose }: InputFileModalProps) => {
         }
       };
 
-      reader.onerror = function () {
+      reader.onerror = function() {
         console.log(reader.onerror);
       };
+    } else {
+      toast.error('Please select file!');
     }
+
+    setFileValue(undefined);
   };
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={() => {
+        onClose();
+        setFileValue(undefined);
+      }}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader color={colors.white}>Data import</ModalHeader>
@@ -75,12 +83,13 @@ export const FileImportModal = ({ isOpen, onClose }: InputFileModalProps) => {
           <ModalFooter>
             <Button
               backgroundColor={colors.bg.secondary}
-              mr={3}
-              onClick={onClose}
-            >
+              onClick={() => {
+                onClose();
+                setFileValue(undefined);
+              }}>
               Close
             </Button>
-            <Button onClick={handleFileBtn}>Load data</Button>
+            {fileValue != undefined ? (<Button ml={3} onClick={handleFileBtn}>Load data</Button>) : null}
           </ModalFooter>
         </ModalContent>
       </Modal>

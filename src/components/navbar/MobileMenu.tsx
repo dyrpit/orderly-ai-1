@@ -7,7 +7,7 @@ import {
   DrawerBody,
   VStack,
   Text,
-  useDisclosure,
+  useDisclosure
 } from '@chakra-ui/react';
 import GenericButton from '@buttons/GenericButton';
 import group2 from '@assets/group2.svg';
@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom';
 import { DropdownMenu } from './DropdownMenu.tsx';
 import { FileImportModal } from '@components/navbar/FileImportModal.tsx';
 import { FileExportAlert } from '@components/navbar/FileExportAlert.tsx';
+import { useAppSelector } from '@/redux/hooks.ts';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -23,9 +24,9 @@ interface MobileMenuProps {
 }
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
-  const token: string | null = sessionStorage.getItem('token');
   const importModal = useDisclosure();
   const exportDialog = useDisclosure();
+  const isLogged = useAppSelector((state) => state.user.isUserLoggedIn);
 
   return (
     <Drawer placement='right' onClose={onClose} isOpen={isOpen}>
@@ -41,21 +42,26 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               icon={group2}
               onClick={onClose}
             />
-            <GenericButton size='small' label='EXPORT' isMobile onClick={exportDialog.onOpen}/>
+
+            {isLogged && (
+              <GenericButton size='small' label='EXPORT' isMobile onClick={exportDialog.onOpen} />
+            )}
 
             <FileExportAlert
               isOpen={exportDialog.isOpen}
               onClose={() => {
                 exportDialog.onClose();
                 onClose();
-              }}/>
+              }} />
 
-            <GenericButton
-              size='small'
-              label='IMPORT'
-              isMobile
-              onClick={importModal.onOpen}
-            />
+            {isLogged && (<GenericButton
+                size='small'
+                label='IMPORT'
+                isMobile
+                onClick={importModal.onOpen}
+              />
+            )}
+
             <FileImportModal
               isOpen={importModal.isOpen}
               onClose={() => {
@@ -64,8 +70,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               }}
             />
 
-            {token != null ? (
-              <DropdownMenu onClose={onClose} />
+            {isLogged ? (
+              <DropdownMenu />
             ) : (
               <Text
                 color='#64ffda'

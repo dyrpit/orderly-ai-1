@@ -9,14 +9,13 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import Joi, { ValidationResult } from 'joi';
-import { LoadingSpinner } from '@components/shared/LoadingSpinner.tsx';
 
 import { formStyles } from './LoginAndResgisterFormStyles';
 import { signIn, signUp } from '@util/api-calls.ts';
 import { TUser } from '@/types/user.ts';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { setLoggedUser } from '@/redux/features/user/userSlice.ts';
+import { setLoggedUser, setUserLogin } from '@/redux/features/user/userSlice.ts';
 import { useAppDispatch } from '@/redux/hooks.ts';
 
 export interface FormData {
@@ -30,7 +29,6 @@ export const Form = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -127,6 +125,7 @@ export const Form = () => {
             );
             console.log('OK');
             dispatch(setLoggedUser());
+            dispatch(setUserLogin(username))
             navigate('/');
             toast.success(`Hi, ${res.data[0].username}!`);
           } else {
