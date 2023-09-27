@@ -93,7 +93,7 @@ export const AdminPanel = () => {
 
   useEffect(() => {
     loadData();
-  }, [rerender]);
+  }, [rerender, isAdminPanelOpen]);
 
   if (!isAdminPanelOpen) return null;
 
@@ -154,7 +154,9 @@ export const AdminPanel = () => {
                   )
                   .map((product) => (
                     <Box key={product.id}>
-                      <Link to={`/category/${product.category}/${product.name}`}>
+                      <Link
+                        to={`/category/${product.category}/${product.name}`}
+                      >
                         {product.name}
                       </Link>
                     </Box>
