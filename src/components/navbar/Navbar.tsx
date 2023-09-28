@@ -1,6 +1,5 @@
 import { useLocation } from 'react-router-dom';
 import group1 from '@assets/group1.svg';
-import group2 from '@assets/group2.svg';
 import { Link } from 'react-router-dom';
 
 import {
@@ -16,6 +15,7 @@ import GenericButton from '@buttons/GenericButton';
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import MobileMenu from './MobileMenu';
+import { AiSwitch } from './AiSwitch.tsx';
 import { DropdownMenu } from './DropdownMenu.tsx';
 import { FileImportModal } from '@components/navbar/FileImportModal.tsx';
 import { FileExportAlert } from '@components/navbar/FileExportAlert.tsx';
@@ -54,13 +54,7 @@ export const Navbar = () => {
         </Box>
         {isLg ? (
           <>
-            {location.pathname === '/' && (
-              <GenericButton
-                size='large'
-                label='Generate APP with chatGPT'
-                icon={group2}
-              />
-            )}
+            {location.pathname === '/' && <AiSwitch />}
             <Flex gap={4} align='center'>
               {isLogged && (
                 <>
