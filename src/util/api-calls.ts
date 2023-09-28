@@ -2,8 +2,7 @@ import { TUser } from '@/types/user.ts';
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL;
-// const GPT_API_KEY = import.meta.env.CHAT_GPT_API;
-const GPT_API_KEY = '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';
+const GPT_API_KEY = import.meta.env.VITE_CHAT_GPT_API;
 const GPT_URL = 'https://api.openai.com/v1/chat/completions';
 
 export const signUp = (user: TUser) => {

@@ -3,8 +3,12 @@ import { Navbar } from '@/components/navbar/Navbar';
 import { Breadcrumb } from '@/components/hero/Breadcrumb';
 import { AdminPanel } from '@/components/admin-panel/AdminPanel';
 import { Footer } from '@/components/footer/Footer';
+import { useAppSelector } from '@/redux/hooks.ts';
+import { LoadingSpinner } from '@components/shared/LoadingSpinner.tsx';
 
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {
+  const isWaitingForResponse: boolean = useAppSelector((state) => state.gpt.isWaitingForResponse);
+
   return (
     <PageWrapper>
       <Flex direction='column' alignItems='center'>
@@ -22,8 +26,10 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
           <AdminPanel />
           <MainContentWrapper>
             <Breadcrumb />
-            <Box mt={6} overflowY='auto'>
-              {children}
+            <Box mt={6} overflowY='auto' minHeight="80%">
+              {isWaitingForResponse ? (
+                <LoadingSpinner />
+              ) : children}
             </Box>
           </MainContentWrapper>
         </Flex>
@@ -66,7 +72,7 @@ const NavbarWrapper = ({ children }: { children: React.ReactNode }) => {
           background:
             'linear-gradient(90deg, rgba(133, 79, 79, 0)  , rgba(100, 255, 218, 1), rgba(133, 79, 79, 0))',
           height: '2px',
-          width: '100vw',
+          width: '100vw'
         }}
       />
     </Flex>
@@ -83,15 +89,15 @@ const MainContentWrapper = ({ children }: { children: React.ReactNode }) => {
       overflow='auto'
       sx={{
         '&::-webkit-scrollbar': {
-          width: '4px',
+          width: '4px'
         },
         '&::-webkit-scrollbar-track': {
-          width: '6px',
+          width: '6px'
         },
         '&::-webkit-scrollbar-thumb': {
           background: 'text.primary',
-          borderRadius: '24px',
-        },
+          borderRadius: '24px'
+        }
       }}
     >
       {children}
@@ -114,7 +120,7 @@ const FooterWrapper = ({ children }: { children: React.ReactNode }) => {
           background:
             'linear-gradient(90deg, rgba(133, 79, 79, 0)  , rgba(100, 255, 218, 1), rgba(133, 79, 79, 0))',
           height: '2px',
-          width: '100vw',
+          width: '100vw'
         }}
       />
       {children}
