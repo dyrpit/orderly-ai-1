@@ -1,39 +1,48 @@
 import { useAppSelector, useAppDispatch } from '@/redux/hooks';
+import { Navigate } from 'react-router-dom';
 import { addCategory } from '@/redux/features/categories/categoriesSlice';
 import { Button, Flex, Heading, Input, VStack } from '@chakra-ui/react';
 import { BackgroundColorPicker } from './BackgroundColorPicker';
 import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import { v4 as uuidv4 } from 'uuid';
 
 export const CategoryForm = () => {
   const [selectedColor, setSelectedColor] = useState<string>('');
   const categoryNameRef = useRef<HTMLInputElement>(null);
 
-  const uuid = useAppSelector((state) => state.categories.length + 1);
   const dispatch = useAppDispatch();
 
+  const isUserLoggedIn = useAppSelector((state) => state.user.isUserLoggedIn);
+  const token = sessionStorage.getItem('token');
+  const isRegular = token && JSON.parse(token).role === 'regular';
+
   const addCategoryHandler = ({
-                                newCategoryName,
-                                backgroundColor
-                              }: {
+    newCategoryName,
+    backgroundColor,
+  }: {
     newCategoryName: string | undefined;
     backgroundColor: string;
   }) => {
-    if (!newCategoryName || !selectedColor)
+    if (!newCategoryName || !selectedColor) {
       return toast.error('Insert all data');
+    }
 
-    if (newCategoryName.startsWith(' '))
+    if (newCategoryName.startsWith(' ')) {
       return toast.error('Category name can not start with space');
+    }
 
     newCategoryName = newCategoryName.trimEnd().replaceAll(' ', '-');
 
+    const newCategoryId = uuidv4();
+
     dispatch(
       addCategory({
-        id: uuid,
+        id: newCategoryId.toString(),
         backgroundColor,
         categoryName: newCategoryName,
-        href: newCategoryName
-      })
+        href: newCategoryName,
+      }),
     );
 
     setSelectedColor('');
@@ -47,6 +56,8 @@ export const CategoryForm = () => {
       setSelectedColor('');
     }
   };
+
+  if (!isUserLoggedIn || isRegular) return <Navigate to='/' />;
 
   return (
     <Flex
@@ -103,7 +114,7 @@ export const CategoryForm = () => {
         onClick={() =>
           addCategoryHandler({
             newCategoryName: categoryNameRef.current?.value,
-            backgroundColor: selectedColor
+            backgroundColor: selectedColor,
           })
         }
       >

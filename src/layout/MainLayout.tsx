@@ -1,3 +1,4 @@
+import { useAppSelector } from '@/redux/hooks';
 import { Box, Flex } from '@chakra-ui/react';
 import { Navbar } from '@/components/navbar/Navbar';
 import { Breadcrumb } from '@/components/hero/Breadcrumb';
@@ -5,6 +6,10 @@ import { AdminPanel } from '@/components/admin-panel/AdminPanel';
 import { Footer } from '@/components/footer/Footer';
 
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {
+  const isAdminPanelOpen = useAppSelector(
+    (state) => state.adminPanel.isAdminPanelOpen,
+  );
+
   return (
     <PageWrapper>
       <Flex direction='column' alignItems='center'>
@@ -18,11 +23,12 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
           w='100%'
           maxW='1170px'
           direction={{ base: 'column', md: 'row' }}
+          mt='80px'
         >
           <AdminPanel />
           <MainContentWrapper>
             <Breadcrumb />
-            <Box mt={6} overflowY='auto'>
+            <Box mt={isAdminPanelOpen ? 10 : 24} overflowY='auto'>
               {children}
             </Box>
           </MainContentWrapper>
@@ -58,6 +64,9 @@ const NavbarWrapper = ({ children }: { children: React.ReactNode }) => {
       justifyContent='center'
       direction='column'
       px={4}
+      position='fixed'
+      bg='bg.primary'
+      zIndex={999}
     >
       {children}
       <Box
