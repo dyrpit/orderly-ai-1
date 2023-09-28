@@ -20,10 +20,7 @@ import { FileImportModal } from '@components/navbar/FileImportModal.tsx';
 import { FileExportAlert } from '@components/navbar/FileExportAlert.tsx';
 import { useAppSelector } from '@/redux/hooks.ts';
 import { callGPT } from '@util/api-calls.ts';
-
-export type TPrompt = {
-  text: string;
-}
+import { TPrompt } from '@/types/prompt.ts';
 
 export const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -41,12 +38,11 @@ export const Navbar = () => {
   const getData = async () => {
     const response = await fetch('../../../prompt.json');
     promptGPT = await response.json();
-    console.log(promptGPT[0].text);
-
 
     await callGPT(promptGPT[0].text).then((res) => {
       console.log(res.data);
       console.log(res.data.choices[0].message.content);
+      //content to store
     });
   };
 
