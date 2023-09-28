@@ -5,12 +5,12 @@ import { Button, Flex, Heading, Input, VStack } from '@chakra-ui/react';
 import { BackgroundColorPicker } from './BackgroundColorPicker';
 import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import { v4 as uuidv4 } from 'uuid';
 
 export const CategoryForm = () => {
   const [selectedColor, setSelectedColor] = useState<string>('');
   const categoryNameRef = useRef<HTMLInputElement>(null);
 
-  const uuid = useAppSelector((state) => state.categories.length + 1);
   const dispatch = useAppDispatch();
 
   const isUserLoggedIn = useAppSelector((state) => state.user.isUserLoggedIn);
@@ -24,17 +24,21 @@ export const CategoryForm = () => {
     newCategoryName: string | undefined;
     backgroundColor: string;
   }) => {
-    if (!newCategoryName || !selectedColor)
+    if (!newCategoryName || !selectedColor) {
       return toast.error('Insert all data');
+    }
 
-    if (newCategoryName.startsWith(' '))
+    if (newCategoryName.startsWith(' ')) {
       return toast.error('Category name can not start with space');
+    }
 
     newCategoryName = newCategoryName.trimEnd().replaceAll(' ', '-');
 
+    const newCategoryId = uuidv4();
+
     dispatch(
       addCategory({
-        id: uuid,
+        id: newCategoryId.toString(),
         backgroundColor,
         categoryName: newCategoryName,
         href: newCategoryName,
