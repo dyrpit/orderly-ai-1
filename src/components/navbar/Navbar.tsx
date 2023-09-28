@@ -19,6 +19,11 @@ import { DropdownMenu } from './DropdownMenu.tsx';
 import { FileImportModal } from '@components/navbar/FileImportModal.tsx';
 import { FileExportAlert } from '@components/navbar/FileExportAlert.tsx';
 import { useAppSelector } from '@/redux/hooks.ts';
+import { callGPT } from '@util/api-calls.ts';
+
+export type TPrompt = {
+  text: string;
+}
 
 export const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -27,6 +32,23 @@ export const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const exportDialog = useDisclosure();
   const isLogged = useAppSelector((state) => state.user.isUserLoggedIn);
+  let promptGPT: TPrompt[];
+
+  const handleGPT = () => {
+    getData();
+  };
+
+  const getData = async () => {
+    const response = await fetch('../../../prompt.json');
+    promptGPT = await response.json();
+    console.log(promptGPT[0].text);
+
+
+    await callGPT(promptGPT[0].text).then((res) => {
+      console.log(res.data);
+      console.log(res.data.choices[0].message.content);
+    });
+  };
 
   return (
     <>
@@ -58,6 +80,7 @@ export const Navbar = () => {
                 size='large'
                 label='Generate APP with chatGPT'
                 icon={group2}
+                onClick={handleGPT}
               />
             )}
             <Flex gap={4} align='center'>
