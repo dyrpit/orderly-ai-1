@@ -10,7 +10,9 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const isAdminPanelOpen = useAppSelector(
     (state) => state.adminPanel.isAdminPanelOpen,
   );
-  const isWaitingForResponse: boolean = useAppSelector(
+  const isSwitchActive = useAppSelector((state) => state.gpt.isSwitchActive);
+
+  const isWaitingForResponse = useAppSelector(
     (state) => state.gpt.isWaitingForResponse,
   );
 
@@ -37,7 +39,11 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
               overflowY='auto'
               minHeight='80%'
             >
-              {isWaitingForResponse ? <LoadingSpinner /> : children}
+              {isWaitingForResponse && isSwitchActive ? (
+                <LoadingSpinner />
+              ) : (
+                children
+              )}
             </Box>
           </MainContentWrapper>
         </Flex>
