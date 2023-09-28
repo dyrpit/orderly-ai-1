@@ -6,11 +6,11 @@ import categoriesReducer from './features/categories/categoriesSlice';
 import productsReducer from './features/products/productsSlice';
 import adminPanelReducer from './features/adminPanel/adminPanelSlice';
 import userReducer from './features/user/userSlice.ts';
-import isWaitingForResponseReducer from './features/isWaitingForReponse/isWaitingForResponseSlice.ts';
+import gptReducer from './features/gpt/gptSlice.ts';
 
 const persistConfig = {
   key: 'root',
-  storage
+  storage,
 };
 
 const rootReducer = combineReducers({
@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
   products: productsReducer,
   adminPanel: adminPanelReducer,
   user: userReducer,
-  gpt: isWaitingForResponseReducer
+  gpt: gptReducer,
 });
 
 const persistedReducers = persistReducer(persistConfig, rootReducer);
@@ -26,7 +26,7 @@ const persistedReducers = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: persistedReducers,
   devTools: true,
-  middleware: [thunk]
+  middleware: [thunk],
 });
 
 export const persistor = persistStore(store);
