@@ -21,7 +21,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
           maxW='1170px'
           direction={{ base: 'column', md: 'row' }}
         >
-          <SessionCounter/>
+          <SessionCounter />
           <AdminPanel />
           <MainContentWrapper>
             <Breadcrumb />

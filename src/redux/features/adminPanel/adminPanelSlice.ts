@@ -16,10 +16,14 @@ export const adminPanelSlice = createSlice({
     toggleAdminPanel: (state) => {
       state.isAdminPanelOpen = !state.isAdminPanelOpen;
     },
+    setOffAdminPanel: (state) => {
+      state.isAdminPanelOpen = false
+    }
   },
 });
 
 export const { toggleAdminPanel } = adminPanelSlice.actions;
+export const { setOffAdminPanel } = adminPanelSlice.actions
 
 export const selectCount = (state: RootState) => state.adminPanel;
 
