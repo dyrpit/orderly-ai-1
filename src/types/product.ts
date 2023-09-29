@@ -1,5 +1,5 @@
 export type TProduct = {
-  id: number;
+  id: number | string;
   name: string;
   category: string;
   websiteURL?: string;

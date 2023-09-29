@@ -10,6 +10,7 @@ import React, { useState } from 'react';
 import { addProduct } from '@/redux/features/products/productsSlice';
 import toast from 'react-hot-toast';
 import { formLabelStyles, inputStyles } from './addnewProductStyle';
+import { v4 as uuidv4 } from 'uuid';
 
 export const AddNewProduct = () => {
   const categories = useAppSelector((state) => state.categories);
@@ -27,14 +28,6 @@ export const AddNewProduct = () => {
   const [paid, setPaid] = useState('');
   const [productDescription, setProductDescription] = useState('');
 
-  const [lastProductId, setLastProductId] = useState<number>(30);
-
-  const generateProductId = () => {
-    const newId = lastProductId + 1;
-    setLastProductId(newId);
-    return newId;
-  };
-
   const addNewProduct = () => {
     const isProductExist = products.some(
       (product) => product.name === productName,
@@ -45,7 +38,7 @@ export const AddNewProduct = () => {
       return;
     }
 
-    const newId = generateProductId();
+    const newId = uuidv4();
     appDis(
       addProduct({
         id: newId,
