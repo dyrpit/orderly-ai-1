@@ -1,7 +1,15 @@
 {
+  "authors": [
+    "Jakub Adamski",
+    "Anna Idźkowska",
+    "Rafał Izdebski",
+    "Mateusz Pietruczuk"
+  ],
   "name": "orderlyai",
+  "description": "OrderlyAI is a web application designed to simplify tracking trends in the ever-evolving field of artificial intelligence. As the AI landscape rapidly expands, keeping up with these changes can be time-consuming and challenging. Our app categorizes AI tools into sections such as writing, productivity, video generation, image generation, chatbots, and marketing.",
+  "version": "1.0.0",
+  "homepage": "https://comfy-chebakia-871da9.netlify.app/",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
