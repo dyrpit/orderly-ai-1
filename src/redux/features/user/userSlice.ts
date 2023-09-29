@@ -9,7 +9,7 @@ type TInitialState = {
 const initialState: TInitialState = {
   isUserLoggedIn: false,
   userLogin: '',
-  timer: 30,
+  timer: 300,
 };
 
 export const userSlice = createSlice({
@@ -32,7 +32,7 @@ export const userSlice = createSlice({
       state.timer -= 1;
     },
     resetTimer: (state) => {
-      state.timer = 30;
+      state.timer = 300;
     },
   },
 });
