@@ -33,7 +33,7 @@ export const SessionCounter = () => {
           sessionStorage.removeItem('token');
           dispatch(setOffAdminPanel());
           dispatch(resetTimer());
-          toast.success('Session has expired!');
+          toast('Session has expired!', { icon: '⏳' });
         }
       }, 1000);
 
