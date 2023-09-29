@@ -12,7 +12,6 @@ import {
   Tooltip,
 } from '@chakra-ui/react';
 
-import playBtnIcon from '@assets/play-btn.svg';
 import notFoundProductInfoIcon from '@assets/not-found-product-info.svg';
 import notFoundVideoIcon from '@assets/not-found-video-icon.svg';
 
@@ -33,6 +32,9 @@ export const ProductCard = () => {
         Product not found
       </Text>
     );
+
+  const arr: string[] | undefined = details.videoURL?.split(' ');
+  const video: string | undefined = arr && arr[3].split('"')[1];
 
   return (
     <Flex
@@ -55,8 +57,16 @@ export const ProductCard = () => {
         borderTopRadius='2xl'
         borderBottomRadius={{ base: 'none', md: '2xl' }}
       >
-        {details.websiteURL ? (
-          <RenderPlayButtonIcon />
+        {details.videoURL ? (
+          <iframe
+            width='560'
+            height='315'
+            src={`${video && video}`}
+            title='YouTube video player'
+            frameBorder='0'
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+            allowFullScreen
+          ></iframe>
         ) : (
           <RenderNotFoundVideoIcon />
         )}
@@ -102,9 +112,13 @@ const ProductInfo = ({
       >
         {label}:
       </Text>
-      <Box as={GridItem} colSpan={isFull ? 2 : 1}>
+      <Box as={GridItem} colSpan={isFull ? 2 : 1} color='text.secondary'>
         {value ? (
-          <RenderValue value={value} showTooltip={isFull} />
+          value.includes('http') ? (
+            <a href={value}>{value}</a>
+          ) : (
+            <RenderValue value={value} showTooltip={isFull} />
+          )
         ) : (
           <RenderNotFoundValueIcon />
         )}
@@ -160,10 +174,6 @@ const RenderNotFoundValueIcon = () => {
   return (
     <Image src={notFoundProductInfoIcon} alt='not found product info icon' />
   );
-};
-
-const RenderPlayButtonIcon = () => {
-  return <Image src={playBtnIcon} alt='Play btn icon' />;
 };
 
 const RenderNotFoundVideoIcon = () => {
