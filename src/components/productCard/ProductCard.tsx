@@ -58,6 +58,7 @@ export const ProductCard = () => {
     );
 
   const deleteProductHandler = () => {
+    confirm('Are you sure you want to remove this product?');
     dispatch(deleteProduct({ id: details.id }));
     toast.success('Product deleted');
     navigate(`/category/${details.category}`);
