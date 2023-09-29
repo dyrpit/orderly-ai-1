@@ -34,6 +34,7 @@ export const ProductCard = () => {
     );
 
   const arr: string[] | undefined = details.videoURL?.split(' ');
+  const video: string | undefined = arr && arr[3].split('"')[1];
 
   return (
     <Flex
@@ -60,7 +61,7 @@ export const ProductCard = () => {
           <iframe
             width='560'
             height='315'
-            src={`${arr && arr[3].split('"')[1]}`}
+            src={`${video && video}`}
             title='YouTube video player'
             frameBorder='0'
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
