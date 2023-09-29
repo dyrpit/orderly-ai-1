@@ -14,12 +14,12 @@ import { formStyles } from './LoginAndResgisterFormStyles';
 import { signIn, signUp } from '@util/api-calls.ts';
 import { TUser } from '@/types/user.ts';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import {
   setLoggedUser,
   setUserLogin,
 } from '@/redux/features/user/userSlice.ts';
-import { useAppDispatch } from '@/redux/hooks.ts';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks.ts';
 
 export interface FormData {
   username: string;

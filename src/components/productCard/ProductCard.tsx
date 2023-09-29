@@ -148,14 +148,14 @@ export const ProductCard = () => {
         )}
         <Grid
           placeItems='center'
-          bg={details.websiteURL ? 'bg.gray' : 'bg.lightGray'}
+          bg={details.videoURL ? 'bg.gray' : 'bg.lightGray'}
           w='100%'
           h={{ base: '300px', md: '350px' }}
           alignSelf={{ md: 'start' }}
           borderTopRadius='2xl'
           borderBottomRadius={{ base: 'none', md: '2xl' }}
         >
-          {details.websiteURL ? (
+          {details.videoURL ? (
             <RenderPlayButtonIcon />
           ) : (
             <RenderNotFoundVideoIcon />
