@@ -3,7 +3,7 @@ import { Button, ButtonProps, Image } from '@chakra-ui/react';
 interface GenericButtonProps extends ButtonProps {
   size?: 'small' | 'medium' | 'large';
   label: string;
-  borderRadius?: any;
+  borderRadius?: string | number;
   icon?: string;
   isMobile?: boolean;
   borderBottom?: string;

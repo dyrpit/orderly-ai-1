@@ -5,7 +5,7 @@ import { Flex, Text, Center, Button, VStack, Input } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import { useDeleteCategory } from '@/hooks/reduxHooks/useDeleteCategory';
 import { useEditCategoryName } from '@/hooks/reduxHooks/useEditCategoryName';
-import { type TCategory } from '../../types/category';
+import { type TCategory } from '@/types/category.ts';
 import toast from 'react-hot-toast';
 
 export const CategoryItem = ({ category }: { category: TCategory }) => {
@@ -23,6 +23,7 @@ export const CategoryItem = ({ category }: { category: TCategory }) => {
 
   const deleteCategoryHandle = () => {
     deleteCategory({ categoryName: category.categoryName });
+    confirm('Are you sure you want to remove this category?');
     toast.success('Category deleted');
   };
 
@@ -30,7 +31,7 @@ export const CategoryItem = ({ category }: { category: TCategory }) => {
     setEditMode(true);
   };
 
-  const inputChangeHandle = (e) => {
+  const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditedCategoryName(e.target.value);
   };
 
@@ -78,7 +79,7 @@ export const CategoryItem = ({ category }: { category: TCategory }) => {
         </VStack>
       ) : (
         <RouterLink
-          to={`/${category.categoryName}`}
+          to={`/category/${category.categoryName}`}
           style={{ width: '100%', height: '100%', textDecoration: 'none' }}
         >
           <Center width='100%' height='100%'>

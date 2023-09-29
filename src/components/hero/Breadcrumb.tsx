@@ -14,7 +14,11 @@ export const Breadcrumb = () => {
   );
 
   const transformUrlToBreadcrumb = (websiteUrl: string): string[] => {
-    return websiteUrl.split('/').filter((p) => p.length);
+    return websiteUrl
+      .split('/')
+      .filter((word) => word !== 'category')
+      .filter((p) => p.length)
+      .map((item) => item.replace(/%20/g, ' '));
   };
 
   useEffect(() => {
@@ -26,10 +30,12 @@ export const Breadcrumb = () => {
 
   return (
     <Flex
-      maxW='fit-content'
-      minW={{ base: '50%', lg: '310px' }}
+      position='fixed'
+      zIndex={999}
+      maxW='92%'
+      minW='fit-content'
       height={{ base: 'fit-content', lg: '42px' }}
-      bgColor='bg.gray'
+      bgColor='bg.counter'
       rounded='xl'
       mt='10px'
       alignItems='center'
@@ -58,7 +64,7 @@ const BreadcrumbNavElement = ({ path }: { path: string }) => {
   return (
     <Text
       as={RouterLink}
-      to={`/${path}`}
+      to={`/category/${path}`}
       color='text.primary'
       fontSize={{ base: '18px', md: '20px' }}
       cursor='pointer'
