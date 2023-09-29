@@ -9,7 +9,7 @@ import {
   GridItem,
   Image,
   Box,
-  Tooltip,
+  Tooltip
 } from '@chakra-ui/react';
 
 import playBtnIcon from '@assets/play-btn.svg';
@@ -24,7 +24,7 @@ export const ProductCard = () => {
   const products = useAppSelector((state) => state.products);
 
   const details = products.find(
-    (p) => p.category === categoryName && p.name === productName,
+    (p) => p.category === categoryName && p.name === productName
   );
 
   if (!details)
@@ -33,6 +33,8 @@ export const ProductCard = () => {
         Product not found
       </Text>
     );
+
+  const arr: string[] | undefined = details.videoURL?.split(' ');
 
   return (
     <Flex
@@ -55,8 +57,10 @@ export const ProductCard = () => {
         borderTopRadius='2xl'
         borderBottomRadius={{ base: 'none', md: '2xl' }}
       >
-        {details.websiteURL ? (
-          <RenderPlayButtonIcon />
+        {details.videoURL ? (
+          <iframe width='560' height='315' src={`${arr && arr[3].split('"')[1]}`} title='YouTube video player' frameBorder='0'
+                  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+                  allowFullScreen></iframe>
         ) : (
           <RenderNotFoundVideoIcon />
         )}
@@ -82,13 +86,14 @@ export const ProductCard = () => {
 };
 
 const ProductInfo = ({
-  label,
-  value,
-  isFull,
-}: {
+                       label,
+                       value,
+                       isFull
+                     }: {
   label: string;
   value?: string;
   isFull?: boolean;
+
 }) => {
   return (
     <>
@@ -102,9 +107,10 @@ const ProductInfo = ({
       >
         {label}:
       </Text>
-      <Box as={GridItem} colSpan={isFull ? 2 : 1}>
+      <Box as={GridItem} colSpan={isFull ? 2 : 1} color='text.secondary'>
         {value ? (
-          <RenderValue value={value} showTooltip={isFull} />
+          value.includes('http') ? (<a href={value}>{value}</a>) :
+            <RenderValue value={value} showTooltip={isFull} />
         ) : (
           <RenderNotFoundValueIcon />
         )}
@@ -114,9 +120,9 @@ const ProductInfo = ({
 };
 
 const RenderValue = ({
-  value,
-  showTooltip,
-}: {
+                       value,
+                       showTooltip
+                     }: {
   value: string;
   showTooltip?: boolean;
 }) => {
@@ -162,6 +168,7 @@ const RenderNotFoundValueIcon = () => {
   );
 };
 
+//@Jakub do it
 const RenderPlayButtonIcon = () => {
   return <Image src={playBtnIcon} alt='Play btn icon' />;
 };
