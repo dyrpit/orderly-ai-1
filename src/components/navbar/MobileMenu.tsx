@@ -7,10 +7,10 @@ import {
   DrawerBody,
   VStack,
   Text,
-  useDisclosure
+  useDisclosure,
 } from '@chakra-ui/react';
 import GenericButton from '@buttons/GenericButton';
-import group2 from '@assets/group2.svg';
+import { AiSwitch } from './AiSwitch.tsx';
 
 import { Link } from 'react-router-dom';
 import { DropdownMenu } from './DropdownMenu.tsx';
@@ -36,15 +36,15 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
 
         <DrawerBody>
           <VStack width='100%' height='100%' justifyContent='space-around'>
-            <GenericButton
-              size='large'
-              label='Generate APP with chatGPT'
-              icon={group2}
-              onClick={onClose}
-            />
+            <AiSwitch />
 
             {isLogged && (
-              <GenericButton size='small' label='EXPORT' isMobile onClick={exportDialog.onOpen} />
+              <GenericButton
+                size='small'
+                label='EXPORT'
+                isMobile
+                onClick={exportDialog.onOpen}
+              />
             )}
 
             <FileExportAlert
@@ -52,9 +52,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               onClose={() => {
                 exportDialog.onClose();
                 onClose();
-              }} />
+              }}
+            />
 
-            {isLogged && (<GenericButton
+            {isLogged && (
+              <GenericButton
                 size='small'
                 label='IMPORT'
                 isMobile

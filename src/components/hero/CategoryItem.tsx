@@ -23,6 +23,7 @@ export const CategoryItem = ({ category }: { category: TCategory }) => {
 
   const deleteCategoryHandle = () => {
     deleteCategory({ categoryName: category.categoryName });
+    confirm('Are you sure you want to remove this category?');
     toast.success('Category deleted');
   };
 

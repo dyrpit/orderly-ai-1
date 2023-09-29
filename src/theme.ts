@@ -8,6 +8,7 @@ export const colors = {
     secondary: '#112240',
     gray: '#d6d9d926',
     lightGray: '#3b3b3b26',
+    counter: '#374860c2',
   },
   text: {
     primary: '#64FFDA',

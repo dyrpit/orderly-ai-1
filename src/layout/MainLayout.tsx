@@ -1,10 +1,22 @@
+import { useAppSelector } from '@/redux/hooks';
 import { Box, Flex } from '@chakra-ui/react';
 import { Navbar } from '@/components/navbar/Navbar';
 import { Breadcrumb } from '@/components/hero/Breadcrumb';
 import { AdminPanel } from '@/components/admin-panel/AdminPanel';
 import { Footer } from '@/components/footer/Footer';
+import { SessionCounter } from '@/components/sessionCounter/SessionCounter';
+import { LoadingSpinner } from '@components/shared/LoadingSpinner.tsx';
 
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {
+  const isAdminPanelOpen = useAppSelector(
+    (state) => state.adminPanel.isAdminPanelOpen,
+  );
+  const isSwitchActive = useAppSelector((state) => state.gpt.isSwitchActive);
+
+  const isWaitingForResponse = useAppSelector(
+    (state) => state.gpt.isWaitingForResponse,
+  );
+
   return (
     <PageWrapper>
       <Flex direction='column' alignItems='center'>
@@ -13,6 +25,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
         </NavbarWrapper>
 
         <Flex
+          position='relative'
           minH={{ base: 'calc(100vh - 160px)' }}
           h={{ base: '100%', md: 'calc(100vh - 160px)' }}
           w='100%'
@@ -20,11 +33,20 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
           direction={{ base: 'column', md: 'row' }}
           mt='80px'
         >
+          <SessionCounter />
           <AdminPanel />
           <MainContentWrapper>
             <Breadcrumb />
-            <Box mt={6} overflowY='auto'>
-              {children}
+            <Box
+              mt={isAdminPanelOpen ? 10 : 24}
+              overflowY='auto'
+              minHeight='80%'
+            >
+              {isWaitingForResponse && isSwitchActive ? (
+                <LoadingSpinner />
+              ) : (
+                children
+              )}
             </Box>
           </MainContentWrapper>
         </Flex>

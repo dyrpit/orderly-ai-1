@@ -6,6 +6,7 @@ import categoriesReducer from './features/categories/categoriesSlice';
 import productsReducer from './features/products/productsSlice';
 import adminPanelReducer from './features/adminPanel/adminPanelSlice';
 import userReducer from './features/user/userSlice.ts';
+import gptReducer from './features/gpt/gptSlice.ts';
 
 const persistConfig = {
   key: 'root',
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   products: productsReducer,
   adminPanel: adminPanelReducer,
   user: userReducer,
+  gpt: gptReducer,
 });
 
 const persistedReducers = persistReducer(persistConfig, rootReducer);

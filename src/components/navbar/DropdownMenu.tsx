@@ -69,7 +69,7 @@ export const DropdownMenu = () => {
                 <Image src={vector} alt='Icon of logged user.' />
               )}
             </MenuButton>
-            <MenuList style={dropdownStyles} minWidth='100px'>
+            <MenuList style={dropdownStyles} minWidth='100px' zIndex={99}>
               {isAdmin && (
                 <MenuItem
                   backgroundColor={'transparent'}
