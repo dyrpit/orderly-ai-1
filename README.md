@@ -1,27 +1,37 @@
-# React + TypeScript + Vite
+# ABOUT application
+The main assumption of the OrderlyAI web application is to follow trends in the developing AI sector. The number of products based on artificial intelligence is growing day by day, and tracking changing trends is very persistent and time-consuming. The tools in question can be divided into categories in which they offer services.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Application written using ReactJS with Redux, Chakra, TypeScript
+## How to run
 
-Currently, two official plugins are available:
+#### git clone https://github.com/dyrpit/orderly-ai-1.git
+Add .env.local folder with API key
+Then navigate to the orderly-ai-1 folder in the terminal.
+#### npm install
+#### npm start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Application view
 
-## Expanding the ESLint configuration
+#### Unlogged view
+View of an unlogged user with the ability to view categories and products and generate new ones using chatGPT.
+![](images/Widok%20niezalogowanego.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+#### Logged view
+View of a logged in user with the ability to edit and delete categories and products. The logged in user can import and export files.
+![](images/WidokZalogowanego.png)
 
-- Configure the top-level `parserOptions` property like this:
+#### Admin view
+Admin view with the ability to create new categories and products.
+![](images/WidokAdmina.png)
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+Adding a new category
+![](images/NewCategoryComponent.png)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Adding a new product
+![](images/AddProduct.png)
+
+#### View products
+![](images/WidokProduktów.png)
+
+#### View product
+![](images/WidokProduktu.png)
