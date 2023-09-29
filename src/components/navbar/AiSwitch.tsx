@@ -4,7 +4,7 @@ import { TPrompt } from '@/types/prompt.ts';
 import {
   setIsNotWaitingForResponse,
   setIsWaitingForResponse,
-  toggleSwitch,
+  toggleSwitch
 } from '@/redux/features/gpt/gptSlice';
 import { fetchProducts } from '@/redux/features/products/productsSlice.ts';
 import { fetchCategories } from '@/redux/features/categories/categoriesSlice.ts';
@@ -17,7 +17,7 @@ import toast from 'react-hot-toast';
 export const AiSwitch = () => {
   const dispatch = useAppDispatch();
   const isWaitingForResponse = useAppSelector(
-    (state) => state.gpt.isWaitingForResponse,
+    (state) => state.gpt.isWaitingForResponse
   );
   const isSwitchActive = useAppSelector((state) => state.gpt.isSwitchActive);
 
@@ -45,24 +45,19 @@ export const AiSwitch = () => {
 
       fetchDataFromAPI({ categories, products });
 
-      await toast.success('Application generated with OpenAI API');
+      toast.success('Application generated with OpenAI API');
       dispatch(setIsNotWaitingForResponse());
       isSwitchActive && dispatch(toggleSwitch());
     } catch (error) {
       toast.error('Something went wrong, check console.');
-      dispatch(setIsNotWaitingForResponse());
-      isSwitchActive && dispatch(toggleSwitch());
       console.log(error);
-    } /* finally {
+    } finally {
       dispatch(setIsNotWaitingForResponse());
       !isSwitchActive && dispatch(toggleSwitch());
-    } */
+    }
   };
 
-  const fetchDataFromAPI = ({
-    categories,
-    products,
-  }: {
+  const fetchDataFromAPI = ({ categories, products }: {
     categories: TCategory[];
     products: TProduct[];
   }) => {
@@ -110,7 +105,7 @@ export const AiSwitch = () => {
           backgroundColor='bg.counter'
           p={1}
           sx={{
-            transform: isSwitchActive ? 'translateX(200%)' : 'translateX(0px)',
+            transform: isSwitchActive ? 'translateX(200%)' : 'translateX(0px)'
           }}
           transition='all 0.2s ease-out'
         >
