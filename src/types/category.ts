@@ -1,5 +1,5 @@
 export type TCategory = {
-  id: number;
+  id: number | string;
   categoryName: string;
   backgroundColor: string;
   href: string;
