@@ -1,7 +1,7 @@
 export type TProduct = {
-  id?: number | string;
-  name?: string;
-  category?: string;
+  id: number | string;
+  name: string;
+  category: string;
   websiteURL?: string;
   videoURL?: string;
   cost?: 'free' | 'paid';
