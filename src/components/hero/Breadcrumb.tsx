@@ -17,7 +17,8 @@ export const Breadcrumb = () => {
     return websiteUrl
       .split('/')
       .filter((word) => word !== 'category')
-      .filter((p) => p.length);
+      .filter((p) => p.length)
+      .map((item) => item.replace(/%20/g, ' '));
   };
 
   useEffect(() => {

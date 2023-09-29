@@ -1,12 +1,68 @@
-import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { callGPT } from '@util/api-calls.ts';
+import { TPrompt } from '@/types/prompt.ts';
+import {
+  setIsNotWaitingForResponse,
+  setIsWaitingForResponse,
+  toggleSwitch
+} from '@/redux/features/gpt/gptSlice';
+import { fetchProducts } from '@/redux/features/products/productsSlice.ts';
+import { fetchCategories } from '@/redux/features/categories/categoriesSlice.ts';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
+import { type TCategory } from '@/types/category';
+import { type TProduct } from '@/types/product';
+import toast from 'react-hot-toast';
 
 export const AiSwitch = () => {
-  const [isSwitchActive, setIsSwitchActive] = useState(false);
+  const dispatch = useAppDispatch();
+  const isWaitingForResponse = useAppSelector(
+    (state) => state.gpt.isWaitingForResponse
+  );
+  const isSwitchActive = useAppSelector((state) => state.gpt.isSwitchActive);
+
+  let promptGPT: TPrompt[];
 
   const toggleSwitchHandle = () => {
-    isSwitchActive ? setIsSwitchActive(false) : setIsSwitchActive(true);
+    dispatch(toggleSwitch());
+
+    if (!isWaitingForResponse && !isSwitchActive) {
+      console.log('API Call sended');
+      getDataFromOpenAI();
+    }
+  };
+
+  const getDataFromOpenAI = async () => {
+    try {
+      dispatch(setIsWaitingForResponse());
+      const response = await fetch('../../../prompt.json');
+      promptGPT = await response.json();
+
+      const res = await callGPT(promptGPT[0].text);
+      const data = JSON.parse(res.data.choices[0].message.content);
+
+      const { categories, products } = data;
+
+      fetchDataFromAPI({ categories, products });
+
+      toast.success('Application generated with OpenAI API');
+      dispatch(setIsNotWaitingForResponse());
+      isSwitchActive && dispatch(toggleSwitch());
+    } catch (error) {
+      toast.error('Something went wrong, check console.');
+      console.log(error);
+    } finally {
+      dispatch(setIsNotWaitingForResponse());
+      !isSwitchActive && dispatch(toggleSwitch());
+    }
+  };
+
+  const fetchDataFromAPI = ({ categories, products }: {
+    categories: TCategory[];
+    products: TProduct[];
+  }) => {
+    dispatch(fetchCategories(categories));
+    dispatch(fetchProducts(products));
   };
 
   return (
@@ -49,7 +105,7 @@ export const AiSwitch = () => {
           backgroundColor='bg.counter'
           p={1}
           sx={{
-            transform: isSwitchActive ? 'translateX(200%)' : 'translateX(0px)',
+            transform: isSwitchActive ? 'translateX(200%)' : 'translateX(0px)'
           }}
           transition='all 0.2s ease-out'
         >
