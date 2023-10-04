@@ -12,7 +12,6 @@ import {
   Tooltip,
 } from '@chakra-ui/react';
 
-import playBtnIcon from '@assets/play-btn.svg';
 import notFoundProductInfoIcon from '@assets/not-found-product-info.svg';
 import notFoundVideoIcon from '@assets/not-found-video-icon.svg';
 
@@ -35,6 +34,7 @@ export const ProductCard = () => {
     );
 
   const arr: string[] | undefined = details.videoURL?.split(' ');
+  const video: string | undefined = arr && arr[3].split('"')[1];
 
   return (
     <Flex
@@ -174,10 +174,6 @@ const RenderNotFoundValueIcon = () => {
   return (
     <Image src={notFoundProductInfoIcon} alt='not found product info icon' />
   );
-};
-
-const RenderPlayButtonIcon = () => {
-  return <Image src={playBtnIcon} alt='Play btn icon' />;
 };
 
 const RenderNotFoundVideoIcon = () => {
