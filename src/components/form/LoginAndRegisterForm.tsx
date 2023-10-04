@@ -250,7 +250,7 @@ export const Form = () => {
 
         {formSubmitted && !validationError && (
           <Box color='green.500' textAlign='center'>
-            Formularz został pomyślnie przesłany!
+            The form has been successfully submitted!
           </Box>
         )}
       </Stack>
