@@ -30,7 +30,6 @@ export const Breadcrumb = () => {
 
   return (
     <Flex
-      position='fixed'
       zIndex={999}
       maxW='92%'
       minW='fit-content'
