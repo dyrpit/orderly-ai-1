@@ -9,7 +9,7 @@ import {
   GridItem,
   Image,
   Box,
-  Tooltip,
+  Tooltip
 } from '@chakra-ui/react';
 
 import notFoundProductInfoIcon from '@assets/not-found-product-info.svg';
@@ -23,7 +23,7 @@ export const ProductCard = () => {
   const products = useAppSelector((state) => state.products);
 
   const details = products.find(
-    (p) => p.category === categoryName && p.name === productName,
+    (p) => p.category === categoryName && p.name === productName
   );
 
   if (!details)
@@ -34,8 +34,24 @@ export const ProductCard = () => {
     );
 
   const arr: string[] | undefined = details.videoURL?.split(' ');
-  const video: string | undefined =
-    arr && arr.length > +4 ? arr[3].split('"')[1] : undefined;
+  let videoId: string | undefined;
+
+  const getId = (url: string): string => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+
+    if (match && match[2].length == 11) {
+      return match[2];
+    } else {
+      return 'error';
+    }
+  };
+
+  if (arr && (arr[0] !== undefined)) {
+    const tempVideo = (arr && arr[0].split('"')[0]) && arr[0].split('"')[0];
+    console.log(tempVideo);
+    videoId = getId(tempVideo);
+  }
 
   return (
     <Flex
@@ -58,11 +74,11 @@ export const ProductCard = () => {
         borderTopRadius='2xl'
         borderBottomRadius={{ base: 'none', md: '2xl' }}
       >
-        {details.videoURL ? (
+        {details.videoURL && videoId ? (
           <iframe
             width='560'
             height='315'
-            src={video}
+            src={`//www.youtube.com/embed/${videoId}`}
             title='YouTube video player'
             frameBorder='0'
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
@@ -93,10 +109,10 @@ export const ProductCard = () => {
 };
 
 const ProductInfo = ({
-  label,
-  value,
-  isFull,
-}: {
+                       label,
+                       value,
+                       isFull
+                     }: {
   label: string;
   value?: string;
   isFull?: boolean;
@@ -129,9 +145,9 @@ const ProductInfo = ({
 };
 
 const RenderValue = ({
-  value,
-  showTooltip,
-}: {
+                       value,
+                       showTooltip
+                     }: {
   value: string;
   showTooltip?: boolean;
 }) => {

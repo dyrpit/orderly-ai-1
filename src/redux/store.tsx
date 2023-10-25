@@ -7,7 +7,6 @@ import productsReducer from './features/products/productsSlice';
 import adminPanelReducer from './features/adminPanel/adminPanelSlice';
 import userReducer from './features/user/userSlice.ts';
 import gptReducer from './features/gpt/gptSlice.ts';
-import storageSession from 'redux-persist/lib/storage/session';
 
 const persistConfig = {
   key: 'root',
