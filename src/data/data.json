@@ -1,0 +1,105 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "backgroundColor": "#444",
+      "categoryName": "new",
+      "href": "new"
+    },
+    {
+      "id": 2,
+      "backgroundColor": "#424",
+      "categoryName": "new2",
+      "href": "new2"
+    },
+    {
+      "id": 3,
+      "backgroundColor": "#424",
+      "categoryName": "new3",
+      "href": "new3"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Product 1",
+      "category": "new",
+      "websiteURL": "https://example.com/product1",
+      "videoURL": "https://www.youtube.com/watch?v=video1",
+      "cost": "free",
+      "description": "A writing tool."
+    },
+    {
+      "id": 2,
+      "name": "Product 2",
+      "category": "new",
+      "websiteURL": "https://example.com/product2",
+      "videoURL": "https://www.youtube.com/watch?v=video2",
+      "cost": "paid",
+      "description": "Another writing tool."
+    },
+    {
+      "id": 3,
+      "name": "Product 3",
+      "category": "new",
+      "websiteURL": "https://example.com/product3",
+      "videoURL": "https://www.youtube.com/watch?v=video3",
+      "cost": "free",
+      "description": "Yet another writing tool."
+    },
+    {
+      "id": 4,
+      "name": "Product 4",
+      "category": "new2",
+      "websiteURL": "https://example.com/product4",
+      "videoURL": "https://www.youtube.com/watch?v=video4",
+      "cost": "paid",
+      "description": "A productivity app."
+    },
+    {
+      "id": 5,
+      "name": "Product 5",
+      "category": "new2",
+      "websiteURL": "https://example.com/product5",
+      "videoURL": "https://www.youtube.com/watch?v=video5",
+      "cost": "free",
+      "description": "Another productivity app."
+    },
+    {
+      "id": 6,
+      "name": "Product 6",
+      "category": "new2",
+      "websiteURL": "https://example.com/product6",
+      "videoURL": "https://www.youtube.com/watch?v=video6",
+      "cost": "paid",
+      "description": "Yet another productivity app."
+    },
+    {
+      "id": 7,
+      "name": "Product 7",
+      "category": "new3",
+      "websiteURL": "https://example.com/product7",
+      "videoURL": "https://www.youtube.com/watch?v=video7",
+      "cost": "free",
+      "description": "A video generation tool."
+    },
+    {
+      "id": 8,
+      "name": "Product 8",
+      "category": "new3",
+      "websiteURL": "https://example.com/product8",
+      "videoURL": "https://www.youtube.com/watch?v=video8",
+      "cost": "paid",
+      "description": "Another video generation tool."
+    },
+    {
+      "id": 9,
+      "name": "Product 9",
+      "category": "new3",
+      "websiteURL": "https://example.com/product9",
+      "videoURL": "https://www.youtube.com/watch?v=video9",
+      "cost": "free",
+      "description": "Yet another video generation tool."
+    }
+  ]
+}
